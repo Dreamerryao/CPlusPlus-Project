@@ -27,3 +27,11 @@ void Model2_main::getLine(){
     QString tstr=textLine.text();
     ui->test->setText(tstr);
 }
+
+void Model2_main::on_pushButton_clicked()
+{
+    _getCancel->Exec();
+}
+void Model2_main::setCancelCommand(std::shared_ptr<ICommandBase> ptr_cancel){
+    _getCancel=ptr_cancel;
+}

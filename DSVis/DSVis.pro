@@ -15,9 +15,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    WINDOW/about.cpp \
     WINDOW/firstpage.cpp \
+    WINDOW/model1_main.cpp \
+    WINDOW/operation.cpp \
     WINDOW/testwindow.cpp \
     app/commands/aboutcommand.cpp \
+    app/commands/cancelcommand.cpp \
+    app/commands/changecommand.cpp \
     app/commands/getline.cpp \
     app/commands/m1command.cpp \
     app/commands/m2command.cpp \
@@ -27,10 +32,15 @@ SOURCES += \
     WINDOW/model2_main.cpp
 
 HEADERS += \
+    WINDOW/about.h \
     WINDOW/firstpage.h \
+    WINDOW/model1_main.h \
+    WINDOW/operation.h \
     WINDOW/testwindow.h \
     app/app.h \
     app/commands/aboutcommand.h \
+    app/commands/cancelcommand.h \
+    app/commands/changecommand.h \
     app/commands/getline.h \
     app/commands/m1command.h \
     app/commands/m2command.h \
@@ -47,6 +57,9 @@ HEADERS += \
 CONFIG += c++17
 
 FORMS += \
+    WINDOW/about.ui \
     WINDOW/firstpage.ui \
+    WINDOW/model1_main.ui \
+    WINDOW/operation.ui \
     WINDOW/testwindow.ui \
     WINDOW/model2_main.ui
