@@ -26,3 +26,12 @@ void testWindow::setLabel(const std::string& str){
     ui->label_2->setText("wow");
     else ui->label_2->setText("weeee");
 }
+
+void testWindow::on_pushButton_2_clicked()
+{
+    _getCancel->Exec();
+}
+
+void testWindow::setCancelCommand(std::shared_ptr<ICommandBase> ptr_cancel){
+    _getCancel=ptr_cancel;
+}

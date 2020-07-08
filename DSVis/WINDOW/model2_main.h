@@ -16,13 +16,17 @@ public:
     ~Model2_main();
     void getLine();
     void setGetCommand(std::shared_ptr<ICommandBase> ptr_get);
+    void setCancelCommand(std::shared_ptr<ICommandBase> ptr_cancel);
 
 private slots:
     void on_text_blockCountChanged(int newBlockCount);
 
+    void on_pushButton_clicked();
+
 private:
     Ui::Model2_main *ui;
     std::shared_ptr<ICommandBase> _getCommand;
+    std::shared_ptr<ICommandBase> _getCancel;
 
 };
 
