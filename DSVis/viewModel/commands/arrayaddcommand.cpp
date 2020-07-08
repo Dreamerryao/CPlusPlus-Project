@@ -5,7 +5,6 @@ ArrayAddCommand::ArrayAddCommand(ArrayViewModel* ptr)
 {
     ptr_AVM= ptr;
 }
-
 void ArrayAddCommand::SetParameter(const _new_any_space_::any& param)
 {
     oh = _new_any_space_::any_cast<int>(param);

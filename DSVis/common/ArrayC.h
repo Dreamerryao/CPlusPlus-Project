@@ -9,7 +9,10 @@ class ARRAYC{
     std::vector<int> Num;
   public:
     ARRAYC(){
-        size = 0;
+        size = 2;
+        Num.resize(2);
+        Num[0] = 1;
+        Num[1] = 100;
     }
     ~ARRAYC(){}
     void InitArrayc(){

@@ -5,6 +5,7 @@ model1_main::model1_main(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::model1_main)
 {
+    TT = "";
     ui->setupUi(this);
 }
 
@@ -27,21 +28,24 @@ void model1_main::setChangeCommand(std::shared_ptr<ICommandBase> ptr_change){
 
 void model1_main::on_pushButton_clicked()
 {
+    TT = "Array";
     type=1;
     _getChange->Exec();
 }
 
 void model1_main::on_pushButton_2_clicked()
 {
+    TT = "Link";
     type=2;
     _getChange->Exec();
 }
 
 void model1_main::on_pushButton_3_clicked()
 {
-
+     TT = "Matrix";
+     type=3;
     _getChange->Exec();
-    type=3;
+
 }
 
 void model1_main::on_pushButton_4_clicked()

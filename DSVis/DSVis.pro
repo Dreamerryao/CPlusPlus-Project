@@ -19,6 +19,8 @@ SOURCES += \
     WINDOW/firstpage.cpp \
     WINDOW/model1_main.cpp \
     WINDOW/operation.cpp \
+    WINDOW/sinks/aaddcommandsink.cpp \
+    WINDOW/sinks/opupdatesink.cpp \
     WINDOW/testwindow.cpp \
     app/commands/aboutcommand.cpp \
     app/commands/cancelcommand.cpp \
@@ -40,6 +42,8 @@ HEADERS += \
     WINDOW/firstpage.h \
     WINDOW/model1_main.h \
     WINDOW/operation.h \
+    WINDOW/sinks/aaddcommandsink.h \
+    WINDOW/sinks/opupdatesink.h \
     WINDOW/testwindow.h \
     app/app.h \
     app/commands/aboutcommand.h \

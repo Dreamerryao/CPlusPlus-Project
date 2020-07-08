@@ -17,6 +17,7 @@ public:
     void setChangeCommand(std::shared_ptr<ICommandBase> ptr_change);
     ~model1_main();
     int type;
+    std::string TT;
 
 private slots:
     void on_pushButton_10_clicked();

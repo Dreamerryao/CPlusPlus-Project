@@ -4,6 +4,7 @@
 ArrayViewModel::ArrayViewModel()
 {
     _AMSink = std::make_shared<ArrayModelSink>(this);
+    _AAC = std::make_shared<ArrayAddCommand>(this);
 }
 
 void ArrayViewModel::setArrayModel(std::shared_ptr<ArrayModel> AM){

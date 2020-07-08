@@ -1,6 +1,9 @@
 #ifndef APP_H
 #define APP_H
 
+#include"../model/arraymodel.h"
+#include "../viewModel/arrayviewmodel.h"
+
 #include "../WINDOW/testwindow.h"
 #include "../WINDOW/firstpage.h"
 #include "../WINDOW/model2_main.h"
@@ -25,6 +28,8 @@ private:
     about _aboutPage;
     operation _operationP;
 
+    std::shared_ptr<ArrayModel> model;
+    std::shared_ptr<ArrayViewModel> viewmodel;
     std::shared_ptr<testButtonCommand> _testBC;
     std::shared_ptr<M1Command> _M1Command;
     std::shared_ptr<M2Command> _M2Command;

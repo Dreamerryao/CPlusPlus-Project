@@ -11,6 +11,17 @@ app::~app()
 
 void app::run(){
 
+    model = std::make_shared<ArrayModel>();
+    viewmodel = std::make_shared<ArrayViewModel>();
+    viewmodel->setArrayModel(model);
+    _operationP.set_ptrAAC(viewmodel->getArrayAddCommand());
+    _operationP.set_Array(viewmodel->getArray());
+
+    viewmodel->AddCommandNotification(_operationP.getAACS());
+    viewmodel->AddPropertyNotification(_operationP.getOUS());
+
+
+
     _testBC = std::make_shared<testButtonCommand>(this);
     _M1Command = std::make_shared<M1Command>(this);
     _M2Command = std::make_shared<M2Command>(this);
@@ -30,6 +41,7 @@ void app::run(){
     _Model1_main.setCancelCommand(std::static_pointer_cast<ICommandBase>(this->_cancelCommand));
     _Model2_main.setCancelCommand(std::static_pointer_cast<ICommandBase>(this->_cancelCommand));
     _operationP.setCancelCommand(std::static_pointer_cast<ICommandBase>(this->_cancelCommand));
+
     _firstPage.show();
 }
 
