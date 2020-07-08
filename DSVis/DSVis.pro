@@ -15,12 +15,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    WINDOW/mainwindow.cpp \
     WINDOW/testwindow.cpp \
     app/commands/testbuttoncommand.cpp \
     app/main.cpp \
     app/app.cpp
 
 HEADERS += \
+    WINDOW/mainwindow.h \
     WINDOW/testwindow.h \
     app/app.h \
     app/commands/testbuttoncommand.h \
@@ -35,4 +37,5 @@ HEADERS += \
 CONFIG += c++17
 
 FORMS += \
+    WINDOW/mainwindow.ui \
     WINDOW/testwindow.ui

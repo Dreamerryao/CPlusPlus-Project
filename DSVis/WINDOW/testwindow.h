@@ -15,10 +15,10 @@ public:
     explicit testWindow(QWidget *parent = 0);
     ~testWindow();
     //加这个
-    void setTestCommand(std::shared_ptr<ICommandBase> ptr_test);
+    //void setTestCommand(std::shared_ptr<ICommandBase> ptr_test);
     void setLabel(const std::string& str);
 private slots:
-    void on_pushButton_clicked();
+    //void on_pushButton_clicked();
 
 private:
     Ui::testWindow *ui;
