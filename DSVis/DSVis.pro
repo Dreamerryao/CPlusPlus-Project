@@ -15,7 +15,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    WINDOW/firstpage.cpp \
     WINDOW/testwindow.cpp \
     app/commands/aboutcommand.cpp \
     app/commands/getline.cpp \
@@ -27,7 +26,6 @@ SOURCES += \
     WINDOW/model2_main.cpp
 
 HEADERS += \
-    WINDOW/firstpage.h \
     WINDOW/testwindow.h \
     app/app.h \
     app/commands/aboutcommand.h \
