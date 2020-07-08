@@ -12,7 +12,6 @@ testWindow::~testWindow()
 {
     delete ui;
 }
-/*
 void testWindow::setTestCommand(std::shared_ptr<ICommandBase> ptr_test){
     _testCommand = ptr_test;
 }
@@ -20,7 +19,7 @@ void testWindow::setTestCommand(std::shared_ptr<ICommandBase> ptr_test){
 void testWindow::on_pushButton_clicked()
 {
    _testCommand->Exec();
-}*/
+}
 
 void testWindow::setLabel(const std::string& str){
     if(str == "www")

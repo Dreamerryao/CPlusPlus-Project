@@ -15,19 +15,29 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    WINDOW/mainwindow.cpp \
+    WINDOW/firstpage.cpp \
     WINDOW/testwindow.cpp \
+    app/commands/aboutcommand.cpp \
+    app/commands/getline.cpp \
+    app/commands/m1command.cpp \
+    app/commands/m2command.cpp \
     app/commands/testbuttoncommand.cpp \
     app/main.cpp \
-    app/app.cpp
+    app/app.cpp \
+    WINDOW/model2_main.cpp
 
 HEADERS += \
-    WINDOW/mainwindow.h \
+    WINDOW/firstpage.h \
     WINDOW/testwindow.h \
     app/app.h \
+    app/commands/aboutcommand.h \
+    app/commands/getline.h \
+    app/commands/m1command.h \
+    app/commands/m2command.h \
     app/commands/testbuttoncommand.h \
     common/any.h \
-    common/etlbase.h
+    common/etlbase.h \
+    WINDOW/model2_main.h
 
 # Default rules for deployment.
 #qnx: target.path = /tmp/$${TARGET}/bin
@@ -37,5 +47,6 @@ HEADERS += \
 CONFIG += c++17
 
 FORMS += \
-    WINDOW/mainwindow.ui \
-    WINDOW/testwindow.ui
+    WINDOW/firstpage.ui \
+    WINDOW/testwindow.ui \
+    WINDOW/model2_main.ui
