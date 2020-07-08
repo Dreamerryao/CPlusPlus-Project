@@ -16,6 +16,7 @@ public:
     void setCancelCommand(std::shared_ptr<ICommandBase> ptr_cancel);
     void setChangeCommand(std::shared_ptr<ICommandBase> ptr_change);
     ~model1_main();
+    int type;
 
 private slots:
     void on_pushButton_10_clicked();

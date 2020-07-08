@@ -8,5 +8,6 @@ changeCommand::~changeCommand(){}
 void changeCommand::SetParameter(const _new_any_space_::any &param){}
 void changeCommand::Exec(){
     (ptrApp->getModel1_main())->close();
+    (ptrApp->getOp())->type=(ptrApp->getModel1_main())->type;
     (ptrApp->getOp())->show();
 }
