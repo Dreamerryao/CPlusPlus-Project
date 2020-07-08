@@ -24,7 +24,11 @@ SOURCES += \
     app/commands/testbuttoncommand.cpp \
     app/main.cpp \
     app/app.cpp \
-    WINDOW/model2_main.cpp
+    WINDOW/model2_main.cpp \
+    model/arraymodel.cpp \
+    viewModel/arrayviewmodel.cpp \
+    viewModel/commands/arrayaddcommand.cpp \
+    viewModel/sinks/arraymodelsink.cpp
 
 HEADERS += \
     WINDOW/firstpage.h \
@@ -35,9 +39,14 @@ HEADERS += \
     app/commands/m1command.h \
     app/commands/m2command.h \
     app/commands/testbuttoncommand.h \
+    common/ArrayC.h \
     common/any.h \
     common/etlbase.h \
-    WINDOW/model2_main.h
+    WINDOW/model2_main.h \
+    model/arraymodel.h \
+    viewModel/arrayviewmodel.h \
+    viewModel/commands/arrayaddcommand.h \
+    viewModel/sinks/arraymodelsink.h
 
 # Default rules for deployment.
 #qnx: target.path = /tmp/$${TARGET}/bin
