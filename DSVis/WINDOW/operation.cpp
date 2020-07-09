@@ -281,17 +281,9 @@ void operation::on_del_button_clicked()
 
 void operation::on_pushButton_2_clicked()  //pop
 {
-    if(ui->addLineEdit->text()==""){
-        QMessageBox::warning(this, tr("Waring"),tr("Input can't empty!"),QMessageBox::Yes);
-    }
-    else{
-        try {
-            _ADC->SetParameter(ui->addLineEdit->text().toInt());
-            _ADC->Exec();
-        } catch (const char *msg) {
-            QMessageBox::warning(this, tr("Waring"),tr("Input should be integer"),QMessageBox::Yes);
-        }
-    }
-    ui->addLineEdit->setText("");
+
+
+            _SPC->Exec();
+
 
 }
