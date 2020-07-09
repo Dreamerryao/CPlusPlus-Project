@@ -270,3 +270,8 @@ void operation::on_del_button_clicked()
     }
     ui->delText->setText("");
 }
+
+void operation::on_pushButton_2_clicked()
+{
+    //for pop
+}

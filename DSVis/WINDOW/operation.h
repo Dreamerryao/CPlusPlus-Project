@@ -41,6 +41,8 @@ private slots:
 
     void on_del_button_clicked();
 
+    void on_pushButton_2_clicked();
+
 private:
     Ui::operation *ui;
     std::shared_ptr<ICommandBase> _getCancel;
