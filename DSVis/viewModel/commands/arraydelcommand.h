@@ -1,7 +1,6 @@
 #ifndef ARRAYDELCOMMAND_H
 #define ARRAYDELCOMMAND_H
 
-
 #include "../../common/etlbase.h"
 
 class ArrayViewModel;

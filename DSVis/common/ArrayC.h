@@ -57,6 +57,16 @@ class ARRAYC{
         if(!flag) return 0;
         return 1;
     }
+    int Pop(int a){
+        int flag = 0;
+        if(Num.size()!=0){
+            flag = 1;
+            size--;
+            Num.erase(Num.begin()+(Num.size()-1));
+        }
+        if(!flag) return 0;
+        return 1;
+    }
 };
 
 #endif // ARRAYC_H

@@ -21,3 +21,11 @@ int ArrayModel::del(int a){
     Fire_OnPropertyChanged("ArrayModel");
     return res;
 }
+
+int ArrayModel::pop(int a){
+    int res = 0;
+    if(!(_Array->isArrayNull()))
+    res = _Array->Pop(a);
+    Fire_OnPropertyChanged("ArrayModel");
+    return res;
+}

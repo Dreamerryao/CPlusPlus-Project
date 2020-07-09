@@ -9,6 +9,7 @@ operation::operation(QWidget *parent) :
     ui->setupUi(this);
     _AACS = std::make_shared<AAddCommandSink>(AAddCommandSink(this));
     _ADCS = std::make_shared<ADelCommandSink>(ADelCommandSink(this));
+    _SPCS = std::make_shared<SPopCommandSink>(SPopCommandSink(this));
     _OUS =  std::make_shared<OpUpdateSink>(OpUpdateSink(this));
     set_Array(NULL);
 }
@@ -24,6 +25,10 @@ std::shared_ptr<ICommandNotification> operation::getAACS(void){
 std::shared_ptr<ICommandNotification> operation::getADCS(void){
 
     return std::static_pointer_cast<ICommandNotification>(_ADCS);
+}
+std::shared_ptr<ICommandNotification> operation::getSPCS(void){
+
+    return std::static_pointer_cast<ICommandNotification>(_SPCS);
 }
 std::shared_ptr<IPropertyNotification> operation::getOUS(void){
 
@@ -51,6 +56,9 @@ void operation::set_ptrAAC(std::shared_ptr<ICommandBase> ptr){
 }
 void operation::set_ptrADC(std::shared_ptr<ICommandBase> ptr){
     _ADC = ptr;
+}
+void operation::set_ptrSPC(std::shared_ptr<ICommandBase> ptr){
+    _SPC = ptr;
 }
 void operation::paintEvent(QPaintEvent *)
 {
@@ -271,7 +279,19 @@ void operation::on_del_button_clicked()
     ui->delText->setText("");
 }
 
-void operation::on_pushButton_2_clicked()
+void operation::on_pushButton_2_clicked()  //pop
 {
-    //for pop
+    if(ui->addLineEdit->text()==""){
+        QMessageBox::warning(this, tr("Waring"),tr("Input can't empty!"),QMessageBox::Yes);
+    }
+    else{
+        try {
+            _ADC->SetParameter(ui->addLineEdit->text().toInt());
+            _ADC->Exec();
+        } catch (const char *msg) {
+            QMessageBox::warning(this, tr("Waring"),tr("Input should be integer"),QMessageBox::Yes);
+        }
+    }
+    ui->addLineEdit->setText("");
+
 }

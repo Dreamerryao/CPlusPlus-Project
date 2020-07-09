@@ -22,6 +22,7 @@ SOURCES += \
     WINDOW/sinks/aaddcommandsink.cpp \
     WINDOW/sinks/adelcommandsink.cpp \
     WINDOW/sinks/opupdatesink.cpp \
+    WINDOW/sinks/spopcommandsink.cpp \
     WINDOW/testwindow.cpp \
     app/commands/aboutcommand.cpp \
     app/commands/cancelcommand.cpp \
@@ -37,6 +38,7 @@ SOURCES += \
     viewModel/arrayviewmodel.cpp \
     viewModel/commands/arrayaddcommand.cpp \
     viewModel/commands/arraydelcommand.cpp \
+    viewModel/commands/stackpopcommand.cpp \
     viewModel/sinks/arraymodelsink.cpp
 
 HEADERS += \
@@ -47,6 +49,7 @@ HEADERS += \
     WINDOW/sinks/aaddcommandsink.h \
     WINDOW/sinks/adelcommandsink.h \
     WINDOW/sinks/opupdatesink.h \
+    WINDOW/sinks/spopcommandsink.h \
     WINDOW/testwindow.h \
     app/app.h \
     app/commands/aboutcommand.h \
@@ -64,6 +67,7 @@ HEADERS += \
     viewModel/arrayviewmodel.h \
     viewModel/commands/arrayaddcommand.h \
     viewModel/commands/arraydelcommand.h \
+    viewModel/commands/stackpopcommand.h \
     viewModel/sinks/arraymodelsink.h
 
 # Default rules for deployment.
@@ -80,3 +84,6 @@ FORMS += \
     WINDOW/operation.ui \
     WINDOW/testwindow.ui \
     WINDOW/model2_main.ui
+
+RESOURCES += \
+    images.qrc

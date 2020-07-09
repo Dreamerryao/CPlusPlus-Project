@@ -9,6 +9,7 @@
 #include"../common/ArrayC.h"
 #include "sinks/aaddcommandsink.h"
 #include "sinks/adelcommandsink.h"
+#include "sinks/spopcommandsink.h"
 #include "sinks/opupdatesink.h"
 
 namespace Ui {
@@ -25,17 +26,18 @@ public:
     void set_Array(std::shared_ptr<ARRAYC> AC);
     std::shared_ptr<ICommandNotification> getAACS(void);
     std::shared_ptr<ICommandNotification> getADCS(void);
+    std::shared_ptr<ICommandNotification> getSPCS(void);
     std::shared_ptr<IPropertyNotification> getOUS(void);
     void setCancelCommand(std::shared_ptr<ICommandBase> ptr_cancel);
     void setLabel(const std::string& str);
     void paintEvent(QPaintEvent *);
     void set_ptrAAC(std::shared_ptr<ICommandBase> ptr);
     void set_ptrADC(std::shared_ptr<ICommandBase> ptr);
+    void set_ptrSPC(std::shared_ptr<ICommandBase> ptr);
     int type;
 
 private slots:
     void on_pushButton_clicked();
-
 
     void on_add_button_clicked();
 
@@ -49,9 +51,11 @@ private:
     std::shared_ptr<ARRAYC> _Array;
     std::shared_ptr<AAddCommandSink> _AACS;
     std::shared_ptr<ADelCommandSink> _ADCS;
+    std::shared_ptr<SPopCommandSink> _SPCS;
     std::shared_ptr<OpUpdateSink> _OUS;
     std::shared_ptr<ICommandBase> _AAC;
     std::shared_ptr<ICommandBase> _ADC;
+    std::shared_ptr<ICommandBase> _SPC;
 };
 
 #endif // OPERATION_H

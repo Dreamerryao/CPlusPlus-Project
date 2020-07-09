@@ -1,5 +1,6 @@
 #ifndef AADDCOMMANDSINK_H
 #define AADDCOMMANDSINK_H
+
 #include"../../common/etlbase.h"
 #include "qmessagebox.h"
 class operation;

@@ -6,6 +6,7 @@ ArrayViewModel::ArrayViewModel()
     _AMSink = std::make_shared<ArrayModelSink>(this);
     _AAC = std::make_shared<ArrayAddCommand>(this);
     _ADC = std::make_shared<ArrayDelCommand>(this);
+    _SPC = std::make_shared<StackPopCommand>(this);
 }
 
 void ArrayViewModel::setArrayModel(std::shared_ptr<ArrayModel> AM){
@@ -29,4 +30,11 @@ std::shared_ptr<ICommandBase> ArrayViewModel::getArrayDelCommand(){
 }
 int ArrayViewModel::Exec_Adel_command(int I){
     return _ArrayModel->del(I);
+}
+
+std::shared_ptr<ICommandBase> ArrayViewModel::getStackPopCommand(){
+    return std::static_pointer_cast<ICommandBase>(_SPC);
+}
+int ArrayViewModel::Exec_Spop_command(int I){
+    return _ArrayModel->pop(I);
 }
