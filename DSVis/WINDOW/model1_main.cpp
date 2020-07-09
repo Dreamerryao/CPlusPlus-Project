@@ -50,36 +50,42 @@ void model1_main::on_pushButton_3_clicked()
 
 void model1_main::on_pushButton_4_clicked()
 {
-   type=4;
+    TT="Stack";
+    type=4;
     _getChange->Exec();
 }
 
 void model1_main::on_pushButton_5_clicked()
 {
+    TT="Queue";
     type=5;
     _getChange->Exec();
 }
 
 void model1_main::on_pushButton_6_clicked()
 {
+    TT="Heap";
     type=6;
     _getChange->Exec();
 }
 
 void model1_main::on_pushButton_7_clicked()
 {
+    TT="Bianry search tree";
     type=7;
     _getChange->Exec();
 }
 
 void model1_main::on_pushButton_8_clicked()
 {
+    TT="Avl tree";
     type=8;
     _getChange->Exec();
 }
 
 void model1_main::on_pushButton_9_clicked()
 {
+    TT="Red black tree";
     type=9;
     _getChange->Exec();
 }
