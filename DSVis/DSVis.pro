@@ -20,6 +20,7 @@ SOURCES += \
     WINDOW/model1_main.cpp \
     WINDOW/operation.cpp \
     WINDOW/sinks/aaddcommandsink.cpp \
+    WINDOW/sinks/adelcommandsink.cpp \
     WINDOW/sinks/opupdatesink.cpp \
     WINDOW/testwindow.cpp \
     app/commands/aboutcommand.cpp \
@@ -35,6 +36,7 @@ SOURCES += \
     model/arraymodel.cpp \
     viewModel/arrayviewmodel.cpp \
     viewModel/commands/arrayaddcommand.cpp \
+    viewModel/commands/arraydelcommand.cpp \
     viewModel/sinks/arraymodelsink.cpp
 
 HEADERS += \
@@ -43,6 +45,7 @@ HEADERS += \
     WINDOW/model1_main.h \
     WINDOW/operation.h \
     WINDOW/sinks/aaddcommandsink.h \
+    WINDOW/sinks/adelcommandsink.h \
     WINDOW/sinks/opupdatesink.h \
     WINDOW/testwindow.h \
     app/app.h \
@@ -60,6 +63,7 @@ HEADERS += \
     model/arraymodel.h \
     viewModel/arrayviewmodel.h \
     viewModel/commands/arrayaddcommand.h \
+    viewModel/commands/arraydelcommand.h \
     viewModel/sinks/arraymodelsink.h
 
 # Default rules for deployment.

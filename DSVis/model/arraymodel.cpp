@@ -14,9 +14,10 @@ void ArrayModel::add(int a){
     Fire_OnPropertyChanged("ArrayModel");
 }
 
-void ArrayModel::del(int a){
+int ArrayModel::del(int a){
     int res = 0;
     if(!(_Array->isArrayNull()))
     res = _Array->Del(a);
     Fire_OnPropertyChanged("ArrayModel");
+    return res;
 }

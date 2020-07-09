@@ -5,6 +5,7 @@ ArrayViewModel::ArrayViewModel()
 {
     _AMSink = std::make_shared<ArrayModelSink>(this);
     _AAC = std::make_shared<ArrayAddCommand>(this);
+    _ADC = std::make_shared<ArrayDelCommand>(this);
 }
 
 void ArrayViewModel::setArrayModel(std::shared_ptr<ArrayModel> AM){
@@ -21,4 +22,11 @@ std::shared_ptr<ICommandBase> ArrayViewModel::getArrayAddCommand(){
 }
 void ArrayViewModel::Exec_Aadd_command(int I){
     _ArrayModel->add(I);
+}
+
+std::shared_ptr<ICommandBase> ArrayViewModel::getArrayDelCommand(){
+    return std::static_pointer_cast<ICommandBase>(_ADC);
+}
+int ArrayViewModel::Exec_Adel_command(int I){
+    return _ArrayModel->del(I);
 }

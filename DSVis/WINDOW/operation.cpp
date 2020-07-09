@@ -8,6 +8,7 @@ operation::operation(QWidget *parent) :
 
     ui->setupUi(this);
     _AACS = std::make_shared<AAddCommandSink>(AAddCommandSink(this));
+    _ADCS = std::make_shared<ADelCommandSink>(ADelCommandSink(this));
     _OUS =  std::make_shared<OpUpdateSink>(OpUpdateSink(this));
     set_Array(NULL);
 }
@@ -19,6 +20,10 @@ operation::~operation()
 std::shared_ptr<ICommandNotification> operation::getAACS(void){
 
     return std::static_pointer_cast<ICommandNotification>(_AACS);
+}
+std::shared_ptr<ICommandNotification> operation::getADCS(void){
+
+    return std::static_pointer_cast<ICommandNotification>(_ADCS);
 }
 std::shared_ptr<IPropertyNotification> operation::getOUS(void){
 
@@ -44,6 +49,9 @@ void operation::set_Array(std::shared_ptr<ARRAYC> AC){
 void operation::set_ptrAAC(std::shared_ptr<ICommandBase> ptr){
     _AAC = ptr;
 }
+void operation::set_ptrADC(std::shared_ptr<ICommandBase> ptr){
+    _ADC = ptr;
+}
 void operation::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
@@ -55,25 +63,55 @@ void operation::paintEvent(QPaintEvent *)
     palette.setBrush(QPalette::Background, QBrush(QColor(245, 233, 227)));
     setPalette(palette);
     int i;
-    this->resize(600, 600);
-//    QString s = QString::number(size);
-//    ui->type->setText(s);
-    ui->type->move(600/2-150,0);
-    ui->pushButton->move(0,600-600/9);
-    for(i=0;i<size;i++){
-        int wow = _Array->getNumIndex(i);
+    int h = size/7;
+    for(int j=0;j<h;j++){
+    for(i=0;i<7;i++){
+        int wow = _Array->getNumIndex(i+j*7);
         QRect boundingRect;
-        painter.drawText(40 + 80 *i,200,40,40,Qt::AlignCenter,QString::number(wow),&boundingRect);
-//        QPen pen;
-//        pen.setWidth(7);
-//        pen.setBrush(QColor(150, 150, 150));
-//        painter.setPen(pen);
-//        painter.setPen(pen);
-//        painter.setBrush(Qt::black);
-//        painter.setRenderHint(QPainter::Antialiasing, true);
-        QRectF rectangle(40 + 80 *i, 200, 40, 40);
+        painter.drawText(40 + 80 *i,200+80*j,40,40,Qt::AlignCenter,QString::number(wow),&boundingRect);
+        QRectF rectangle(40 + 80 *i, 200+80*j, 40, 40);
+        painter.drawRoundedRect(rectangle, 5.0, 5.0);
+    }
+    }
+    for(i=0;i<size%7;i++){
+        int wow = _Array->getNumIndex(i+h*7);
+        QRect boundingRect;
+        painter.drawText(40 + 80 *i,200+80*h,40,40,Qt::AlignCenter,QString::number(wow),&boundingRect);
+
+        QRectF rectangle(40 + 80 *i, 200+80*h, 40, 40);
         painter.drawRoundedRect(rectangle, 5.0, 5.0);
     }
 
 
+}
+
+void operation::on_add_button_clicked()
+{
+   if(ui->addLineEdit->text()==""){
+       QMessageBox::warning(this, tr("Waring"),tr("Input can't empty!"),QMessageBox::Yes);
+   }
+   else{
+       try {
+           _AAC->SetParameter(ui->addLineEdit->text().toInt());
+           _AAC->Exec();
+       } catch (const char *msg) {
+           QMessageBox::warning(this, tr("Waring"),tr("Input should be integer"),QMessageBox::Yes);
+       }
+   }
+
+}
+
+void operation::on_del_button_clicked()
+{
+    if(ui->delText->text()==""){
+        QMessageBox::warning(this, tr("Waring"),tr("Input can't empty!"),QMessageBox::Yes);
+    }
+    else{
+        try {
+            _ADC->SetParameter(ui->delText->text().toInt());
+            _ADC->Exec();
+        } catch (const char *msg) {
+            QMessageBox::warning(this, tr("Waring"),tr("Input should be integer"),QMessageBox::Yes);
+        }
+    }
 }

@@ -2,7 +2,7 @@
 #define ARRAYC_H
 
 #include <vector>
-
+#include <qdebug.h>
 class ARRAYC{
   private:
     int size;
@@ -26,8 +26,8 @@ class ARRAYC{
         size = 0;
     }
     bool isArrayNull(){
-        if(Num.size()==0)return false;
-        return true;
+        if(Num.size()==0)return true;
+        return false;
     }
     int getSize(){
         return size;
@@ -48,11 +48,13 @@ class ARRAYC{
         for(int i=0;i<Num.size();i++){
             if(Num[i] ==a){
                 flag  = 1;
+                size--;
                 Num.erase(Num.begin()+i);
+//                qDebug() << "--cout--" << endl << "size:" << size;
                 break;
             }
         }
-        if(flag) return 0;
+        if(!flag) return 0;
         return 1;
     }
 };

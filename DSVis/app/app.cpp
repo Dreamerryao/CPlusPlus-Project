@@ -15,9 +15,11 @@ void app::run(){
     viewmodel = std::make_shared<ArrayViewModel>();
     viewmodel->setArrayModel(model);
     _operationP.set_ptrAAC(viewmodel->getArrayAddCommand());
+    _operationP.set_ptrADC(viewmodel->getArrayDelCommand());
     _operationP.set_Array(viewmodel->getArray());
 
     viewmodel->AddCommandNotification(_operationP.getAACS());
+    viewmodel->AddCommandNotification(_operationP.getADCS());
     viewmodel->AddPropertyNotification(_operationP.getOUS());
 
 
