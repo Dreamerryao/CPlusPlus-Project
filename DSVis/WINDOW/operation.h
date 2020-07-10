@@ -12,6 +12,7 @@
 #include "sinks/spopcommandsink.h"
 #include "sinks/qdeqcommandsink.h"
 #include "sinks/opupdatesink.h"
+#include "square.h"
 #include <QWidget>
 #include <QLineEdit>
 #include <QPushButton>
@@ -43,6 +44,7 @@ public:
     void set_ptrSPC(std::shared_ptr<ICommandBase> ptr);
     void set_ptrQDC(std::shared_ptr<ICommandBase> ptr);
     void show_button();
+    void show_TQ();
     int type;
 
 private slots:
@@ -55,6 +57,9 @@ private slots:
     void on_pushButton_2_clicked();
 
     void on_deq_button_clicked();
+
+    void hide_animation_add();
+    void hide_animation_pop();
 
 private:
     Ui::operation *ui;
@@ -74,6 +79,7 @@ private:
     QLineEdit *addText;
     QLineEdit *delText;
     QVBoxLayout *qb;
+    Square *_QP;
 };
 
 #endif // OPERATION_H

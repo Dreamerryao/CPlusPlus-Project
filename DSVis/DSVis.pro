@@ -24,7 +24,9 @@ SOURCES += \
     WINDOW/sinks/opupdatesink.cpp \
     WINDOW/sinks/qdeqcommandsink.cpp \
     WINDOW/sinks/spopcommandsink.cpp \
+    WINDOW/square.cpp \
     WINDOW/testwindow.cpp \
+    WINDOW/testwidget.cpp \
     app/commands/aboutcommand.cpp \
     app/commands/cancelcommand.cpp \
     app/commands/changecommand.cpp \
@@ -53,7 +55,9 @@ HEADERS += \
     WINDOW/sinks/opupdatesink.h \
     WINDOW/sinks/qdeqcommandsink.h \
     WINDOW/sinks/spopcommandsink.h \
+    WINDOW/square.h \
     WINDOW/testwindow.h \
+    WINDOW/testwidget.h \
     app/app.h \
     app/commands/aboutcommand.h \
     app/commands/cancelcommand.h \

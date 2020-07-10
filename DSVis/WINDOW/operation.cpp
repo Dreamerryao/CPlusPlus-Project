@@ -1,12 +1,16 @@
 #include "operation.h"
 #include "ui_operation.h"
 #include <QRect>
+#include <QPropertyAnimation>
+#include <QSequentialAnimationGroup>
 operation::operation(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::operation)
 {
 
     ui->setupUi(this);
+
+
     _AACS = std::make_shared<AAddCommandSink>(AAddCommandSink(this));
     _ADCS = std::make_shared<ADelCommandSink>(ADelCommandSink(this));
     _SPCS = std::make_shared<SPopCommandSink>(SPopCommandSink(this));
@@ -21,6 +25,15 @@ operation::~operation()
     delete ui;
 }
 
+void operation::show_TQ(){
+    if(type==4){
+        _QP = new Square(this);
+        _QP->resize(100,100);
+//        _QP->move(100,100);
+        _QP->hide();
+    }
+
+}
 void operation::show_button(){
     QLayoutItem *child;
      while ((child = qb->takeAt(0)) != 0){
@@ -96,6 +109,23 @@ void operation::on_pushButton_clicked()
     _getCancel->Exec();
 }
 
+void operation::hide_animation_add(){
+    _QP->hide();
+    if(type==4){
+        try {
+            _AAC->SetParameter(addText->text().toInt());
+            _AAC->Exec();
+        } catch (const char *msg) {
+            QMessageBox::warning(this, tr("Waring"),tr("Input should be integer"),QMessageBox::Yes);
+        }
+    }
+}
+void operation::hide_animation_pop(){
+    _QP->hide();
+//    if(type==4){
+//       _SPC->Exec();
+//    }
+}
 void operation::setCancelCommand(std::shared_ptr<ICommandBase> ptr_cancel){
     _getCancel=ptr_cancel;
 }
@@ -348,11 +378,35 @@ void operation::on_add_button_clicked()
        QMessageBox::warning(this, tr("Waring"),tr("Input can't empty!"),QMessageBox::Yes);
    }
    else{
-       try {
-           _AAC->SetParameter(addText->text().toInt());
-           _AAC->Exec();
-       } catch (const char *msg) {
-           QMessageBox::warning(this, tr("Waring"),tr("Input should be integer"),QMessageBox::Yes);
+       if(type==4){
+           _QP->show();
+           _QP->setValue(addText->text().toInt());
+           QPropertyAnimation* animation1 = new QPropertyAnimation(_QP, "pos") ;
+           animation1->setDuration(500);
+           animation1->setStartValue(QPoint(100,100));
+           animation1->setEndValue(QPoint(220,100));
+           QPropertyAnimation* animation2 = new QPropertyAnimation(_QP, "pos") ;
+           animation2->setDuration(700);
+
+           animation2->setStartValue(QPoint(220,100));
+           int size =_Array->getSize();
+           if(size>=8)
+           animation2->setEndValue(QPoint(220,110));
+           else
+           animation2->setEndValue(QPoint(220,510-50*size));
+           QSequentialAnimationGroup *sequGroup = new QSequentialAnimationGroup(this);
+           sequGroup->addAnimation(animation1);
+           sequGroup->addAnimation(animation2);
+           sequGroup->start();
+           connect(sequGroup,SIGNAL(finished()),this,SLOT(hide_animation_add()));
+       }
+       else{
+           try {
+               _AAC->SetParameter(addText->text().toInt());
+               _AAC->Exec();
+           } catch (const char *msg) {
+               QMessageBox::warning(this, tr("Waring"),tr("Input should be integer"),QMessageBox::Yes);
+           }
        }
    }
     addText->setText(addText->text()); // convenient for testing
@@ -377,7 +431,44 @@ void operation::on_del_button_clicked()
 
 void operation::on_pushButton_2_clicked()  //pop
 {
-    _SPC->Exec();
+
+     if(type==4){
+         if(_Array->isArrayNull())  QMessageBox::warning(this, tr("Waring"),tr("Stack is empty!"),QMessageBox::Yes);
+         else{
+
+             _QP->show();
+             int size =_Array->getSize();
+             _QP->setValue(_Array->getNumIndex(size-1));
+             _SPC->Exec();
+             QPropertyAnimation* animation1 = new QPropertyAnimation(_QP, "pos") ;
+             animation1->setDuration(500);
+             animation1->setStartValue(QPoint(220,100));
+             animation1->setEndValue(QPoint(700,100));
+             QPropertyAnimation* animation2 = new QPropertyAnimation(_QP, "pos") ;
+
+
+
+
+             if(size>=7){
+                 animation2->setDuration(100);
+                 animation2->setStartValue(QPoint(220,110));
+             }
+
+             else{
+                 animation2->setStartValue(QPoint(220,510-50*size));
+                 animation2->setDuration((510-50*size-100)*3);
+             }
+
+             animation2->setEndValue(QPoint(220,100));
+
+             QSequentialAnimationGroup *sequGroup = new QSequentialAnimationGroup(this);
+             sequGroup->addAnimation(animation2);
+             sequGroup->addAnimation(animation1);
+             sequGroup->start();
+             connect(sequGroup,SIGNAL(finished()),this,SLOT(hide_animation_pop()));
+         }
+
+     }
 }
 
 void operation::on_deq_button_clicked()  //dequeue
