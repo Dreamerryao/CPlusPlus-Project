@@ -82,6 +82,21 @@ void operation::show_button(){
         qb->addWidget(addText);
         qb->addWidget(button1);
         qb->addWidget(button2);
+    }else if(type>=6){
+        addText=new QLineEdit("",this);
+        addText->setGeometry(610,280,160,35);
+        delText=new QLineEdit("",this);
+        delText->setGeometry(610,380,160,35);
+        button1=new QPushButton("insert",this);
+        button1->setGeometry(610,330,160,35);
+        connect(button1,SIGNAL(clicked()),this,SLOT(on_add_button_clicked()));
+        button2=new QPushButton("delete",this);
+        button2->setGeometry(610,440,160,35);
+        connect(button2,SIGNAL(clicked()),this,SLOT(on_del_button_clicked()));
+        qb->addWidget(addText);
+        qb->addWidget(delText);
+        qb->addWidget(button1);
+        qb->addWidget(button2);
     }
 }
 std::shared_ptr<ICommandNotification> operation::getAACS(void){
@@ -150,6 +165,7 @@ void operation::set_ptrSPC(std::shared_ptr<ICommandBase> ptr){
 void operation::set_ptrQDC(std::shared_ptr<ICommandBase> ptr){
     _QDC = ptr;
 }
+
 void operation::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
@@ -279,7 +295,26 @@ void operation::paintEvent(QPaintEvent *)
     else if(type==4){//only display the top 8 elements
         int i;
         int size =_Array->getSize();
-        if(size>8){
+        if(size==0){
+            painter.drawLine(200,160,200,560);
+            painter.drawLine(280,160,280,560);
+            painter.drawLine(200,560,280,560);
+            float x1 = 280;
+            float y1 = 560;
+            float x2 = 320;
+            float y2 = 560;
+            float l = 30.0;
+            float a = 0.3;
+            float x3 = x2 - l * cos(atan2((y2 - y1) , (x2 - x1)) - a);
+            float y3 = y2 - l * sin(atan2((y2 - y1) , (x2 - x1)) - a);
+            float x4 = x2 - l * sin(atan2((x2 - x1) , (y2 - y1)) - a);
+            float y4 = y2 - l * cos(atan2((x2 - x1) , (y2 - y1)) - a);
+            painter.drawLine(x1,y1,x3,y3);
+            painter.drawLine(x1,y1,x4,y4);
+            painter.drawLine(x1,y1,x2,y2);
+            painter.drawText(325,570,tr("SP"));
+        }
+        else if(size>8){
             painter.drawLine(200,160,200,560);
             painter.drawLine(280,160,280,560);
             for(i=0;i<8;i++){
@@ -368,6 +403,37 @@ void operation::paintEvent(QPaintEvent *)
                 painter.drawRoundedRect(rectangle, 5.0, 5.0);
                 num++;
             }
+        }
+    }else if(type==7){
+        std::vector<node*> queue;
+        float xp[40];
+        float yp[40];
+        int qhead=0;
+        node *root=_Tree.getRoot();
+        queue.push_back(root);
+        xp[0]=260;
+        yp[0]=180;
+        int qsize=0;
+        while(qhead<queue.size()){
+            root = queue[qhead];
+            QRect boundingRect;
+            painter.drawText(xp[qhead], yp[qhead],40,40,Qt::AlignCenter,QString::number(root->value),&boundingRect);
+            painter.drawEllipse(xp[qhead],yp[qhead],40,40);
+            if(root->left!=NULL){
+                queue.push_back(root->left);
+                qsize++;
+                xp[qsize]=xp[qhead]-40;
+                yp[qsize]=yp[qhead]+80;
+                painter.drawLine(xp[qhead]+20,yp[qhead]+40,xp[qsize]+20,yp[qsize]);
+            }
+            if(root->right!=NULL){
+                queue.push_back(root->right);
+                qsize++;
+                xp[qsize]=xp[qhead]+40;
+                yp[qsize]=yp[qhead]+80;
+                painter.drawLine(xp[qhead]+20,yp[qhead]+40,xp[qsize]+20,yp[qsize]);
+            }
+            qhead++;
         }
     }
 }

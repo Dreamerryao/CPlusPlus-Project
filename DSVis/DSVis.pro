@@ -67,6 +67,7 @@ HEADERS += \
     app/commands/m2command.h \
     app/commands/testbuttoncommand.h \
     common/ArrayC.h \
+    common/Tree.h \
     common/any.h \
     common/etlbase.h \
     WINDOW/model2_main.h \
