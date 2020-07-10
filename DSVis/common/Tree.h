@@ -22,7 +22,16 @@ class Tree{
 private:
     node root;
 public:
-    Tree(){}
+    Tree(){
+        node *n1,*n2;
+        n1=new node;
+        n1->value=1;
+        n2=new node;
+        n2->value=4;
+        n1->left=n2;
+        root.value=3;
+        root.left=n1;
+    }
     ~Tree(){}
     void initial(){
         node *n1,*n2,*n3;
@@ -37,8 +46,8 @@ public:
         root.left=n1;
         root.right=n2;
     }
-    node getRoot(){
-        return root;
+    node* getRoot(){
+        return &root;
     }
 };
 

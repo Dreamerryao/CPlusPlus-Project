@@ -61,7 +61,7 @@ private:
     Ui::operation *ui;
     std::shared_ptr<ICommandBase> _getCancel;
     std::shared_ptr<ARRAYC> _Array;
-    std::shared_ptr<Tree> _Tree;
+    Tree _Tree;
     std::shared_ptr<AAddCommandSink> _AACS;
     std::shared_ptr<ADelCommandSink> _ADCS;
     std::shared_ptr<SPopCommandSink> _SPCS;

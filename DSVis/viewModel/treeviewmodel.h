@@ -1,4 +1,0 @@
-#ifndef TREEVIEWMODEL_H
-#define TREEVIEWMODEL_H
-
-#endif // TREEVIEWMODEL_H

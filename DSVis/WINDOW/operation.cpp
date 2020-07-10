@@ -7,7 +7,6 @@ operation::operation(QWidget *parent) :
 {
 
     ui->setupUi(this);
-    //_Tree->initial();
     _AACS = std::make_shared<AAddCommandSink>(AAddCommandSink(this));
     _ADCS = std::make_shared<ADelCommandSink>(ADelCommandSink(this));
     _SPCS = std::make_shared<SPopCommandSink>(SPopCommandSink(this));
@@ -70,7 +69,7 @@ void operation::show_button(){
         qb->addWidget(addText);
         qb->addWidget(button1);
         qb->addWidget(button2);
-    }else if(type>6){
+    }else if(type>=6){
         addText=new QLineEdit("",this);
         addText->setGeometry(610,280,160,35);
         delText=new QLineEdit("",this);
@@ -136,6 +135,7 @@ void operation::set_ptrSPC(std::shared_ptr<ICommandBase> ptr){
 void operation::set_ptrQDC(std::shared_ptr<ICommandBase> ptr){
     _QDC = ptr;
 }
+
 void operation::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
@@ -356,11 +356,36 @@ void operation::paintEvent(QPaintEvent *)
             }
         }
     }else if(type==7){
-       /* node root=_Tree->getRoot();
-        QRect boundingRect;
-        painter.drawText(20, 20,40,40,Qt::AlignCenter,QString::number(2),&boundingRect);
-        painter.setPen(QPen(Qt::blue,4,Qt::SolidLine));
-        painter.drawEllipse(20,20,40,40);*/
+        std::vector<node*> queue;
+        float xp[40];
+        float yp[40];
+        int qhead=0;
+        node *root=_Tree.getRoot();
+        queue.push_back(root);
+        xp[0]=260;
+        yp[0]=180;
+        int qsize=0;
+        while(qhead<queue.size()){
+            root = queue[qhead];
+            QRect boundingRect;
+            painter.drawText(xp[qhead], yp[qhead],40,40,Qt::AlignCenter,QString::number(root->value),&boundingRect);
+            painter.drawEllipse(xp[qhead],yp[qhead],40,40);
+            if(root->left!=NULL){
+                queue.push_back(root->left);
+                qsize++;
+                xp[qsize]=xp[qhead]-40;
+                yp[qsize]=yp[qhead]+80;
+                painter.drawLine(xp[qhead]+20,yp[qhead]+40,xp[qsize]+20,yp[qsize]);
+            }
+            if(root->right!=NULL){
+                queue.push_back(root->right);
+                qsize++;
+                xp[qsize]=xp[qhead]+40;
+                yp[qsize]=yp[qhead]+80;
+                painter.drawLine(xp[qhead]+20,yp[qhead]+40,xp[qsize]+20,yp[qsize]);
+            }
+            qhead++;
+        }
     }
 }
 
