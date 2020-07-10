@@ -36,12 +36,17 @@ SOURCES += \
     app/app.cpp \
     WINDOW/model2_main.cpp \
     model/arraymodel.cpp \
+    model/treemodel.cpp \
     viewModel/arrayviewmodel.cpp \
     viewModel/commands/arrayaddcommand.cpp \
     viewModel/commands/arraydelcommand.cpp \
     viewModel/commands/queuedeqcommand.cpp \
     viewModel/commands/stackpopcommand.cpp \
-    viewModel/sinks/arraymodelsink.cpp
+    viewModel/commands/treedelcommand.cpp \
+    viewModel/commands/treeinscommand.cpp \
+    viewModel/sinks/arraymodelsink.cpp \
+    viewModel/sinks/treemodelsink.cpp \
+    viewModel/treeviewmodel.cpp
 
 HEADERS += \
     WINDOW/about.h \
@@ -68,12 +73,17 @@ HEADERS += \
     common/etlbase.h \
     WINDOW/model2_main.h \
     model/arraymodel.h \
+    model/treemodel.h \
     viewModel/arrayviewmodel.h \
     viewModel/commands/arrayaddcommand.h \
     viewModel/commands/arraydelcommand.h \
     viewModel/commands/queuedeqcommand.h \
     viewModel/commands/stackpopcommand.h \
-    viewModel/sinks/arraymodelsink.h
+    viewModel/commands/treedelcommand.h \
+    viewModel/commands/treeinscommand.h \
+    viewModel/sinks/arraymodelsink.h \
+    viewModel/sinks/treemodelsink.h \
+    viewModel/treeviewmodel.h
 
 # Default rules for deployment.
 #qnx: target.path = /tmp/$${TARGET}/bin
@@ -81,6 +91,7 @@ HEADERS += \
 #!isEmpty(target.path): INSTALLS += target
 
 CONFIG += c++17
+CONFIG += resources_big
 
 FORMS += \
     WINDOW/about.ui \
