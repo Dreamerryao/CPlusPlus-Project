@@ -7,6 +7,7 @@ operation::operation(QWidget *parent) :
 {
 
     ui->setupUi(this);
+    //_Tree->initial();
     _AACS = std::make_shared<AAddCommandSink>(AAddCommandSink(this));
     _ADCS = std::make_shared<ADelCommandSink>(ADelCommandSink(this));
     _SPCS = std::make_shared<SPopCommandSink>(SPopCommandSink(this));
@@ -67,6 +68,21 @@ void operation::show_button(){
         button2->setGeometry(610,280,160,35);
         connect(button2,SIGNAL(clicked()),this,SLOT(on_deq_button_clicked()));
         qb->addWidget(addText);
+        qb->addWidget(button1);
+        qb->addWidget(button2);
+    }else if(type>6){
+        addText=new QLineEdit("",this);
+        addText->setGeometry(610,280,160,35);
+        delText=new QLineEdit("",this);
+        delText->setGeometry(610,380,160,35);
+        button1=new QPushButton("insert",this);
+        button1->setGeometry(610,330,160,35);
+        connect(button1,SIGNAL(clicked()),this,SLOT(on_add_button_clicked()));
+        button2=new QPushButton("delete",this);
+        button2->setGeometry(610,440,160,35);
+        connect(button2,SIGNAL(clicked()),this,SLOT(on_del_button_clicked()));
+        qb->addWidget(addText);
+        qb->addWidget(delText);
         qb->addWidget(button1);
         qb->addWidget(button2);
     }
@@ -339,6 +355,12 @@ void operation::paintEvent(QPaintEvent *)
                 num++;
             }
         }
+    }else if(type==7){
+       /* node root=_Tree->getRoot();
+        QRect boundingRect;
+        painter.drawText(20, 20,40,40,Qt::AlignCenter,QString::number(2),&boundingRect);
+        painter.setPen(QPen(Qt::blue,4,Qt::SolidLine));
+        painter.drawEllipse(20,20,40,40);*/
     }
 }
 

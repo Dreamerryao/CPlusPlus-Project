@@ -7,6 +7,7 @@
 #include "QMouseEvent"
 #include"../common/etlbase.h"
 #include"../common/ArrayC.h"
+#include"../common/Tree.h"
 #include "sinks/aaddcommandsink.h"
 #include "sinks/adelcommandsink.h"
 #include "sinks/spopcommandsink.h"
@@ -60,6 +61,7 @@ private:
     Ui::operation *ui;
     std::shared_ptr<ICommandBase> _getCancel;
     std::shared_ptr<ARRAYC> _Array;
+    std::shared_ptr<Tree> _Tree;
     std::shared_ptr<AAddCommandSink> _AACS;
     std::shared_ptr<ADelCommandSink> _ADCS;
     std::shared_ptr<SPopCommandSink> _SPCS;
