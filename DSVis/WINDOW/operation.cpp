@@ -429,7 +429,7 @@ void operation::paintEvent(QPaintEvent *)
         float xp[40];
         float yp[40];
         int qhead=0;
-        node *root=_Tree->getTree();
+        nsode *root=_Tree->getTree();
         queue.push_back(root);
         xp[0]=260;
         yp[0]=180;
