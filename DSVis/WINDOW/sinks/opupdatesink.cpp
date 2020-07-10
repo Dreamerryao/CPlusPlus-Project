@@ -7,7 +7,7 @@ OpUpdateSink::OpUpdateSink(operation *ptr)
 }
 
  void OpUpdateSink::OnPropertyChanged(const std::string& str){
-    if(str=="ArrayModel"){
+    if(str=="ArrayModel"||str=="TreeModel"){
     _Op->update();
     }
 

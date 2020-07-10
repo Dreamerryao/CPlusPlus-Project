@@ -12,15 +12,23 @@ app::~app()
 void app::run(){
 
     model = std::make_shared<ArrayModel>();
+    Tmodel = std::make_shared<TreeModel>();
+
+
     viewmodel = std::make_shared<ArrayViewModel>();
     viewmodel->setArrayModel(model);
+    Tviewmodel = std::make_shared<TreeViewModel>();
+    Tviewmodel->setTreeModel(Tmodel);
 
     _operationP.set_ptrAAC(viewmodel->getArrayAddCommand());
     _operationP.set_ptrADC(viewmodel->getArrayDelCommand());
     _operationP.set_ptrSPC(viewmodel->getStackPopCommand());
     _operationP.set_ptrQDC(viewmodel->getQueueDeqCommand());
     _operationP.set_ptrARC(viewmodel->getArrayReplaceCommand());
+    _operationP.set_ptrTIC(Tviewmodel->getTreeInsCommand());
+    _operationP.set_ptrTDC(Tviewmodel->getTreeDelCommand());
     _operationP.set_Array(viewmodel->getArray());
+    _operationP.set_Tree(Tviewmodel->getTree());
 
     viewmodel->AddCommandNotification(_operationP.getAACS());
     viewmodel->AddCommandNotification(_operationP.getADCS());
@@ -28,6 +36,10 @@ void app::run(){
     viewmodel->AddCommandNotification(_operationP.getQDCS());
     viewmodel->AddCommandNotification(_operationP.getARCS());
     viewmodel->AddPropertyNotification(_operationP.getOUS());
+
+    Tviewmodel->AddCommandNotification(_operationP.getTICS());
+    Tviewmodel->AddCommandNotification(_operationP.getTDCS());
+    Tviewmodel->AddPropertyNotification(_operationP.getOUS());
 
 
 

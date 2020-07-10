@@ -2,7 +2,9 @@
 #define APP_H
 
 #include"../model/arraymodel.h"
+#include "../model/treemodel.h"
 #include "../viewModel/arrayviewmodel.h"
+#include"../viewModel/treeviewmodel.h"
 
 #include "../WINDOW/testwindow.h"
 #include "../WINDOW/firstpage.h"
@@ -29,6 +31,8 @@ private:
     operation _operationP;
 
     std::shared_ptr<ArrayModel> model;
+    std::shared_ptr<TreeModel> Tmodel;
+    std::shared_ptr<TreeViewModel> Tviewmodel;
     std::shared_ptr<ArrayViewModel> viewmodel;
     std::shared_ptr<testButtonCommand> _testBC;
     std::shared_ptr<M1Command> _M1Command;

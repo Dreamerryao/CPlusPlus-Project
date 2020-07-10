@@ -123,6 +123,7 @@ std::shared_ptr<ICommandNotification> operation::getQDCS(void){
 std::shared_ptr<ICommandNotification> operation::getARCS(void){
 
     return std::static_pointer_cast<ICommandNotification>(_ARCS);
+}
 std::shared_ptr<ICommandNotification> operation::getTICS(void){
 
     return std::static_pointer_cast<ICommandNotification>(_TICS);
@@ -437,7 +438,7 @@ void operation::paintEvent(QPaintEvent *)
         float xp[40];
         float yp[40];
         int qhead=0;
-        nsode *root=_Tree->getTree();
+        node *root=_Tree->getTree();
         queue.push_back(root);
         xp[0]=260;
         yp[0]=180;
