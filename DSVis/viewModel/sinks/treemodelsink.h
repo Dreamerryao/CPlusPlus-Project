@@ -1,11 +1,15 @@
 #ifndef TREEMODELSINK_H
 #define TREEMODELSINK_H
 
-
-class TreeModelSink
+#include "../../common/etlbase.h"
+class TreeViewModel;
+class TreeModelSink: public IPropertyNotification
 {
 public:
-    TreeModelSink();
+    TreeModelSink(TreeViewModel* ptr);
+    virtual void OnPropertyChanged(const std::string &str) ;
+private:
+    TreeViewModel* _TVM;
 };
 
 #endif // TREEMODELSINK_H

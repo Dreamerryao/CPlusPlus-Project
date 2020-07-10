@@ -15,9 +15,9 @@ public:
     void setTreeModel(std::shared_ptr<TreeModel> TM);
     std::shared_ptr<Tree> getTree();
     std::shared_ptr<ICommandBase> getTreeInsCommand();
-    void Exec_TIns_command(int I);
+    void Exec_Tins_command(int I);
     std::shared_ptr<ICommandBase> getTreeDelCommand();
-    int Exec_TDel_command(int I);
+    int Exec_Tdel_command(int I);
 private:
     std::shared_ptr<TreeModel> _TreeModel;
     std::shared_ptr<TreeModelSink> _TMSink;
