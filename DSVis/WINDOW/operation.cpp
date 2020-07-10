@@ -265,7 +265,26 @@ void operation::paintEvent(QPaintEvent *)
     else if(type==4){//only display the top 8 elements
         int i;
         int size =_Array->getSize();
-        if(size>8){
+        if(size==0){
+            painter.drawLine(200,160,200,560);
+            painter.drawLine(280,160,280,560);
+            painter.drawLine(200,560,280,560);
+            float x1 = 280;
+            float y1 = 560;
+            float x2 = 320;
+            float y2 = 560;
+            float l = 30.0;
+            float a = 0.3;
+            float x3 = x2 - l * cos(atan2((y2 - y1) , (x2 - x1)) - a);
+            float y3 = y2 - l * sin(atan2((y2 - y1) , (x2 - x1)) - a);
+            float x4 = x2 - l * sin(atan2((x2 - x1) , (y2 - y1)) - a);
+            float y4 = y2 - l * cos(atan2((x2 - x1) , (y2 - y1)) - a);
+            painter.drawLine(x1,y1,x3,y3);
+            painter.drawLine(x1,y1,x4,y4);
+            painter.drawLine(x1,y1,x2,y2);
+            painter.drawText(325,570,tr("SP"));
+        }
+        else if(size>8){
             painter.drawLine(200,160,200,560);
             painter.drawLine(280,160,280,560);
             for(i=0;i<8;i++){
