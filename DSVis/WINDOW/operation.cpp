@@ -1,13 +1,16 @@
 #include "operation.h"
 #include "ui_operation.h"
 #include <QRect>
+#include <QPropertyAnimation>
+#include <QSequentialAnimationGroup>
 operation::operation(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::operation)
 {
 
     ui->setupUi(this);
-    //_Tree->initial();
+
+
     _AACS = std::make_shared<AAddCommandSink>(AAddCommandSink(this));
     _ADCS = std::make_shared<ADelCommandSink>(ADelCommandSink(this));
     _SPCS = std::make_shared<SPopCommandSink>(SPopCommandSink(this));
@@ -22,6 +25,15 @@ operation::~operation()
     delete ui;
 }
 
+void operation::show_TQ(){
+    if(type==4){
+        _QP = new Square(this);
+        _QP->resize(100,100);
+//        _QP->move(100,100);
+        _QP->hide();
+    }
+
+}
 void operation::show_button(){
     QLayoutItem *child;
      while ((child = qb->takeAt(0)) != 0){
@@ -70,7 +82,7 @@ void operation::show_button(){
         qb->addWidget(addText);
         qb->addWidget(button1);
         qb->addWidget(button2);
-    }else if(type>6){
+    }else if(type>=6){
         addText=new QLineEdit("",this);
         addText->setGeometry(610,280,160,35);
         delText=new QLineEdit("",this);
@@ -112,6 +124,23 @@ void operation::on_pushButton_clicked()
     _getCancel->Exec();
 }
 
+void operation::hide_animation_add(){
+    _QP->hide();
+    if(type==4){
+        try {
+            _AAC->SetParameter(addText->text().toInt());
+            _AAC->Exec();
+        } catch (const char *msg) {
+            QMessageBox::warning(this, tr("Waring"),tr("Input should be integer"),QMessageBox::Yes);
+        }
+    }
+}
+void operation::hide_animation_pop(){
+    _QP->hide();
+//    if(type==4){
+//       _SPC->Exec();
+//    }
+}
 void operation::setCancelCommand(std::shared_ptr<ICommandBase> ptr_cancel){
     _getCancel=ptr_cancel;
 }
@@ -136,6 +165,7 @@ void operation::set_ptrSPC(std::shared_ptr<ICommandBase> ptr){
 void operation::set_ptrQDC(std::shared_ptr<ICommandBase> ptr){
     _QDC = ptr;
 }
+
 void operation::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
@@ -265,7 +295,26 @@ void operation::paintEvent(QPaintEvent *)
     else if(type==4){//only display the top 8 elements
         int i;
         int size =_Array->getSize();
-        if(size>8){
+        if(size==0){
+            painter.drawLine(200,160,200,560);
+            painter.drawLine(280,160,280,560);
+            painter.drawLine(200,560,280,560);
+            float x1 = 280;
+            float y1 = 560;
+            float x2 = 320;
+            float y2 = 560;
+            float l = 30.0;
+            float a = 0.3;
+            float x3 = x2 - l * cos(atan2((y2 - y1) , (x2 - x1)) - a);
+            float y3 = y2 - l * sin(atan2((y2 - y1) , (x2 - x1)) - a);
+            float x4 = x2 - l * sin(atan2((x2 - x1) , (y2 - y1)) - a);
+            float y4 = y2 - l * cos(atan2((x2 - x1) , (y2 - y1)) - a);
+            painter.drawLine(x1,y1,x3,y3);
+            painter.drawLine(x1,y1,x4,y4);
+            painter.drawLine(x1,y1,x2,y2);
+            painter.drawText(325,570,tr("SP"));
+        }
+        else if(size>8){
             painter.drawLine(200,160,200,560);
             painter.drawLine(280,160,280,560);
             for(i=0;i<8;i++){
@@ -356,11 +405,36 @@ void operation::paintEvent(QPaintEvent *)
             }
         }
     }else if(type==7){
-       /* node root=_Tree->getRoot();
-        QRect boundingRect;
-        painter.drawText(20, 20,40,40,Qt::AlignCenter,QString::number(2),&boundingRect);
-        painter.setPen(QPen(Qt::blue,4,Qt::SolidLine));
-        painter.drawEllipse(20,20,40,40);*/
+        std::vector<node*> queue;
+        float xp[40];
+        float yp[40];
+        int qhead=0;
+        node *root=_Tree.getRoot();
+        queue.push_back(root);
+        xp[0]=260;
+        yp[0]=180;
+        int qsize=0;
+        while(qhead<queue.size()){
+            root = queue[qhead];
+            QRect boundingRect;
+            painter.drawText(xp[qhead], yp[qhead],40,40,Qt::AlignCenter,QString::number(root->value),&boundingRect);
+            painter.drawEllipse(xp[qhead],yp[qhead],40,40);
+            if(root->left!=NULL){
+                queue.push_back(root->left);
+                qsize++;
+                xp[qsize]=xp[qhead]-40;
+                yp[qsize]=yp[qhead]+80;
+                painter.drawLine(xp[qhead]+20,yp[qhead]+40,xp[qsize]+20,yp[qsize]);
+            }
+            if(root->right!=NULL){
+                queue.push_back(root->right);
+                qsize++;
+                xp[qsize]=xp[qhead]+40;
+                yp[qsize]=yp[qhead]+80;
+                painter.drawLine(xp[qhead]+20,yp[qhead]+40,xp[qsize]+20,yp[qsize]);
+            }
+            qhead++;
+        }
     }
 }
 
@@ -370,11 +444,35 @@ void operation::on_add_button_clicked()
        QMessageBox::warning(this, tr("Waring"),tr("Input can't empty!"),QMessageBox::Yes);
    }
    else{
-       try {
-           _AAC->SetParameter(addText->text().toInt());
-           _AAC->Exec();
-       } catch (const char *msg) {
-           QMessageBox::warning(this, tr("Waring"),tr("Input should be integer"),QMessageBox::Yes);
+       if(type==4){
+           _QP->show();
+           _QP->setValue(addText->text().toInt());
+           QPropertyAnimation* animation1 = new QPropertyAnimation(_QP, "pos") ;
+           animation1->setDuration(500);
+           animation1->setStartValue(QPoint(100,100));
+           animation1->setEndValue(QPoint(220,100));
+           QPropertyAnimation* animation2 = new QPropertyAnimation(_QP, "pos") ;
+           animation2->setDuration(700);
+
+           animation2->setStartValue(QPoint(220,100));
+           int size =_Array->getSize();
+           if(size>=8)
+           animation2->setEndValue(QPoint(220,110));
+           else
+           animation2->setEndValue(QPoint(220,510-50*size));
+           QSequentialAnimationGroup *sequGroup = new QSequentialAnimationGroup(this);
+           sequGroup->addAnimation(animation1);
+           sequGroup->addAnimation(animation2);
+           sequGroup->start();
+           connect(sequGroup,SIGNAL(finished()),this,SLOT(hide_animation_add()));
+       }
+       else{
+           try {
+               _AAC->SetParameter(addText->text().toInt());
+               _AAC->Exec();
+           } catch (const char *msg) {
+               QMessageBox::warning(this, tr("Waring"),tr("Input should be integer"),QMessageBox::Yes);
+           }
        }
    }
     addText->setText(addText->text()); // convenient for testing
@@ -399,7 +497,44 @@ void operation::on_del_button_clicked()
 
 void operation::on_pushButton_2_clicked()  //pop
 {
-    _SPC->Exec();
+
+     if(type==4){
+         if(_Array->isArrayNull())  QMessageBox::warning(this, tr("Waring"),tr("Stack is empty!"),QMessageBox::Yes);
+         else{
+
+             _QP->show();
+             int size =_Array->getSize();
+             _QP->setValue(_Array->getNumIndex(size-1));
+             _SPC->Exec();
+             QPropertyAnimation* animation1 = new QPropertyAnimation(_QP, "pos") ;
+             animation1->setDuration(500);
+             animation1->setStartValue(QPoint(220,100));
+             animation1->setEndValue(QPoint(700,100));
+             QPropertyAnimation* animation2 = new QPropertyAnimation(_QP, "pos") ;
+
+
+
+
+             if(size>=7){
+                 animation2->setDuration(100);
+                 animation2->setStartValue(QPoint(220,110));
+             }
+
+             else{
+                 animation2->setStartValue(QPoint(220,510-50*size));
+                 animation2->setDuration((510-50*size-100)*3);
+             }
+
+             animation2->setEndValue(QPoint(220,100));
+
+             QSequentialAnimationGroup *sequGroup = new QSequentialAnimationGroup(this);
+             sequGroup->addAnimation(animation2);
+             sequGroup->addAnimation(animation1);
+             sequGroup->start();
+             connect(sequGroup,SIGNAL(finished()),this,SLOT(hide_animation_pop()));
+         }
+
+     }
 }
 
 void operation::on_deq_button_clicked()  //dequeue

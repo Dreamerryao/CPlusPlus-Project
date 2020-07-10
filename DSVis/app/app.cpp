@@ -14,6 +14,7 @@ void app::run(){
     model = std::make_shared<ArrayModel>();
     viewmodel = std::make_shared<ArrayViewModel>();
     viewmodel->setArrayModel(model);
+
     _operationP.set_ptrAAC(viewmodel->getArrayAddCommand());
     _operationP.set_ptrADC(viewmodel->getArrayDelCommand());
     _operationP.set_ptrSPC(viewmodel->getStackPopCommand());
