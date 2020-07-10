@@ -24,6 +24,7 @@ private slots:
     void on_pushButton_clicked();
 
 private:
+    QString _NowCodeText;
     Ui::Model2_main *ui;
     std::shared_ptr<ICommandBase> _getCommand;
     std::shared_ptr<ICommandBase> _getCancel;

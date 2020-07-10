@@ -78,6 +78,19 @@ class ARRAYC{
         if(!flag) return 0;
         return 1;
     }
+    int Replace(int index,int newValue){
+        if(index>=size)return 0;
+        Num[index]= newValue;
+        return 1;
+    }
+    void New(int index){
+        size = index;
+        Num.resize(index);
+        for(int i=0;i<size;i++){
+            Num[i] = 0;
+        }
+
+    }
 };
 
 #endif // ARRAYC_H

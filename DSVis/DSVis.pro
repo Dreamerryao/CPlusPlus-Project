@@ -21,6 +21,7 @@ SOURCES += \
     WINDOW/operation.cpp \
     WINDOW/sinks/aaddcommandsink.cpp \
     WINDOW/sinks/adelcommandsink.cpp \
+    WINDOW/sinks/areplacecommandsink.cpp \
     WINDOW/sinks/opupdatesink.cpp \
     WINDOW/sinks/qdeqcommandsink.cpp \
     WINDOW/sinks/spopcommandsink.cpp \
@@ -42,6 +43,7 @@ SOURCES += \
     viewModel/arrayviewmodel.cpp \
     viewModel/commands/arrayaddcommand.cpp \
     viewModel/commands/arraydelcommand.cpp \
+    viewModel/commands/arrayreplacecommand.cpp \
     viewModel/commands/queuedeqcommand.cpp \
     viewModel/commands/stackpopcommand.cpp \
     viewModel/commands/treedelcommand.cpp \
@@ -57,6 +59,7 @@ HEADERS += \
     WINDOW/operation.h \
     WINDOW/sinks/aaddcommandsink.h \
     WINDOW/sinks/adelcommandsink.h \
+    WINDOW/sinks/areplacecommandsink.h \
     WINDOW/sinks/opupdatesink.h \
     WINDOW/sinks/qdeqcommandsink.h \
     WINDOW/sinks/spopcommandsink.h \
@@ -81,6 +84,7 @@ HEADERS += \
     viewModel/arrayviewmodel.h \
     viewModel/commands/arrayaddcommand.h \
     viewModel/commands/arraydelcommand.h \
+    viewModel/commands/arrayreplacecommand.h \
     viewModel/commands/queuedeqcommand.h \
     viewModel/commands/stackpopcommand.h \
     viewModel/commands/treedelcommand.h \

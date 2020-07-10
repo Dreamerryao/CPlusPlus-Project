@@ -13,6 +13,7 @@
 #include "sinks/spopcommandsink.h"
 #include "sinks/qdeqcommandsink.h"
 #include "sinks/opupdatesink.h"
+#include "sinks/areplacecommandsink.h"
 #include "square.h"
 #include <QWidget>
 #include <QLineEdit>
@@ -36,6 +37,7 @@ public:
     std::shared_ptr<ICommandNotification> getADCS(void);
     std::shared_ptr<ICommandNotification> getSPCS(void);
     std::shared_ptr<ICommandNotification> getQDCS(void);
+    std::shared_ptr<ICommandNotification> getARCS(void);
     std::shared_ptr<IPropertyNotification> getOUS(void);
     void setCancelCommand(std::shared_ptr<ICommandBase> ptr_cancel);
     void setLabel(const std::string& str);
@@ -44,6 +46,7 @@ public:
     void set_ptrADC(std::shared_ptr<ICommandBase> ptr);
     void set_ptrSPC(std::shared_ptr<ICommandBase> ptr);
     void set_ptrQDC(std::shared_ptr<ICommandBase> ptr);
+    void set_ptrARC(std::shared_ptr<ICommandBase> ptr);
     void show_button();
     void show_TQ();
     int type;
@@ -71,11 +74,13 @@ private:
     std::shared_ptr<ADelCommandSink> _ADCS;
     std::shared_ptr<SPopCommandSink> _SPCS;
     std::shared_ptr<QDeqCommandSink> _QDCS;
+    std::shared_ptr<AReplaceCommandSink> _ARCS;
     std::shared_ptr<OpUpdateSink> _OUS;
     std::shared_ptr<ICommandBase> _AAC;
     std::shared_ptr<ICommandBase> _ADC;
     std::shared_ptr<ICommandBase> _SPC;
     std::shared_ptr<ICommandBase> _QDC;
+    std::shared_ptr<ICommandBase> _ARC;
     QPushButton *button1;
     QPushButton *button2;
     QLineEdit *addText;

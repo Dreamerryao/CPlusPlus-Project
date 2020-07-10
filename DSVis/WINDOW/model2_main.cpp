@@ -1,6 +1,7 @@
 #include "model2_main.h"
 #include "ui_model2_main.h"
 #include <QTextBlock>
+#include <qdebug.h>
 Model2_main::Model2_main(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Model2_main)
@@ -23,9 +24,11 @@ void Model2_main::on_text_blockCountChanged(int newBlockCount)
 void Model2_main::getLine(){
     QTextDocument* doc=ui->text->document () ;
     int cnt=doc->blockCount ();
-    QTextBlock textLine=doc->findBlockByNumber(cnt-2) ;
-    QString tstr=textLine.text();
-    ui->test->setText(tstr);
+    _NowCodeText = doc->findBlockByNumber(cnt-2).text();
+     qDebug() << "--cout--" << endl <<_NowCodeText<<endl ;
+//    QTextBlock textLine=doc->findBlockByNumber(cnt-2) ;
+//    QString tstr=textLine.text();
+//    ui->test->setText(tstr);
 }
 
 void Model2_main::on_pushButton_clicked()

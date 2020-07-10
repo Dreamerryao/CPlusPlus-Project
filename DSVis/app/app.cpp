@@ -19,12 +19,14 @@ void app::run(){
     _operationP.set_ptrADC(viewmodel->getArrayDelCommand());
     _operationP.set_ptrSPC(viewmodel->getStackPopCommand());
     _operationP.set_ptrQDC(viewmodel->getQueueDeqCommand());
+    _operationP.set_ptrARC(viewmodel->getArrayReplaceCommand());
     _operationP.set_Array(viewmodel->getArray());
 
     viewmodel->AddCommandNotification(_operationP.getAACS());
     viewmodel->AddCommandNotification(_operationP.getADCS());
     viewmodel->AddCommandNotification(_operationP.getSPCS());
     viewmodel->AddCommandNotification(_operationP.getQDCS());
+    viewmodel->AddCommandNotification(_operationP.getARCS());
     viewmodel->AddPropertyNotification(_operationP.getOUS());
 
 

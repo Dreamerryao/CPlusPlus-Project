@@ -15,7 +15,9 @@ operation::operation(QWidget *parent) :
     _ADCS = std::make_shared<ADelCommandSink>(ADelCommandSink(this));
     _SPCS = std::make_shared<SPopCommandSink>(SPopCommandSink(this));
     _QDCS = std::make_shared<QDeqCommandSink>(QDeqCommandSink(this));
+    _ARCS = std::make_shared<AReplaceCommandSink>(AReplaceCommandSink(this));
     _OUS =  std::make_shared<OpUpdateSink>(OpUpdateSink(this));
+
     set_Array(NULL);
     qb=new QVBoxLayout(this);
 }
@@ -115,6 +117,10 @@ std::shared_ptr<ICommandNotification> operation::getQDCS(void){
 
     return std::static_pointer_cast<ICommandNotification>(_QDCS);
 }
+std::shared_ptr<ICommandNotification> operation::getARCS(void){
+
+    return std::static_pointer_cast<ICommandNotification>(_ARCS);
+}
 std::shared_ptr<IPropertyNotification> operation::getOUS(void){
 
     return std::static_pointer_cast<IPropertyNotification>(_OUS);
@@ -165,7 +171,9 @@ void operation::set_ptrSPC(std::shared_ptr<ICommandBase> ptr){
 void operation::set_ptrQDC(std::shared_ptr<ICommandBase> ptr){
     _QDC = ptr;
 }
-
+void operation::set_ptrARC(std::shared_ptr<ICommandBase> ptr){
+    _ARC = ptr;
+}
 void operation::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
