@@ -52,7 +52,7 @@ public:
     }
     void Ins(int key){
         if(root == NULL){
-            root = new node();
+            root=new node();
             root->value = key;
             return;
         }

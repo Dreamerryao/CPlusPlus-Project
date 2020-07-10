@@ -25,6 +25,8 @@ SOURCES += \
     WINDOW/sinks/opupdatesink.cpp \
     WINDOW/sinks/qdeqcommandsink.cpp \
     WINDOW/sinks/spopcommandsink.cpp \
+    WINDOW/sinks/tdelcommandsink.cpp \
+    WINDOW/sinks/tinscommandsink.cpp \
     WINDOW/square.cpp \
     WINDOW/testwindow.cpp \
     WINDOW/testwidget.cpp \
@@ -63,6 +65,8 @@ HEADERS += \
     WINDOW/sinks/opupdatesink.h \
     WINDOW/sinks/qdeqcommandsink.h \
     WINDOW/sinks/spopcommandsink.h \
+    WINDOW/sinks/tdelcommandsink.h \
+    WINDOW/sinks/tinscommandsink.h \
     WINDOW/square.h \
     WINDOW/testwindow.h \
     WINDOW/testwidget.h \
