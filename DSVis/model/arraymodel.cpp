@@ -22,10 +22,18 @@ int ArrayModel::del(int a){
     return res;
 }
 
-int ArrayModel::pop(int a){
+int ArrayModel::pop(){
     int res = 0;
     if(!(_Array->isArrayNull()))
-    res = _Array->Pop(a);
+    res = _Array->Pop();
+    Fire_OnPropertyChanged("ArrayModel");
+    return res;
+}
+
+int ArrayModel::deq(){
+    int res = 0;
+    if(!(_Array->isArrayNull()))
+    res = _Array->Deq();
     Fire_OnPropertyChanged("ArrayModel");
     return res;
 }

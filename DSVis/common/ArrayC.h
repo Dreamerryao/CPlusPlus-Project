@@ -57,12 +57,23 @@ class ARRAYC{
         if(!flag) return 0;
         return 1;
     }
-    int Pop(int a){
+    int Pop(){
         int flag = 0;
         if(Num.size()!=0){
             flag = 1;
             size--;
             Num.erase(Num.begin()+(Num.size()-1));
+        }
+        if(!flag) return 0;
+        return 1;
+    }
+    int Deq(){
+//         qDebug() << "--cout--" << endl;
+        int flag = 0;
+        if(Num.size()!=0){
+            flag = 1;
+            size--;
+            Num.erase(Num.begin());
         }
         if(!flag) return 0;
         return 1;

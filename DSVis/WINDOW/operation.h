@@ -10,6 +10,7 @@
 #include "sinks/aaddcommandsink.h"
 #include "sinks/adelcommandsink.h"
 #include "sinks/spopcommandsink.h"
+#include "sinks/qdeqcommandsink.h"
 #include "sinks/opupdatesink.h"
 #include <QWidget>
 #include <QLineEdit>
@@ -32,6 +33,7 @@ public:
     std::shared_ptr<ICommandNotification> getAACS(void);
     std::shared_ptr<ICommandNotification> getADCS(void);
     std::shared_ptr<ICommandNotification> getSPCS(void);
+    std::shared_ptr<ICommandNotification> getQDCS(void);
     std::shared_ptr<IPropertyNotification> getOUS(void);
     void setCancelCommand(std::shared_ptr<ICommandBase> ptr_cancel);
     void setLabel(const std::string& str);
@@ -39,6 +41,7 @@ public:
     void set_ptrAAC(std::shared_ptr<ICommandBase> ptr);
     void set_ptrADC(std::shared_ptr<ICommandBase> ptr);
     void set_ptrSPC(std::shared_ptr<ICommandBase> ptr);
+    void set_ptrQDC(std::shared_ptr<ICommandBase> ptr);
     void show_button();
     int type;
 
@@ -51,6 +54,8 @@ private slots:
 
     void on_pushButton_2_clicked();
 
+    void on_deq_button_clicked();
+
 private:
     Ui::operation *ui;
     std::shared_ptr<ICommandBase> _getCancel;
@@ -58,10 +63,12 @@ private:
     std::shared_ptr<AAddCommandSink> _AACS;
     std::shared_ptr<ADelCommandSink> _ADCS;
     std::shared_ptr<SPopCommandSink> _SPCS;
+    std::shared_ptr<QDeqCommandSink> _QDCS;
     std::shared_ptr<OpUpdateSink> _OUS;
     std::shared_ptr<ICommandBase> _AAC;
     std::shared_ptr<ICommandBase> _ADC;
     std::shared_ptr<ICommandBase> _SPC;
+    std::shared_ptr<ICommandBase> _QDC;
     QPushButton *button1;
     QPushButton *button2;
     QLineEdit *addText;

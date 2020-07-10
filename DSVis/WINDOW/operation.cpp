@@ -10,6 +10,7 @@ operation::operation(QWidget *parent) :
     _AACS = std::make_shared<AAddCommandSink>(AAddCommandSink(this));
     _ADCS = std::make_shared<ADelCommandSink>(ADelCommandSink(this));
     _SPCS = std::make_shared<SPopCommandSink>(SPopCommandSink(this));
+    _QDCS = std::make_shared<QDeqCommandSink>(QDeqCommandSink(this));
     _OUS =  std::make_shared<OpUpdateSink>(OpUpdateSink(this));
     set_Array(NULL);
     qb=new QVBoxLayout(this);
@@ -64,7 +65,7 @@ void operation::show_button(){
         connect(button1,SIGNAL(clicked()),this,SLOT(on_add_button_clicked()));
         button2=new QPushButton("dequque",this);
         button2->setGeometry(610,280,160,35);
-        connect(button2,SIGNAL(clicked()),this,SLOT(on_pushButton_2_clicked()));
+        connect(button2,SIGNAL(clicked()),this,SLOT(on_deq_button_clicked()));
         qb->addWidget(addText);
         qb->addWidget(button1);
         qb->addWidget(button2);
@@ -81,6 +82,10 @@ std::shared_ptr<ICommandNotification> operation::getADCS(void){
 std::shared_ptr<ICommandNotification> operation::getSPCS(void){
 
     return std::static_pointer_cast<ICommandNotification>(_SPCS);
+}
+std::shared_ptr<ICommandNotification> operation::getQDCS(void){
+
+    return std::static_pointer_cast<ICommandNotification>(_QDCS);
 }
 std::shared_ptr<IPropertyNotification> operation::getOUS(void){
 
@@ -111,6 +116,9 @@ void operation::set_ptrADC(std::shared_ptr<ICommandBase> ptr){
 }
 void operation::set_ptrSPC(std::shared_ptr<ICommandBase> ptr){
     _SPC = ptr;
+}
+void operation::set_ptrQDC(std::shared_ptr<ICommandBase> ptr){
+    _QDC = ptr;
 }
 void operation::paintEvent(QPaintEvent *)
 {
@@ -347,7 +355,8 @@ void operation::on_add_button_clicked()
            QMessageBox::warning(this, tr("Waring"),tr("Input should be integer"),QMessageBox::Yes);
        }
    }
-    addText->setText("");
+    addText->setText(addText->text()); // convenient for testing
+    //addText->setText("");
 }
 
 void operation::on_del_button_clicked()
@@ -363,14 +372,15 @@ void operation::on_del_button_clicked()
             QMessageBox::warning(this, tr("Waring"),tr("Input should be integer"),QMessageBox::Yes);
         }
     }
-    delText->setText("");
+    delText->setText(delText->text());
 }
 
 void operation::on_pushButton_2_clicked()  //pop
 {
+    _SPC->Exec();
+}
 
-
-            _SPC->Exec();
-
-
+void operation::on_deq_button_clicked()  //dequeue
+{
+    _QDC->Exec();
 }

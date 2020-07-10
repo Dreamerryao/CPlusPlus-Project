@@ -7,6 +7,7 @@ ArrayViewModel::ArrayViewModel()
     _AAC = std::make_shared<ArrayAddCommand>(this);
     _ADC = std::make_shared<ArrayDelCommand>(this);
     _SPC = std::make_shared<StackPopCommand>(this);
+    _QDC = std::make_shared<QueueDeqCommand>(this);
 }
 
 void ArrayViewModel::setArrayModel(std::shared_ptr<ArrayModel> AM){
@@ -35,6 +36,13 @@ int ArrayViewModel::Exec_Adel_command(int I){
 std::shared_ptr<ICommandBase> ArrayViewModel::getStackPopCommand(){
     return std::static_pointer_cast<ICommandBase>(_SPC);
 }
-int ArrayViewModel::Exec_Spop_command(int I){
-    return _ArrayModel->pop(I);
+int ArrayViewModel::Exec_Spop_command(){
+    return _ArrayModel->pop();
+}
+
+std::shared_ptr<ICommandBase> ArrayViewModel::getQueueDeqCommand(){
+    return std::static_pointer_cast<ICommandBase>(_QDC);
+}
+int ArrayViewModel::Exec_Qdeq_command(){
+    return _ArrayModel->deq();
 }

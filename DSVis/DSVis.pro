@@ -22,6 +22,7 @@ SOURCES += \
     WINDOW/sinks/aaddcommandsink.cpp \
     WINDOW/sinks/adelcommandsink.cpp \
     WINDOW/sinks/opupdatesink.cpp \
+    WINDOW/sinks/qdeqcommandsink.cpp \
     WINDOW/sinks/spopcommandsink.cpp \
     WINDOW/testwindow.cpp \
     app/commands/aboutcommand.cpp \
@@ -38,6 +39,7 @@ SOURCES += \
     viewModel/arrayviewmodel.cpp \
     viewModel/commands/arrayaddcommand.cpp \
     viewModel/commands/arraydelcommand.cpp \
+    viewModel/commands/queuedeqcommand.cpp \
     viewModel/commands/stackpopcommand.cpp \
     viewModel/sinks/arraymodelsink.cpp
 
@@ -49,6 +51,7 @@ HEADERS += \
     WINDOW/sinks/aaddcommandsink.h \
     WINDOW/sinks/adelcommandsink.h \
     WINDOW/sinks/opupdatesink.h \
+    WINDOW/sinks/qdeqcommandsink.h \
     WINDOW/sinks/spopcommandsink.h \
     WINDOW/testwindow.h \
     app/app.h \
@@ -67,6 +70,7 @@ HEADERS += \
     viewModel/arrayviewmodel.h \
     viewModel/commands/arrayaddcommand.h \
     viewModel/commands/arraydelcommand.h \
+    viewModel/commands/queuedeqcommand.h \
     viewModel/commands/stackpopcommand.h \
     viewModel/sinks/arraymodelsink.h
 

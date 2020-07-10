@@ -12,7 +12,8 @@ public:
     std::shared_ptr<ARRAYC> getArrayc();
     void add(int a);
     int del(int a);
-    int pop(int a);
+    int pop();
+    int deq();
 private:
     std::shared_ptr<ARRAYC> _Array;
 };
