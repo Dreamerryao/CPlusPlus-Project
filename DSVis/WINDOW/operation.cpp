@@ -15,8 +15,11 @@ operation::operation(QWidget *parent) :
     _ADCS = std::make_shared<ADelCommandSink>(ADelCommandSink(this));
     _SPCS = std::make_shared<SPopCommandSink>(SPopCommandSink(this));
     _QDCS = std::make_shared<QDeqCommandSink>(QDeqCommandSink(this));
+    _TICS = std::make_shared<TInsCommandSink>(TInsCommandSink(this));
+    _TDCS = std::make_shared<TDelCommandSink>(TDelCommandSink(this));
     _OUS =  std::make_shared<OpUpdateSink>(OpUpdateSink(this));
     set_Array(NULL);
+    set_Tree(NULL);
     qb=new QVBoxLayout(this);
 }
 
@@ -115,6 +118,14 @@ std::shared_ptr<ICommandNotification> operation::getQDCS(void){
 
     return std::static_pointer_cast<ICommandNotification>(_QDCS);
 }
+std::shared_ptr<ICommandNotification> operation::getTICS(void){
+
+    return std::static_pointer_cast<ICommandNotification>(_TICS);
+}
+std::shared_ptr<ICommandNotification> operation::getTDCS(void){
+
+    return std::static_pointer_cast<ICommandNotification>(_TDCS);
+}
 std::shared_ptr<IPropertyNotification> operation::getOUS(void){
 
     return std::static_pointer_cast<IPropertyNotification>(_OUS);
@@ -152,6 +163,9 @@ void operation::setLabel(const std::string& str){
 void operation::set_Array(std::shared_ptr<ARRAYC> AC){
     this->_Array = AC;
 }
+void operation::set_Tree(std::shared_ptr<Tree> TC){
+    this->_Tree = TC;
+}
 
 void operation::set_ptrAAC(std::shared_ptr<ICommandBase> ptr){
     _AAC = ptr;
@@ -164,6 +178,12 @@ void operation::set_ptrSPC(std::shared_ptr<ICommandBase> ptr){
 }
 void operation::set_ptrQDC(std::shared_ptr<ICommandBase> ptr){
     _QDC = ptr;
+}
+void operation::set_ptrTIC(std::shared_ptr<ICommandBase> ptr){
+    _TIC = ptr;
+}
+void operation::set_ptrTDC(std::shared_ptr<ICommandBase> ptr){
+    _TDC = ptr;
 }
 
 void operation::paintEvent(QPaintEvent *)
@@ -409,7 +429,7 @@ void operation::paintEvent(QPaintEvent *)
         float xp[40];
         float yp[40];
         int qhead=0;
-        node *root=_Tree.getRoot();
+        node *root=_Tree->getTree();
         queue.push_back(root);
         xp[0]=260;
         yp[0]=180;

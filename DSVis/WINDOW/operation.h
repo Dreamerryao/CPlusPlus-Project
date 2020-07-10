@@ -12,6 +12,8 @@
 #include "sinks/adelcommandsink.h"
 #include "sinks/spopcommandsink.h"
 #include "sinks/qdeqcommandsink.h"
+#include "sinks/tinscommandsink.h"
+#include "sinks/tdelcommandsink.h"
 #include "sinks/opupdatesink.h"
 #include "square.h"
 #include <QWidget>
@@ -36,6 +38,9 @@ public:
     std::shared_ptr<ICommandNotification> getADCS(void);
     std::shared_ptr<ICommandNotification> getSPCS(void);
     std::shared_ptr<ICommandNotification> getQDCS(void);
+    void set_Tree(std::shared_ptr<Tree> TC);
+    std::shared_ptr<ICommandNotification> getTICS(void);
+    std::shared_ptr<ICommandNotification> getTDCS(void);
     std::shared_ptr<IPropertyNotification> getOUS(void);
     void setCancelCommand(std::shared_ptr<ICommandBase> ptr_cancel);
     void setLabel(const std::string& str);
@@ -44,6 +49,8 @@ public:
     void set_ptrADC(std::shared_ptr<ICommandBase> ptr);
     void set_ptrSPC(std::shared_ptr<ICommandBase> ptr);
     void set_ptrQDC(std::shared_ptr<ICommandBase> ptr);
+    void set_ptrTIC(std::shared_ptr<ICommandBase> ptr);
+    void set_ptrTDC(std::shared_ptr<ICommandBase> ptr);
     void show_button();
     void show_TQ();
     int type;
@@ -66,16 +73,21 @@ private:
     Ui::operation *ui;
     std::shared_ptr<ICommandBase> _getCancel;
     std::shared_ptr<ARRAYC> _Array;
-    Tree _Tree;
+    std::shared_ptr<Tree> _Tree;
+    //Tree _Tree;
     std::shared_ptr<AAddCommandSink> _AACS;
     std::shared_ptr<ADelCommandSink> _ADCS;
     std::shared_ptr<SPopCommandSink> _SPCS;
     std::shared_ptr<QDeqCommandSink> _QDCS;
+    std::shared_ptr<TInsCommandSink> _TICS;
+    std::shared_ptr<TDelCommandSink> _TDCS;
     std::shared_ptr<OpUpdateSink> _OUS;
     std::shared_ptr<ICommandBase> _AAC;
     std::shared_ptr<ICommandBase> _ADC;
     std::shared_ptr<ICommandBase> _SPC;
     std::shared_ptr<ICommandBase> _QDC;
+    std::shared_ptr<ICommandBase> _TIC;
+    std::shared_ptr<ICommandBase> _TDC;
     QPushButton *button1;
     QPushButton *button2;
     QLineEdit *addText;

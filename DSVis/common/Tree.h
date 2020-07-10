@@ -30,8 +30,9 @@ public:
         n2=new node;
         n2->value=4;
         n1->left=n2;
-        root.value=3;
-        root.left=n1;
+        root = new node;
+        root->value=3;
+        root->left=n1;
     }
     ~Tree(){}
     void InitialTree(){
@@ -43,6 +44,7 @@ public:
         n3=new node;
         n3->value=6;
         n2->right=n3;
+        root=new node;
         root->value=3;
         root->left=n1;
         root->right=n2;
@@ -53,7 +55,7 @@ public:
     }
     void Ins(int key){
         if(root == NULL){
-            root = new node();
+            root=new node();
             root->value = key;
             return;
         }
