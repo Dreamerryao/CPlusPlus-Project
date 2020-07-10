@@ -94,10 +94,10 @@ void operation::show_button(){
         delText->setGeometry(610,380,160,35);
         button1=new QPushButton("insert",this);
         button1->setGeometry(610,330,160,35);
-        connect(button1,SIGNAL(clicked()),this,SLOT(on_add_button_clicked()));
+        connect(button1,SIGNAL(clicked()),this,SLOT(on_Tins_button_clicked()));
         button2=new QPushButton("delete",this);
         button2->setGeometry(610,440,160,35);
-        connect(button2,SIGNAL(clicked()),this,SLOT(on_del_button_clicked()));
+        connect(button2,SIGNAL(clicked()),this,SLOT(on_Tdel_button_clicked()));
         qb->addWidget(addText);
         qb->addWidget(delText);
         qb->addWidget(button1);
@@ -569,4 +569,14 @@ void operation::on_pushButton_2_clicked()  //pop
 void operation::on_deq_button_clicked()  //dequeue
 {
     _QDC->Exec();
+}
+
+void operation::on_Tins_button_clicked(){
+    _TIC->SetParameter(addText->text().toInt());
+    _TIC->Exec();
+}
+
+void operation::on_Tdel_button_clicked(){
+    _TDC->SetParameter(delText->text().toInt());
+    _TDC->Exec();
 }

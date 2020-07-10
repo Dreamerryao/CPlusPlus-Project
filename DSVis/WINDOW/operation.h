@@ -69,8 +69,13 @@ private slots:
 
     void on_deq_button_clicked();
 
+    void on_Tins_button_clicked();
+
+    void on_Tdel_button_clicked();
+
     void hide_animation_add();
     void hide_animation_pop();
+
 
 private:
     Ui::operation *ui;

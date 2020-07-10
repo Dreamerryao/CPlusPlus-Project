@@ -51,6 +51,7 @@ public:
         return false;
     }
     void Ins(int key){
+//        qDebug()<<"key: "<<key<<endl;
         if(root == NULL){
             root=new node();
             root->value = key;
