@@ -30,8 +30,9 @@ public:
         n2=new node;
         n2->value=4;
         n1->left=n2;
-        root.value=3;
-        root.left=n1;
+        root = new node;
+        root->value=3;
+        root->left=n1;
     }
     ~Tree(){}
     void InitialTree(){
