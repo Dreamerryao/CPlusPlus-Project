@@ -14,10 +14,7 @@ public:
         left=NULL;
         right=NULL;
     }
-    ~node(){
-        delete left;
-        delete right;
-    }
+    ~node(){}
 };
 class Tree{
 private:
