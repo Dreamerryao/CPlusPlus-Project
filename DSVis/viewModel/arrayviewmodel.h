@@ -20,7 +20,7 @@ public:
     std::shared_ptr<ICommandBase> getArrayDelCommand();
     int Exec_Adel_command(int I);
     std::shared_ptr<ICommandBase> getStackPopCommand();
-    int Exec_Spop_command(int I);
+    int Exec_Spop_command();
 private:
     std::shared_ptr<ArrayModel> _ArrayModel;
     std::shared_ptr<ArrayModelSink> _AMSink;

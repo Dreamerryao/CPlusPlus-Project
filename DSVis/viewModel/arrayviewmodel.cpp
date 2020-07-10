@@ -35,6 +35,6 @@ int ArrayViewModel::Exec_Adel_command(int I){
 std::shared_ptr<ICommandBase> ArrayViewModel::getStackPopCommand(){
     return std::static_pointer_cast<ICommandBase>(_SPC);
 }
-int ArrayViewModel::Exec_Spop_command(int I){
-    return _ArrayModel->pop(I);
+int ArrayViewModel::Exec_Spop_command(){
+    return _ArrayModel->pop();
 }

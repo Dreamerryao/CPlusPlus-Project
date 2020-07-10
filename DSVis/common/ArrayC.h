@@ -57,7 +57,7 @@ class ARRAYC{
         if(!flag) return 0;
         return 1;
     }
-    int Pop(int a){
+    int Pop(){
         int flag = 0;
         if(Num.size()!=0){
             flag = 1;
