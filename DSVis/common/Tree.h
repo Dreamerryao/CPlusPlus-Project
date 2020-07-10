@@ -14,10 +14,7 @@ public:
         left=NULL;
         right=NULL;
     }
-    ~node(){
-        delete left;
-        delete right;
-    }
+    ~node(){}
 };
 class Tree{
 private:
@@ -30,7 +27,11 @@ public:
         n2=new node;
         n2->value=4;
         n1->left=n2;
+<<<<<<< HEAD
         root = new node;
+=======
+        root=new node;
+>>>>>>> b739d70391f19a40ffd6080c36a8048b5da4572b
         root->value=3;
         root->left=n1;
     }
@@ -44,6 +45,7 @@ public:
         n3=new node;
         n3->value=6;
         n2->right=n3;
+        root=new node;
         root->value=3;
         root->left=n1;
         root->right=n2;
