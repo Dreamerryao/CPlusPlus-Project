@@ -10,5 +10,6 @@ void changeCommand::Exec(){
     (ptrApp->getModel1_main())->close();
     (ptrApp->getOp())->setLabel(ptrApp->getModel1_main()->TT);
     (ptrApp->getOp())->type=(ptrApp->getModel1_main())->type;
+    (ptrApp->getOp())->show_button();
     (ptrApp->getOp())->show();
 }

@@ -11,6 +11,11 @@
 #include "sinks/adelcommandsink.h"
 #include "sinks/spopcommandsink.h"
 #include "sinks/opupdatesink.h"
+#include <QWidget>
+#include <QLineEdit>
+#include <QPushButton>
+#include <QVBoxLayout>
+
 
 namespace Ui {
 class operation;
@@ -34,6 +39,7 @@ public:
     void set_ptrAAC(std::shared_ptr<ICommandBase> ptr);
     void set_ptrADC(std::shared_ptr<ICommandBase> ptr);
     void set_ptrSPC(std::shared_ptr<ICommandBase> ptr);
+    void show_button();
     int type;
 
 private slots:
@@ -56,6 +62,11 @@ private:
     std::shared_ptr<ICommandBase> _AAC;
     std::shared_ptr<ICommandBase> _ADC;
     std::shared_ptr<ICommandBase> _SPC;
+    QPushButton *button1;
+    QPushButton *button2;
+    QLineEdit *addText;
+    QLineEdit *delText;
+    QVBoxLayout *qb;
 };
 
 #endif // OPERATION_H

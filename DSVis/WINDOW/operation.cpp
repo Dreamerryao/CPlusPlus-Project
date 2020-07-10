@@ -12,11 +12,63 @@ operation::operation(QWidget *parent) :
     _SPCS = std::make_shared<SPopCommandSink>(SPopCommandSink(this));
     _OUS =  std::make_shared<OpUpdateSink>(OpUpdateSink(this));
     set_Array(NULL);
+    qb=new QVBoxLayout(this);
 }
 
 operation::~operation()
 {
     delete ui;
+}
+
+void operation::show_button(){
+    QLayoutItem *child;
+     while ((child = qb->takeAt(0)) != 0){
+            if(child->widget()){
+                child->widget()->setParent(NULL);
+            }
+            delete child;
+     }
+    if(type==1 || type==2){
+        addText=new QLineEdit("",this);
+        addText->setGeometry(610,280,160,35);
+        delText=new QLineEdit("",this);
+        delText->setGeometry(610,380,160,35);
+        button1=new QPushButton("add",this);
+        button1->setGeometry(610,330,160,35);
+        connect(button1,SIGNAL(clicked()),this,SLOT(on_add_button_clicked()));
+        button2=new QPushButton("delete",this);
+        button2->setGeometry(610,440,160,35);
+        connect(button2,SIGNAL(clicked()),this,SLOT(on_del_button_clicked()));
+        qb->addWidget(addText);
+        qb->addWidget(delText);
+        qb->addWidget(button1);
+        qb->addWidget(button2);
+    }
+    else if(type==4){
+        addText=new QLineEdit("",this);
+        addText->setGeometry(610,330,160,35);
+        button1=new QPushButton("push",this);
+        button1->setGeometry(610,380,160,35);
+        connect(button1,SIGNAL(clicked()),this,SLOT(on_add_button_clicked()));
+        button2=new QPushButton("pop",this);
+        button2->setGeometry(610,280,160,35);
+        connect(button2,SIGNAL(clicked()),this,SLOT(on_pushButton_2_clicked()));
+        qb->addWidget(addText);
+        qb->addWidget(button1);
+        qb->addWidget(button2);
+    }else if(type==5){
+        addText=new QLineEdit("",this);
+        addText->setGeometry(610,330,160,35);
+        button1=new QPushButton("enqueue",this);
+        button1->setGeometry(610,380,160,35);
+        connect(button1,SIGNAL(clicked()),this,SLOT(on_add_button_clicked()));
+        button2=new QPushButton("dequque",this);
+        button2->setGeometry(610,280,160,35);
+        connect(button2,SIGNAL(clicked()),this,SLOT(on_pushButton_2_clicked()));
+        qb->addWidget(addText);
+        qb->addWidget(button1);
+        qb->addWidget(button2);
+    }
 }
 std::shared_ptr<ICommandNotification> operation::getAACS(void){
 
@@ -244,39 +296,74 @@ void operation::paintEvent(QPaintEvent *)
                 }
             }
         }
+    }else if(type==5){
+        int i;
+        int size =_Array->getSize();
+        painter.drawLine(40,200,580,200);
+        painter.drawLine(40,260,580,260);
+        if(size<12){
+            for(i=0;i<size;i++){
+                int wow = _Array->getNumIndex(i);
+                QRect boundingRect;
+                painter.drawText(40+50*i, 210,40,40,Qt::AlignCenter,QString::number(wow),&boundingRect);
+                QRectF rectangle(40+50*i, 210, 40, 40);
+                painter.drawRoundedRect(rectangle, 5.0, 5.0);
+            }
+        }else{
+            for(i=0;i<5;i++){
+                int wow = _Array->getNumIndex(i);
+                QRect boundingRect;
+                painter.drawText(40+50*i, 210,40,40,Qt::AlignCenter,QString::number(wow),&boundingRect);
+                QRectF rectangle(40+50*i, 210, 40, 40);
+                painter.drawRoundedRect(rectangle, 5.0, 5.0);
+            }
+            QRect boundingRect;
+            painter.drawText(40+50*5, 210,40,40,Qt::AlignCenter,"...",&boundingRect);
+            QRectF rectangle(40+50*5, 210, 40, 40);
+            painter.drawRoundedRect(rectangle, 5.0, 5.0);
+            int num=6;
+            for(i=size-5;i<size;i++){
+                int wow = _Array->getNumIndex(i);
+                QRect boundingRect;
+                painter.drawText(40+50*num, 210,40,40,Qt::AlignCenter,QString::number(wow),&boundingRect);
+                QRectF rectangle(40+50*num, 210, 40, 40);
+                painter.drawRoundedRect(rectangle, 5.0, 5.0);
+                num++;
+            }
+        }
     }
 }
 
 void operation::on_add_button_clicked()
 {
-   if(ui->addLineEdit->text()==""){
+   if(addText->text()==""){
        QMessageBox::warning(this, tr("Waring"),tr("Input can't empty!"),QMessageBox::Yes);
    }
    else{
        try {
-           _AAC->SetParameter(ui->addLineEdit->text().toInt());
+           _AAC->SetParameter(addText->text().toInt());
            _AAC->Exec();
        } catch (const char *msg) {
            QMessageBox::warning(this, tr("Waring"),tr("Input should be integer"),QMessageBox::Yes);
        }
    }
-    ui->addLineEdit->setText("");
+    addText->setText("");
 }
 
 void operation::on_del_button_clicked()
 {
-    if(ui->delText->text()==""){
+    if(delText->text()==""){
         QMessageBox::warning(this, tr("Waring"),tr("Input can't empty!"),QMessageBox::Yes);
     }
     else{
         try {
-            _ADC->SetParameter(ui->delText->text().toInt());
+            _ADC->SetParameter(delText->text().toInt());
             _ADC->Exec();
         } catch (const char *msg) {
             QMessageBox::warning(this, tr("Waring"),tr("Input should be integer"),QMessageBox::Yes);
         }
     }
-    ui->delText->setText("");
+    delText->setText("");
 }
 
 void operation::on_pushButton_2_clicked()  //pop

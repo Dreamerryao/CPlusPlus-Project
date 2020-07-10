@@ -14,19 +14,6 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>650</x>
-      <y>510</y>
-      <width>112</width>
-      <height>34</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>cancel</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="type">
     <property name="geometry">
      <rect>
@@ -49,63 +36,17 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QPushButton" name="del_button">
+   <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>650</x>
-      <y>450</y>
-      <width>112</width>
+      <x>610</x>
+      <y>500</y>
+      <width>158</width>
       <height>34</height>
      </rect>
     </property>
     <property name="text">
-     <string>delete</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="add_button">
-    <property name="geometry">
-     <rect>
-      <x>650</x>
-      <y>320</y>
-      <width>112</width>
-      <height>34</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>add</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="addLineEdit">
-    <property name="geometry">
-     <rect>
-      <x>650</x>
-      <y>270</y>
-      <width>113</width>
-      <height>25</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="delText">
-    <property name="geometry">
-     <rect>
-      <x>650</x>
-      <y>390</y>
-      <width>113</width>
-      <height>25</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_2">
-    <property name="geometry">
-     <rect>
-      <x>650</x>
-      <y>210</y>
-      <width>112</width>
-      <height>34</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>pop</string>
+     <string>cancel</string>
     </property>
    </widget>
   </widget>

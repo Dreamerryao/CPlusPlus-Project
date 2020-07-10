@@ -41,7 +41,7 @@
      <item row="3" column="0">
       <widget class="QPushButton" name="pushButton_3">
        <property name="text">
-        <string>matrix</string>
+        <string>binary queue</string>
        </property>
       </widget>
      </item>

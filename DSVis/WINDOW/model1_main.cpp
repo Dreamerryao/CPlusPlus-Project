@@ -42,7 +42,7 @@ void model1_main::on_pushButton_2_clicked()
 
 void model1_main::on_pushButton_3_clicked()
 {
-     TT = "Matrix";
+     TT = "Binary queue";
      type=3;
     _getChange->Exec();
 
