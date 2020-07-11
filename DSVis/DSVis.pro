@@ -20,6 +20,7 @@ SOURCES += \
     WINDOW/model1_main.cpp \
     WINDOW/operation.cpp \
     WINDOW/sinks/aaddcommandsink.cpp \
+    WINDOW/sinks/aaddcommandsinkmode2.cpp \
     WINDOW/sinks/adelcommandsink.cpp \
     WINDOW/sinks/anewcommandsink.cpp \
     WINDOW/sinks/areplacecommandsink.cpp \
@@ -62,6 +63,7 @@ HEADERS += \
     WINDOW/model1_main.h \
     WINDOW/operation.h \
     WINDOW/sinks/aaddcommandsink.h \
+    WINDOW/sinks/aaddcommandsinkmode2.h \
     WINDOW/sinks/adelcommandsink.h \
     WINDOW/sinks/anewcommandsink.h \
     WINDOW/sinks/areplacecommandsink.h \

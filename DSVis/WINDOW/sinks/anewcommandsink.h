@@ -4,14 +4,14 @@
 
 #include"../../common/etlbase.h"
 #include "qmessagebox.h"
-class operation;
+class Model2_main;
 class ANewCommandSink: public ICommandNotification
 {
 public:
-    ANewCommandSink(operation* ptr);
+    ANewCommandSink(Model2_main* ptr);
     virtual void OnCommandComplete(const std::string& str, bool bOK);
 private:
-     operation * _Op;
+     Model2_main * _Op;
 };
 
 #endif // ANEWCOMMANDSINK_H

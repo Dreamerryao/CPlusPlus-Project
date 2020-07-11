@@ -1,6 +1,6 @@
 #include "areplacecommandsink.h"
-#include "../operation.h"
-AReplaceCommandSink::AReplaceCommandSink(operation *ptr)
+#include "../model2_main.h"
+AReplaceCommandSink::AReplaceCommandSink(Model2_main *ptr)
 {
     _Op = ptr;
 }
