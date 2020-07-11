@@ -439,30 +439,32 @@ void operation::paintEvent(QPaintEvent *)
         float yp[40];
         int qhead=0;
         node *root=_Tree->getTree();
-        queue.push_back(root);
-        xp[0]=260;
-        yp[0]=180;
-        int qsize=0;
-        while(qhead<queue.size()){
-            root = queue[qhead];
-            QRect boundingRect;
-            painter.drawText(xp[qhead], yp[qhead],40,40,Qt::AlignCenter,QString::number(root->value),&boundingRect);
-            painter.drawEllipse(xp[qhead],yp[qhead],40,40);
-            if(root->left!=NULL){
-                queue.push_back(root->left);
-                qsize++;
-                xp[qsize]=xp[qhead]-40;
-                yp[qsize]=yp[qhead]+80;
-                painter.drawLine(xp[qhead]+20,yp[qhead]+40,xp[qsize]+20,yp[qsize]);
+        if(root!=NULL){
+            queue.push_back(root);
+            xp[0]=260;
+            yp[0]=180;
+            int qsize=0;
+            while(qhead<queue.size()){
+                root = queue[qhead];
+                QRect boundingRect;
+                painter.drawText(xp[qhead], yp[qhead],40,40,Qt::AlignCenter,QString::number(root->value),&boundingRect);
+                painter.drawEllipse(xp[qhead],yp[qhead],40,40);
+                if(root->left!=NULL){
+                    queue.push_back(root->left);
+                    qsize++;
+                    xp[qsize]=xp[qhead]-40;
+                    yp[qsize]=yp[qhead]+80;
+                    painter.drawLine(xp[qhead]+20,yp[qhead]+40,xp[qsize]+20,yp[qsize]);
+                }
+                if(root->right!=NULL){
+                    queue.push_back(root->right);
+                    qsize++;
+                    xp[qsize]=xp[qhead]+40;
+                    yp[qsize]=yp[qhead]+80;
+                    painter.drawLine(xp[qhead]+20,yp[qhead]+40,xp[qsize]+20,yp[qsize]);
+                }
+                qhead++;
             }
-            if(root->right!=NULL){
-                queue.push_back(root->right);
-                qsize++;
-                xp[qsize]=xp[qhead]+40;
-                yp[qsize]=yp[qhead]+80;
-                painter.drawLine(xp[qhead]+20,yp[qhead]+40,xp[qsize]+20,yp[qsize]);
-            }
-            qhead++;
         }
     }
 }
