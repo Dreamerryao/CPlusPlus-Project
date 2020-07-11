@@ -106,7 +106,8 @@ public:
                 break;
             }
         }
-        if(root == NULL){
+        if(root == NULL){ //not found
+           root = newroot;
            return 0;
         }
         else{
