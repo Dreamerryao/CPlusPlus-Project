@@ -22,6 +22,8 @@ jobs:
       matrix:
         qt_ver: [5.12.6]
         qt_target: [desktop]
+        # mingw用不了
+        # qt_arch: [win64_msvc2017_64, win32_msvc2017, win32_mingw53,win32_mingw73]
         qt_arch: [win64_msvc2017_64, win32_msvc2017]
         # 额外设置msvc_arch
         include:
@@ -34,11 +36,27 @@ jobs:
     env:
       targetName: HelloActions-Qt.exe
     # 步骤
-    steps:  
+    steps:
+      - name: cacheQt
+        id: WindowsCacheQt
+        uses: actions/cache@v1
+        with:
+          path: ../Qt/${{matrix.qt_ver}}/${{matrix.qt_arch_install}}
+          key: ${{ runner.os }}-Qt/${{matrix.qt_ver}}/${{matrix.qt_arch}}
+      # - name: setupQt
+      #   if: steps.WindowsCacheQt.outputs.cache-hit == 'true'
+      #   shell: pwsh
+      #   env:
+      #     QtPath: ../Qt/${{matrix.qt_ver}}/${{matrix.qt_arch_install}}
+      #   run: |
+      #     $qt_Path=${env:QtPath}
+      #     echo "::set-env name=Qt5_Dir::$qt_Path"
+      #     echo "::add-path::$qt_Path/bin"          
       # 安装Qt
       - name: Install Qt
+        # if: steps.WindowsCacheQt.outputs.cache-hit != 'true'
         # 使用外部action。这个action专门用来安装Qt
-        uses: jurplel/install-qt-action@v2.0.0
+        uses: jurplel/install-qt-action@v2.5.3
         with:
           # Version of Qt to install
           version: ${{ matrix.qt_ver }}
@@ -46,6 +64,7 @@ jobs:
           target: ${{ matrix.qt_target }}
           # Architecture for Windows/Android
           arch: ${{ matrix.qt_arch }}
+          cached: ${{steps.WindowsCacheQt.outputs.cache-hit }}
       # 拉取代码
       - uses: actions/checkout@v1
         with:
@@ -56,14 +75,14 @@ jobs:
         env:
           vc_arch: ${{ matrix.msvc_arch }}
         run: |
-          call "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvarsall.bat" %vc_arch%
+          call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" %vc_arch%
           qmake
           nmake
       # tag 打包
       - name: package
         if: startsWith(github.event.ref, 'refs/tags/')
         env:
-          VCINSTALLDIR: 'C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC'
+          VCINSTALLDIR: 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC'
           archiveName: ${{ matrix.qt_ver }}-${{ matrix.qt_target }}-${{ matrix.qt_arch }}
         shell: pwsh
         run: |
