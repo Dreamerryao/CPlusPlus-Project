@@ -12,9 +12,6 @@ void TreeDelCommand::SetParameter(const _new_any_space_::any& param)
 
 void TreeDelCommand::Exec()
 {
-    if(ptr_TVM->Exec_Tdel_command(oh))
-    ptr_TVM->Fire_OnCommandComplete("TreeDelCommand", true);
-    else
-    ptr_TVM->Fire_OnCommandComplete("TreeDelCommand", false);
+    ptr_TVM->Fire_OnCommandComplete("TreeDelCommand", ptr_TVM->_TreeModel->del(oh));
 }
 

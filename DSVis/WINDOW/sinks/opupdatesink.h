@@ -4,15 +4,15 @@
 
 #include"../../common/etlbase.h"
 
-class operation;
+class Mode1_display;
 class OpUpdateSink: public IPropertyNotification
 {
 public:
-    OpUpdateSink(operation *ptr);
+    OpUpdateSink(Mode1_display *ptr);
     virtual void OnPropertyChanged(const std::string& str);
 
 private:
-   operation * _Op;
+   Mode1_display * _Op;
 };
 
 

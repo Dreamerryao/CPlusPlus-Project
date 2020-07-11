@@ -1,6 +1,6 @@
 #include "opupdatesink.h"
-#include "../operation.h"
-OpUpdateSink::OpUpdateSink(operation *ptr)
+#include "../mode1_display.h"
+OpUpdateSink::OpUpdateSink(Mode1_display *ptr)
 {
 
     _Op = ptr;

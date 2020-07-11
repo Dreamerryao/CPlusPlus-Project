@@ -11,62 +11,58 @@ app::~app()
 
 void app::run(){
 
+    //model初始化
     model = std::make_shared<ArrayModel>();
     Tmodel = std::make_shared<TreeModel>();
 
-
+    //viewModel初始化，绑定model
     viewmodel = std::make_shared<ArrayViewModel>();
     viewmodel->setArrayModel(model);
     Tviewmodel = std::make_shared<TreeViewModel>();
     Tviewmodel->setTreeModel(Tmodel);
 
-    _operationP.set_ptrAAC(viewmodel->getArrayAddCommand());
-    _operationP.set_ptrADC(viewmodel->getArrayDelCommand());
-    _operationP.set_ptrSPC(viewmodel->getStackPopCommand());
-    _operationP.set_ptrQDC(viewmodel->getQueueDeqCommand());
-    _operationP.set_ptrTIC(Tviewmodel->getTreeInsCommand());
-    _operationP.set_ptrTDC(Tviewmodel->getTreeDelCommand());
-    _operationP.set_Array(viewmodel->getArray());
-    _operationP.set_Tree(Tviewmodel->getTree());
+    //对Mode1的展示界面进行命令的绑定，如array add command
+    _Mode1_displayP.set_ptrAAC(viewmodel->getArrayAddCommand());
+    _Mode1_displayP.set_ptrADC(viewmodel->getArrayDelCommand());
+    _Mode1_displayP.set_ptrSPC(viewmodel->getStackPopCommand());
+    _Mode1_displayP.set_ptrQDC(viewmodel->getQueueDeqCommand());
+    _Mode1_displayP.set_ptrTIC(Tviewmodel->getTreeInsCommand());
+    _Mode1_displayP.set_ptrTDC(Tviewmodel->getTreeDelCommand());
+    _Mode1_displayP.set_Array(viewmodel->getArray());
+    _Mode1_displayP.set_Tree(Tviewmodel->getTree());
 
-    viewmodel->AddCommandNotification(_operationP.getAACS());
-    viewmodel->AddCommandNotification(_operationP.getADCS());
-    viewmodel->AddCommandNotification(_operationP.getSPCS());
-    viewmodel->AddCommandNotification(_operationP.getQDCS());
-    viewmodel->AddPropertyNotification(_operationP.getOUS());
+    //ViewModel 添加notification
+    viewmodel->AddCommandNotification(_Mode1_displayP.getM1CS());
+    viewmodel->AddPropertyNotification(_Mode1_displayP.getOUS());
+    Tviewmodel->AddCommandNotification(_Mode1_displayP.getM1CS());
+    Tviewmodel->AddPropertyNotification(_Mode1_displayP.getOUS());
 
-    Tviewmodel->AddCommandNotification(_operationP.getTICS());
-    Tviewmodel->AddCommandNotification(_operationP.getTDCS());
-    Tviewmodel->AddPropertyNotification(_operationP.getOUS());
-
-
-
-    _testBC = std::make_shared<testButtonCommand>(this);
+    //界面跳转相关命令
     _M1Command = std::make_shared<M1Command>(this);
     _M2Command = std::make_shared<M2Command>(this);
     _AboutCommand = std::make_shared<AboutCommand>(this);
-    _getLine=std::make_shared<getlineCommand>(this);
     _cancelCommand=std::make_shared<cancelCommand>(this);
     _changeCommand=std::make_shared<changeCommand>(this);
 
-    //_testWindow.setTestCommand(std::static_pointer_cast<ICommandBase>(this->_testBC));
-    _firstPage.set_ptrM1Command(std::static_pointer_cast<ICommandBase>(this->_M1Command));
-    _firstPage.set_ptrM2Command(std::static_pointer_cast<ICommandBase>(this->_M2Command));
-    _firstPage.set_ptrAboutCommand(std::static_pointer_cast<ICommandBase>(this->_AboutCommand));
-    _Model2_main.setGetCommand(std::static_pointer_cast<ICommandBase>(this->_getLine));
-    _Model1_main.setChangeCommand(std::static_pointer_cast<ICommandBase>(this->_changeCommand));
-    _aboutPage.set_ptrCancel(std::static_pointer_cast<ICommandBase>(this->_cancelCommand));
-    //_testWindow.setCancelCommand(std::static_pointer_cast<ICommandBase>(this->_cancelCommand1));
-    _Model1_main.setCancelCommand(std::static_pointer_cast<ICommandBase>(this->_cancelCommand));
-    _Model2_main.setCancelCommand(std::static_pointer_cast<ICommandBase>(this->_cancelCommand));
-    _operationP.setCancelCommand(std::static_pointer_cast<ICommandBase>(this->_cancelCommand));
+    //firstPage绑定 转到 Mode1,Mode2,About界面的命令
+    _firstPage.set_ptrM1Command(this->_M1Command);
+    _firstPage.set_ptrM2Command(this->_M2Command);
+    _firstPage.set_ptrAboutCommand(this->_AboutCommand);
 
+    //mode1_main绑定 转到Mode1_display界面的命令
+    _Model1_main.setChangeCommand(this->_changeCommand);
+
+    //返回FirstPage命令
+    _aboutPage.set_ptrCancel(this->_cancelCommand);
+    _Model1_main.setCancelCommand(this->_cancelCommand);
+    _Model2_main.setCancelCommand(this->_cancelCommand);
+    _Mode1_displayP.setCancelCommand(this->_cancelCommand);
+
+    //显示初始界面
     _firstPage.show();
 }
 
-testWindow* app::getTest(){
-    return & _testWindow;
-}
+
 
 FirstPage* app::getFirstPage(){
     return & _firstPage;
@@ -84,6 +80,6 @@ about* app::getAbout(){
     return & _aboutPage;
 }
 
-operation* app::getOp(){
-    return & _operationP;
+Mode1_display* app::getOp(){
+    return & _Mode1_displayP;
 }

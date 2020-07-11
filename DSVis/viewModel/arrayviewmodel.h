@@ -9,29 +9,23 @@
 #include "commands/queuedeqcommand.h"
 #include "commands/arrayreplacecommand.h"
 #include "commands/arraynewcommand.h"
-
 class ArrayViewModel:public Proxy_PropertyNotification<ArrayViewModel>,
         public Proxy_CommandNotification<ArrayViewModel>
 {
 public:
     ArrayViewModel();
     ~ArrayViewModel(){}
-    void setArrayModel(std::shared_ptr<ArrayModel> AM);
+    void setArrayModel(const std::shared_ptr<ArrayModel> &AM);
     std::shared_ptr<ARRAYC> getArray();
     std::shared_ptr<ICommandBase> getArrayAddCommand();
-    void Exec_Aadd_command(int I);
     std::shared_ptr<ICommandBase> getArrayDelCommand();
-    int Exec_Adel_command(int I);
     std::shared_ptr<ICommandBase> getStackPopCommand();
-    int Exec_Spop_command();
     std::shared_ptr<ICommandBase> getQueueDeqCommand();
-    int Exec_Qdeq_command();
     std::shared_ptr<ICommandBase> getArrayReplaceCommand();
-    int Exec_ARep_command(int index,int newValue);
     std::shared_ptr<ICommandBase> getArrayNewCommand();
-    void Exec_ANew_command(int size);
-private:
     std::shared_ptr<ArrayModel> _ArrayModel;
+
+private:
     std::shared_ptr<ArrayModelSink> _AMSink;
     std::shared_ptr<ArrayAddCommand> _AAC;
     std::shared_ptr<ArrayDelCommand> _ADC;

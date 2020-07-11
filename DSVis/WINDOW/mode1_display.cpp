@@ -1,22 +1,18 @@
-#include "operation.h"
-#include "ui_operation.h"
+#include "mode1_display.h"
+#include "ui_mode1_display.h"
 #include <QRect>
 #include <QPropertyAnimation>
 #include <QSequentialAnimationGroup>
-operation::operation(QWidget *parent) :
+Mode1_display::Mode1_display(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::operation)
+    ui(new Ui::Mode1_display)
 {
 
     ui->setupUi(this);
 
 
-    _AACS = std::make_shared<AAddCommandSink>(AAddCommandSink(this));
-    _ADCS = std::make_shared<ADelCommandSink>(ADelCommandSink(this));
-    _SPCS = std::make_shared<SPopCommandSink>(SPopCommandSink(this));
-    _QDCS = std::make_shared<QDeqCommandSink>(QDeqCommandSink(this));
-    _TICS = std::make_shared<TInsCommandSink>(TInsCommandSink(this));
-    _TDCS = std::make_shared<TDelCommandSink>(TDelCommandSink(this));
+    _M1CS = std::make_shared<Mode1_displayCommandSink>(Mode1_displayCommandSink(this));
+
     _OUS =  std::make_shared<OpUpdateSink>(OpUpdateSink(this));
 
     set_Array(NULL);
@@ -24,12 +20,12 @@ operation::operation(QWidget *parent) :
     qb=new QVBoxLayout(this);
 }
 
-operation::~operation()
+Mode1_display::~Mode1_display()
 {
     delete ui;
 }
 
-void operation::show_TQ(){
+void Mode1_display::show_TQ(){
     if(type==4){
         _QP = new Square(this);
         _QP->resize(100,100);
@@ -38,7 +34,192 @@ void operation::show_TQ(){
     }
 
 }
-void operation::show_button(){
+
+std::shared_ptr<ICommandNotification> Mode1_display::getM1CS(void){
+    return _M1CS;
+}
+
+std::shared_ptr<IPropertyNotification> Mode1_display::getOUS(void){
+
+    return _OUS;
+}
+void Mode1_display::on_pushButton_clicked()
+{
+    _getCancel->Exec();
+}
+
+void Mode1_display::hide_animation_add(){
+    _QP->hide();
+    if(type==4){
+        try {
+            _AAC->SetParameter(addText->text().toInt());
+            _AAC->Exec();
+        } catch (const char *msg) {
+            QMessageBox::warning(this, tr("Waring"),tr("Input should be integer"),QMessageBox::Yes);
+        }
+    }
+}
+void Mode1_display::hide_animation_pop(){
+    _QP->hide();
+//    if(type==4){
+//       _SPC->Exec();
+//    }
+}
+void Mode1_display::setCancelCommand(const std::shared_ptr<ICommandBase> &ptr_cancel){
+    _getCancel=ptr_cancel;
+}
+
+void Mode1_display::setLabel(const std::string& str){
+//    std::string r = str;
+   ui->type->setText(str.c_str());
+}
+void Mode1_display::set_Array(const std::shared_ptr<ARRAYC> &AC){
+    this->_Array = AC;
+}
+void Mode1_display::set_Tree(const std::shared_ptr<Tree> &TC){
+    this->_Tree = TC;
+
+}
+
+void Mode1_display::set_ptrAAC(const std::shared_ptr<ICommandBase> &ptr){
+    _AAC = ptr;
+}
+void Mode1_display::set_ptrADC(const std::shared_ptr<ICommandBase> &ptr){
+    _ADC = ptr;
+}
+void Mode1_display::set_ptrSPC(const std::shared_ptr<ICommandBase> &ptr){
+    _SPC = ptr;
+}
+void Mode1_display::set_ptrQDC(const std::shared_ptr<ICommandBase> &ptr){
+    _QDC = ptr;
+}
+
+void Mode1_display::set_ptrTIC(const std::shared_ptr<ICommandBase> &ptr){
+    _TIC = ptr;
+}
+void Mode1_display::set_ptrTDC(const std::shared_ptr<ICommandBase> &ptr){
+    _TDC = ptr;
+}
+
+void Mode1_display::on_add_button_clicked()
+{
+   if(addText->text()==""){
+       QMessageBox::warning(this, tr("Waring"),tr("Input can't empty!"),QMessageBox::Yes);
+   }
+   else{
+       if(type==4){
+           //stack动画
+           _QP->show();
+           _QP->setValue(addText->text().toInt());
+           QPropertyAnimation* animation1 = new QPropertyAnimation(_QP, "pos") ;
+           animation1->setDuration(500);
+           animation1->setStartValue(QPoint(100,100));
+           animation1->setEndValue(QPoint(220,100));
+           QPropertyAnimation* animation2 = new QPropertyAnimation(_QP, "pos") ;
+           animation2->setDuration(700);
+
+           animation2->setStartValue(QPoint(220,100));
+           int size =_Array->getSize();
+           if(size>=8)
+           animation2->setEndValue(QPoint(220,110));
+           else
+           animation2->setEndValue(QPoint(220,510-50*size));
+           QSequentialAnimationGroup *sequGroup = new QSequentialAnimationGroup(this);
+           sequGroup->addAnimation(animation1);
+           sequGroup->addAnimation(animation2);
+           sequGroup->start();
+           connect(sequGroup,SIGNAL(finished()),this,SLOT(hide_animation_add()));
+       }
+       else{
+               _AAC->SetParameter(addText->text().toInt());
+               _AAC->Exec();
+       }
+   }
+    addText->setText(addText->text()); // convenient for testing
+    //addText->setText("");
+}
+
+void Mode1_display::on_del_button_clicked()
+{
+    if(delText->text()==""){
+        QMessageBox::warning(this, tr("Waring"),tr("Input can't empty!"),QMessageBox::Yes);
+    }
+    else{
+            _ADC->SetParameter(delText->text().toInt());
+            _ADC->Exec();
+    }
+    delText->setText(delText->text());
+}
+
+void Mode1_display::on_pushButton_2_clicked()  //pop
+{
+
+     if(type==4){//堆栈动画
+         if(_Array->isArrayNull())  QMessageBox::warning(this, tr("Waring"),tr("Stack is empty!"),QMessageBox::Yes);
+         else{
+
+             _QP->show();
+             int size =_Array->getSize();
+             _QP->setValue(_Array->getNumIndex(size-1));
+             _SPC->Exec();
+             QPropertyAnimation* animation1 = new QPropertyAnimation(_QP, "pos") ;
+             animation1->setDuration(500);
+             animation1->setStartValue(QPoint(220,100));
+             animation1->setEndValue(QPoint(700,100));
+             QPropertyAnimation* animation2 = new QPropertyAnimation(_QP, "pos") ;
+             if(size>=7){
+                 animation2->setDuration(100);
+                 animation2->setStartValue(QPoint(220,110));
+             }
+
+             else{
+                 animation2->setStartValue(QPoint(220,510-50*size));
+                 animation2->setDuration((510-50*size-100)*3);
+             }
+
+             animation2->setEndValue(QPoint(220,100));
+
+             QSequentialAnimationGroup *sequGroup = new QSequentialAnimationGroup(this);
+             sequGroup->addAnimation(animation2);
+             sequGroup->addAnimation(animation1);
+             sequGroup->start();
+             connect(sequGroup,SIGNAL(finished()),this,SLOT(hide_animation_pop()));
+         }
+
+     }
+}
+
+void Mode1_display::set_treeType(){
+    _Tree->type = type;
+    _Tree->InitialTree();
+}
+
+void Mode1_display::set_arrayType(){
+    if(type==6){
+        _Array->type=1;
+    }
+    else{
+        _Array->type=0;
+    }
+    _Array->InitArrayc();
+}
+
+void Mode1_display::on_deq_button_clicked()  //dequeue
+{
+    _QDC->Exec();
+}
+
+void Mode1_display::on_Tins_button_clicked(){
+    _TIC->SetParameter(addText->text().toInt());
+    _TIC->Exec();
+}
+
+void Mode1_display::on_Tdel_button_clicked(){
+    _TDC->SetParameter(delText->text().toInt());
+    _TDC->Exec();
+}
+
+void Mode1_display::show_button(){
     QLayoutItem *child;
      while ((child = qb->takeAt(0)) != 0){
             if(child->widget()){
@@ -115,92 +296,8 @@ void operation::show_button(){
         qb->addWidget(button2);
     }
 }
-std::shared_ptr<ICommandNotification> operation::getAACS(void){
 
-    return std::static_pointer_cast<ICommandNotification>(_AACS);
-}
-std::shared_ptr<ICommandNotification> operation::getADCS(void){
-
-    return std::static_pointer_cast<ICommandNotification>(_ADCS);
-}
-std::shared_ptr<ICommandNotification> operation::getSPCS(void){
-
-    return std::static_pointer_cast<ICommandNotification>(_SPCS);
-}
-std::shared_ptr<ICommandNotification> operation::getQDCS(void){
-
-    return std::static_pointer_cast<ICommandNotification>(_QDCS);
-}
-std::shared_ptr<ICommandNotification> operation::getTICS(void){
-
-    return std::static_pointer_cast<ICommandNotification>(_TICS);
-}
-std::shared_ptr<ICommandNotification> operation::getTDCS(void){
-
-    return std::static_pointer_cast<ICommandNotification>(_TDCS);
-}
-std::shared_ptr<IPropertyNotification> operation::getOUS(void){
-
-    return std::static_pointer_cast<IPropertyNotification>(_OUS);
-}
-void operation::on_pushButton_clicked()
-{
-    _getCancel->Exec();
-}
-
-void operation::hide_animation_add(){
-    _QP->hide();
-    if(type==4){
-        try {
-            _AAC->SetParameter(addText->text().toInt());
-            _AAC->Exec();
-        } catch (const char *msg) {
-            QMessageBox::warning(this, tr("Waring"),tr("Input should be integer"),QMessageBox::Yes);
-        }
-    }
-}
-void operation::hide_animation_pop(){
-    _QP->hide();
-//    if(type==4){
-//       _SPC->Exec();
-//    }
-}
-void operation::setCancelCommand(std::shared_ptr<ICommandBase> ptr_cancel){
-    _getCancel=ptr_cancel;
-}
-
-void operation::setLabel(const std::string& str){
-//    std::string r = str;
-   ui->type->setText(str.c_str());
-}
-void operation::set_Array(std::shared_ptr<ARRAYC> AC){
-    this->_Array = AC;
-}
-void operation::set_Tree(std::shared_ptr<Tree> TC){
-    this->_Tree = TC;
-}
-
-void operation::set_ptrAAC(std::shared_ptr<ICommandBase> ptr){
-    _AAC = ptr;
-}
-void operation::set_ptrADC(std::shared_ptr<ICommandBase> ptr){
-    _ADC = ptr;
-}
-void operation::set_ptrSPC(std::shared_ptr<ICommandBase> ptr){
-    _SPC = ptr;
-}
-void operation::set_ptrQDC(std::shared_ptr<ICommandBase> ptr){
-    _QDC = ptr;
-}
-
-void operation::set_ptrTIC(std::shared_ptr<ICommandBase> ptr){
-    _TIC = ptr;
-}
-void operation::set_ptrTDC(std::shared_ptr<ICommandBase> ptr){
-    _TDC = ptr;
-}
-
-void operation::paintEvent(QPaintEvent *)
+void Mode1_display::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
     QFont font = painter.font();
@@ -551,141 +648,4 @@ void operation::paintEvent(QPaintEvent *)
             }
         }
     }
-}
-
-void operation::on_add_button_clicked()
-{
-   if(addText->text()==""){
-       QMessageBox::warning(this, tr("Waring"),tr("Input can't empty!"),QMessageBox::Yes);
-   }
-   else{
-       if(type==4){
-           _QP->show();
-           _QP->setValue(addText->text().toInt());
-           QPropertyAnimation* animation1 = new QPropertyAnimation(_QP, "pos") ;
-           animation1->setDuration(500);
-           animation1->setStartValue(QPoint(100,100));
-           animation1->setEndValue(QPoint(220,100));
-           QPropertyAnimation* animation2 = new QPropertyAnimation(_QP, "pos") ;
-           animation2->setDuration(700);
-
-           animation2->setStartValue(QPoint(220,100));
-           int size =_Array->getSize();
-           if(size>=8)
-           animation2->setEndValue(QPoint(220,110));
-           else
-           animation2->setEndValue(QPoint(220,510-50*size));
-           QSequentialAnimationGroup *sequGroup = new QSequentialAnimationGroup(this);
-           sequGroup->addAnimation(animation1);
-           sequGroup->addAnimation(animation2);
-           sequGroup->start();
-           connect(sequGroup,SIGNAL(finished()),this,SLOT(hide_animation_add()));
-       }
-       else{
-           try {
-               _AAC->SetParameter(addText->text().toInt());
-               _AAC->Exec();
-           } catch (const char *msg) {
-               QMessageBox::warning(this, tr("Waring"),tr("Input should be integer"),QMessageBox::Yes);
-           }
-       }
-   }
-    addText->setText(addText->text()); // convenient for testing
-    //addText->setText("");
-}
-
-void operation::on_del_button_clicked()
-{
-    if(delText->text()==""){
-        QMessageBox::warning(this, tr("Waring"),tr("Input can't empty!"),QMessageBox::Yes);
-    }
-    else{
-        try {
-            //replace test
-//            std::vector<int> tt;
-//            tt.push_back(addText->text().toInt());
-//            tt.push_back(delText->text().toInt());
-
-//            _ARC->SetParameter(tt);
-//            _ARC->Exec();
-        //New test
-//            _ANC->SetParameter(delText->text().toInt());
-//            _ANC->Exec();
-            _ADC->SetParameter(delText->text().toInt());
-            _ADC->Exec();
-        } catch (const char *msg) {
-            QMessageBox::warning(this, tr("Waring"),tr("Input should be integer"),QMessageBox::Yes);
-        }
-    }
-    delText->setText(delText->text());
-}
-
-void operation::on_pushButton_2_clicked()  //pop
-{
-
-     if(type==4){
-         if(_Array->isArrayNull())  QMessageBox::warning(this, tr("Waring"),tr("Stack is empty!"),QMessageBox::Yes);
-         else{
-
-             _QP->show();
-             int size =_Array->getSize();
-             _QP->setValue(_Array->getNumIndex(size-1));
-             _SPC->Exec();
-             QPropertyAnimation* animation1 = new QPropertyAnimation(_QP, "pos") ;
-             animation1->setDuration(500);
-             animation1->setStartValue(QPoint(220,100));
-             animation1->setEndValue(QPoint(700,100));
-             QPropertyAnimation* animation2 = new QPropertyAnimation(_QP, "pos") ;
-
-
-
-
-             if(size>=7){
-                 animation2->setDuration(100);
-                 animation2->setStartValue(QPoint(220,110));
-             }
-
-             else{
-                 animation2->setStartValue(QPoint(220,510-50*size));
-                 animation2->setDuration((510-50*size-100)*3);
-             }
-
-             animation2->setEndValue(QPoint(220,100));
-
-             QSequentialAnimationGroup *sequGroup = new QSequentialAnimationGroup(this);
-             sequGroup->addAnimation(animation2);
-             sequGroup->addAnimation(animation1);
-             sequGroup->start();
-             connect(sequGroup,SIGNAL(finished()),this,SLOT(hide_animation_pop()));
-         }
-
-     }
-}
-
-void operation::set_treeType(){
-    _Tree->type = type;
-}
-
-void operation::set_arrayType(){
-    if(type==6){
-        _Array->type=1;
-    }
-    else{
-        _Array->type=0;
-    }
-}
-
-void operation::on_deq_button_clicked()  //dequeue
-{
-    _QDC->Exec();
-}
-
-void operation::on_Tins_button_clicked(){
-    _TIC->SetParameter(addText->text().toInt());
-    _TIC->Exec();
-}
-
-void operation::on_Tdel_button_clicked(){
-    _TDC->SetParameter(delText->text().toInt());
-    _TDC->Exec();
 }

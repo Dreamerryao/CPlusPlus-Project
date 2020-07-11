@@ -13,8 +13,8 @@ class model1_main : public QMainWindow
 
 public:
     explicit model1_main(QWidget *parent = nullptr);
-    void setCancelCommand(std::shared_ptr<ICommandBase> ptr_cancel);
-    void setChangeCommand(std::shared_ptr<ICommandBase> ptr_change);
+    void setCancelCommand(const std::shared_ptr<ICommandBase> &ptr_cancel);
+    void setChangeCommand(const std::shared_ptr<ICommandBase> &ptr_change);
     ~model1_main();
     int type;
     std::string TT;

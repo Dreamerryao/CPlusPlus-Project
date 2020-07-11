@@ -12,6 +12,6 @@ void ArrayNewCommand::SetParameter(const _new_any_space_::any& param)
 
 void ArrayNewCommand::Exec()
 {
-    ptr_AVM->Exec_ANew_command(oh);
+    ptr_AVM->_ArrayModel->Anew(oh);
     ptr_AVM->Fire_OnCommandComplete("ArrayNewCommand", true);
 }

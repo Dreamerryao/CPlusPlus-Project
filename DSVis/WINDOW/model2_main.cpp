@@ -2,6 +2,7 @@
 #include "ui_model2_main.h"
 #include <QTextBlock>
 #include <qdebug.h>
+#include <QRect>
 Model2_main::Model2_main(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Model2_main)
@@ -13,12 +14,9 @@ Model2_main::~Model2_main()
 {
     delete ui;
 }
-void Model2_main::setGetCommand(std::shared_ptr<ICommandBase> ptr_get){
-    _getCommand=ptr_get;
-}
 void Model2_main::on_text_blockCountChanged(int newBlockCount)
 {
-    _getCommand->Exec();
+    getLine();
 }
 
 void Model2_main::getLine(){
@@ -34,6 +32,6 @@ void Model2_main::on_pushButton_clicked()
 {
     _getCancel->Exec();
 }
-void Model2_main::setCancelCommand(std::shared_ptr<ICommandBase> ptr_cancel){
+void Model2_main::setCancelCommand(const std::shared_ptr<ICommandBase> &ptr_cancel){
     _getCancel=ptr_cancel;
 }

@@ -17,34 +17,18 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     WINDOW/about.cpp \
     WINDOW/firstpage.cpp \
+    WINDOW/mode1_display.cpp \
     WINDOW/model1_main.cpp \
-    WINDOW/operation.cpp \
-    WINDOW/sinks/aaddcommandsink.cpp \
-    WINDOW/sinks/aaddcommandsinkmode2.cpp \
-    WINDOW/sinks/adelcommandsink.cpp \
-    WINDOW/sinks/adelcommandsinkmode2.cpp \
-    WINDOW/sinks/anewcommandsink.cpp \
-    WINDOW/sinks/areplacecommandsink.cpp \
+    WINDOW/sinks/mode1_displaycommandsink.cpp \
+    WINDOW/sinks/mode2_displaycommandsink.cpp \
     WINDOW/sinks/mode2updatesink.cpp \
     WINDOW/sinks/opupdatesink.cpp \
-    WINDOW/sinks/qdeqcommandsink.cpp \
-    WINDOW/sinks/qdeqcommandsinkmode2.cpp \
-    WINDOW/sinks/spopcommandsink.cpp \
-    WINDOW/sinks/spopcommandsinkmode2.cpp \
-    WINDOW/sinks/tdelcommandsink.cpp \
-    WINDOW/sinks/tdelcommandsinkmode2.cpp \
-    WINDOW/sinks/tinscommandsink.cpp \
-    WINDOW/sinks/tinscommandsinkmode2.cpp \
     WINDOW/square.cpp \
-    WINDOW/testwindow.cpp \
-    WINDOW/testwidget.cpp \
     app/commands/aboutcommand.cpp \
     app/commands/cancelcommand.cpp \
     app/commands/changecommand.cpp \
-    app/commands/getline.cpp \
     app/commands/m1command.cpp \
     app/commands/m2command.cpp \
-    app/commands/testbuttoncommand.cpp \
     app/main.cpp \
     app/app.cpp \
     WINDOW/model2_main.cpp \
@@ -66,36 +50,19 @@ SOURCES += \
 HEADERS += \
     WINDOW/about.h \
     WINDOW/firstpage.h \
+    WINDOW/mode1_display.h \
     WINDOW/model1_main.h \
-    WINDOW/operation.h \
-    WINDOW/sinks/aaddcommandsink.h \
-    WINDOW/sinks/aaddcommandsinkmode2.h \
-    WINDOW/sinks/adelcommandsink.h \
-    WINDOW/sinks/adelcommandsinkmdoe2.h \
-    WINDOW/sinks/adelcommandsinkmode2.h \
-    WINDOW/sinks/anewcommandsink.h \
-    WINDOW/sinks/areplacecommandsink.h \
+    WINDOW/sinks/mode1_displaycommandsink.h \
+    WINDOW/sinks/mode2_displaycommandsink.h \
     WINDOW/sinks/mode2updatesink.h \
     WINDOW/sinks/opupdatesink.h \
-    WINDOW/sinks/qdeqcommandsink.h \
-    WINDOW/sinks/qdeqcommandsinkmode2.h \
-    WINDOW/sinks/spopcommandsink.h \
-    WINDOW/sinks/spopcommandsinkmode2.h \
-    WINDOW/sinks/tdelcommandsink.h \
-    WINDOW/sinks/tdelcommandsinkmode2.h \
-    WINDOW/sinks/tinscommandsink.h \
-    WINDOW/sinks/tinscommandsinkmode2.h \
     WINDOW/square.h \
-    WINDOW/testwindow.h \
-    WINDOW/testwidget.h \
     app/app.h \
     app/commands/aboutcommand.h \
     app/commands/cancelcommand.h \
     app/commands/changecommand.h \
-    app/commands/getline.h \
     app/commands/m1command.h \
     app/commands/m2command.h \
-    app/commands/testbuttoncommand.h \
     common/ArrayC.h \
     common/Tree.h \
     common/any.h \
@@ -127,9 +94,8 @@ CONFIG += resources_big
 FORMS += \
     WINDOW/about.ui \
     WINDOW/firstpage.ui \
+    WINDOW/mode1_display.ui \
     WINDOW/model1_main.ui \
-    WINDOW/operation.ui \
-    WINDOW/testwindow.ui \
     WINDOW/model2_main.ui
 
 RESOURCES += \

@@ -13,9 +13,7 @@ void QueueDeqCommand::SetParameter(const _new_any_space_::any& param)
 
 void QueueDeqCommand::Exec()
 {
-    if(ptr_AVM->Exec_Qdeq_command())
-    ptr_AVM->Fire_OnCommandComplete("QueueDeqCommand", true);
-    else
-    ptr_AVM->Fire_OnCommandComplete("QueueDeqCommand", false);
+    ptr_AVM->Fire_OnCommandComplete("QueueDeqCommand", ptr_AVM->_ArrayModel->deq());
+
 }
 

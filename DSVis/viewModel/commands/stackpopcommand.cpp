@@ -13,8 +13,6 @@ void StackPopCommand::SetParameter(const _new_any_space_::any& param)
 
 void StackPopCommand::Exec()
 {
-    if(ptr_AVM->Exec_Spop_command())
-    ptr_AVM->Fire_OnCommandComplete("StackPopCommand", true);
-    else
-    ptr_AVM->Fire_OnCommandComplete("StackPopCommand", false);
+    ptr_AVM->Fire_OnCommandComplete("StackPopCommand", ptr_AVM->_ArrayModel->pop());
+
 }

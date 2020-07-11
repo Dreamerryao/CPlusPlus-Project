@@ -13,7 +13,7 @@ void TreeInsCommand::SetParameter(const _new_any_space_::any& param)
 
 void TreeInsCommand::Exec()
 {
-    ptr_TVM->Exec_Tins_command(oh);
+    ptr_TVM->_TreeModel->ins(oh);
     ptr_TVM->Fire_OnCommandComplete("TreeInsCommand", true);
 }
 
