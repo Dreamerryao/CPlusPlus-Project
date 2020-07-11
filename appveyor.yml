@@ -4,7 +4,7 @@ environment:
     #  CMD_VCVARSALL: '"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" x86'
     #  APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
     #  MSVC_PLATFORM: "x86"
-    - QTDIR: D:\Qt\5.9.9\msvc2017_64
+    - QTDIR: C:\msvc2017_64
       CMD_VCVARSALL: '"D:\visual Studio\VC\Auxiliary\Build\vcvarsall.bat" x64'
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       MSVC_PLATFORM: "x64"
@@ -16,7 +16,7 @@ configuration:
 # Set the environment variables and paths to make
 install:
   - git submodule update --init --recursive
-  - dir D:\Qt\5.9.9\msvc2017_64
+  - dir C:\msvc2017_64
   - call '"D:\visual Studio\VC\Auxiliary\Build\vcvarsall.bat" x64'
   - set PATH=%PATH%;D:\Qt\5.9.9\msvc2017_64\bin
 
