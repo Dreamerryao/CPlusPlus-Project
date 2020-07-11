@@ -86,7 +86,7 @@ void operation::show_button(){
         qb->addWidget(addText);
         qb->addWidget(button1);
         qb->addWidget(button2);
-    }else if(type>=6){
+    }else if(type>6||type==3){
         addText=new QLineEdit("",this);
         addText->setGeometry(610,280,160,35);
         delText=new QLineEdit("",this);
@@ -99,6 +99,18 @@ void operation::show_button(){
         connect(button2,SIGNAL(clicked()),this,SLOT(on_Tdel_button_clicked()));
         qb->addWidget(addText);
         qb->addWidget(delText);
+        qb->addWidget(button1);
+        qb->addWidget(button2);
+    }else if(type==6){
+        addText=new QLineEdit("",this);
+        addText->setGeometry(610,280,160,35);
+        button1=new QPushButton("insert",this);
+        button1->setGeometry(610,330,160,35);
+        connect(button1,SIGNAL(clicked()),this,SLOT(on_add_button_clicked()));
+        button2=new QPushButton("deletemin",this);
+        button2->setGeometry(610,380,160,35);
+        connect(button2,SIGNAL(clicked()),this,SLOT(on_deq_button_clicked()));
+        qb->addWidget(addText);
         qb->addWidget(button1);
         qb->addWidget(button2);
     }
@@ -426,7 +438,7 @@ void operation::paintEvent(QPaintEvent *)
                 num++;
             }
         }
-    }else if(type==7){
+    }else if(type>6&&type<9||type==3){
         std::vector<node*> queue;
         float xp[40];
         float yp[40];
@@ -462,6 +474,80 @@ void operation::paintEvent(QPaintEvent *)
                     painter.drawLine(xp[qhead]+20,yp[qhead]+40,xp[qsize]+20,yp[qsize]);
                 }
                 qhead++;
+            }
+        }
+    }else if(type==9){
+        std::vector<node*> queue;
+        float xp[40];
+        float yp[40];
+        int hei[40];
+        int cal[7]={0,4,2,1,1,1,1};
+        int qhead=0;
+        node *root=_Tree->getTree();
+        if(root!=NULL){
+            queue.push_back(root);
+            xp[0]=280;
+            yp[0]=180;
+            hei[0]=0;
+            int qsize=0;
+            while(qhead<queue.size()){
+                root = queue[qhead];
+                QRect boundingRect;
+                if(root->color==0){
+                    painter.setPen(QPen(Qt::black,4));
+                }else{
+                    painter.setPen(QPen(Qt::red,4));
+                }
+                painter.drawText(xp[qhead], yp[qhead],40,40,Qt::AlignCenter,QString::number(root->value),&boundingRect);
+                painter.drawEllipse(xp[qhead],yp[qhead],40,40);
+                painter.setPen(QPen(Qt::black,1));
+                if(root->left!=NULL){
+                    queue.push_back(root->left);
+                    qsize++;
+                    hei[qsize]=hei[qhead]+1;
+                    xp[qsize]=xp[qhead]-40*cal[hei[qsize]];
+                    yp[qsize]=yp[qhead]+80;
+                    painter.drawLine(xp[qhead]+20,yp[qhead]+40,xp[qsize]+20,yp[qsize]);
+                }
+                if(root->right!=NULL){
+                    queue.push_back(root->right);
+                    qsize++;
+                    hei[qsize]=hei[qhead]+1;
+                    xp[qsize]=xp[qhead]+40*cal[hei[qsize]];
+                    yp[qsize]=yp[qhead]+80;
+                    painter.drawLine(xp[qhead]+20,yp[qhead]+40,xp[qsize]+20,yp[qsize]);
+                }
+                qhead++;
+            }
+        }
+    }else if(type==6){
+        float xp[40];
+        float yp[40];
+        int hei[40];
+        int cal[7]={4,2,1,1,1,1,1};
+        int qf,i;
+        int num=_Array->getSize();
+        if(num>0){
+            xp[1]=280;
+            yp[1]=180;
+            hei[1]=0;
+            QRect boundingRect;
+            painter.drawText(xp[1], yp[1],40,40,Qt::AlignCenter,QString::number(_Array->getNumIndex(0)),&boundingRect);
+            painter.drawEllipse(xp[1],yp[1],40,40);
+            for(i=1;i<num;i++){
+                qf=(i+1)/2;
+                hei[i+1]=hei[qf]+1;
+                if(i%2==1){
+                    xp[i+1]=xp[qf]-40*cal[hei[qf]];
+                }
+                else{
+                    xp[i+1]=xp[qf]+40*cal[hei[qf]];
+                }
+                yp[i+1]=yp[qf]+80;
+                QRect boundingRect;
+                painter.drawText(xp[i+1], yp[i+1],40,40,Qt::AlignCenter,QString::number(_Array->getNumIndex(i)),&boundingRect);
+                painter.drawEllipse(xp[i+1],yp[i+1],40,40);
+                painter.drawLine(xp[qf]+20,yp[qf]+40,xp[i+1]+20,yp[i+1]);
             }
         }
     }
@@ -578,6 +664,15 @@ void operation::on_pushButton_2_clicked()  //pop
 
 void operation::set_treeType(){
     _Tree->type = type;
+}
+
+void operation::set_arrayType(){
+    if(type==6){
+        _Array->type=1;
+    }
+    else{
+        _Array->type=0;
+    }
 }
 
 void operation::on_deq_button_clicked()  //dequeue
