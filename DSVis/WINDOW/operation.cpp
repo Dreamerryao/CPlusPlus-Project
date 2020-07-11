@@ -587,6 +587,10 @@ void operation::on_pushButton_2_clicked()  //pop
      }
 }
 
+void operation::set_treeType(){
+    _Tree->type = type;
+}
+
 void operation::on_deq_button_clicked()  //dequeue
 {
     _QDC->Exec();

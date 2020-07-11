@@ -57,6 +57,7 @@ public:
     void set_ptrTIC(std::shared_ptr<ICommandBase> ptr);
     void set_ptrTDC(std::shared_ptr<ICommandBase> ptr);
     void set_ptrANC(std::shared_ptr<ICommandBase> ptr);
+    void set_treeType();
     void show_button();
     void show_TQ();
     int type;
