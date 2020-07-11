@@ -16,6 +16,7 @@ operation::operation(QWidget *parent) :
     _SPCS = std::make_shared<SPopCommandSink>(SPopCommandSink(this));
     _QDCS = std::make_shared<QDeqCommandSink>(QDeqCommandSink(this));
     _ARCS = std::make_shared<AReplaceCommandSink>(AReplaceCommandSink(this));
+    _ANCS = std::make_shared<ANewCommandSink>(ANewCommandSink(this));
     _TICS = std::make_shared<TInsCommandSink>(TInsCommandSink(this));
     _TDCS = std::make_shared<TDelCommandSink>(TDelCommandSink(this));
     _OUS =  std::make_shared<OpUpdateSink>(OpUpdateSink(this));
@@ -124,6 +125,11 @@ std::shared_ptr<ICommandNotification> operation::getARCS(void){
 
     return std::static_pointer_cast<ICommandNotification>(_ARCS);
 }
+std::shared_ptr<ICommandNotification> operation::getANCS(void){
+
+    return std::static_pointer_cast<ICommandNotification>(_ANCS);
+}
+
 std::shared_ptr<ICommandNotification> operation::getTICS(void){
 
     return std::static_pointer_cast<ICommandNotification>(_TICS);
@@ -187,6 +193,9 @@ void operation::set_ptrQDC(std::shared_ptr<ICommandBase> ptr){
 }
 void operation::set_ptrARC(std::shared_ptr<ICommandBase> ptr){
     _ARC = ptr;
+}
+void operation::set_ptrANC(std::shared_ptr<ICommandBase> ptr){
+    _ANC = ptr;
 }
 void operation::set_ptrTIC(std::shared_ptr<ICommandBase> ptr){
     _TIC = ptr;
@@ -515,6 +524,16 @@ void operation::on_del_button_clicked()
     }
     else{
         try {
+            //replace test
+//            std::vector<int> tt;
+//            tt.push_back(addText->text().toInt());
+//            tt.push_back(delText->text().toInt());
+
+//            _ARC->SetParameter(tt);
+//            _ARC->Exec();
+        //New test
+//            _ANC->SetParameter(delText->text().toInt());
+//            _ANC->Exec();
             _ADC->SetParameter(delText->text().toInt());
             _ADC->Exec();
         } catch (const char *msg) {

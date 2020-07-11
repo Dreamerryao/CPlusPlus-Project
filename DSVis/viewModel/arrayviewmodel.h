@@ -8,6 +8,7 @@
 #include "commands/stackpopcommand.h"
 #include "commands/queuedeqcommand.h"
 #include "commands/arrayreplacecommand.h"
+#include "commands/arraynewcommand.h"
 
 class ArrayViewModel:public Proxy_PropertyNotification<ArrayViewModel>,
         public Proxy_CommandNotification<ArrayViewModel>
@@ -27,6 +28,8 @@ public:
     int Exec_Qdeq_command();
     std::shared_ptr<ICommandBase> getArrayReplaceCommand();
     int Exec_ARep_command(int index,int newValue);
+    std::shared_ptr<ICommandBase> getArrayNewCommand();
+    void Exec_ANew_command(int size);
 private:
     std::shared_ptr<ArrayModel> _ArrayModel;
     std::shared_ptr<ArrayModelSink> _AMSink;
@@ -35,6 +38,7 @@ private:
     std::shared_ptr<StackPopCommand> _SPC;
     std::shared_ptr<QueueDeqCommand> _QDC;
     std::shared_ptr<ArrayReplaceCommand> _ARC;
+    std::shared_ptr<ArrayNewCommand> _ANC;
 
 };
 

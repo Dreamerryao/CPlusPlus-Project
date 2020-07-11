@@ -25,6 +25,7 @@ void app::run(){
     _operationP.set_ptrSPC(viewmodel->getStackPopCommand());
     _operationP.set_ptrQDC(viewmodel->getQueueDeqCommand());
     _operationP.set_ptrARC(viewmodel->getArrayReplaceCommand());
+    _operationP.set_ptrANC(viewmodel->getArrayNewCommand());
     _operationP.set_ptrTIC(Tviewmodel->getTreeInsCommand());
     _operationP.set_ptrTDC(Tviewmodel->getTreeDelCommand());
     _operationP.set_Array(viewmodel->getArray());
@@ -35,6 +36,7 @@ void app::run(){
     viewmodel->AddCommandNotification(_operationP.getSPCS());
     viewmodel->AddCommandNotification(_operationP.getQDCS());
     viewmodel->AddCommandNotification(_operationP.getARCS());
+    viewmodel->AddCommandNotification(_operationP.getANCS());
     viewmodel->AddPropertyNotification(_operationP.getOUS());
 
     Tviewmodel->AddCommandNotification(_operationP.getTICS());

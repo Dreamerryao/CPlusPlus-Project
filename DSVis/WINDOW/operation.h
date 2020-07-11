@@ -14,6 +14,7 @@
 #include "sinks/qdeqcommandsink.h"
 #include "sinks/tinscommandsink.h"
 #include "sinks/tdelcommandsink.h"
+#include "sinks/anewcommandsink.h"
 #include "sinks/opupdatesink.h"
 #include "sinks/areplacecommandsink.h"
 #include "square.h"
@@ -40,6 +41,7 @@ public:
     std::shared_ptr<ICommandNotification> getSPCS(void);
     std::shared_ptr<ICommandNotification> getQDCS(void);
     std::shared_ptr<ICommandNotification> getARCS(void);
+    std::shared_ptr<ICommandNotification> getANCS(void);
     void set_Tree(std::shared_ptr<Tree> TC);
     std::shared_ptr<ICommandNotification> getTICS(void);
     std::shared_ptr<ICommandNotification> getTDCS(void);
@@ -54,6 +56,7 @@ public:
     void set_ptrARC(std::shared_ptr<ICommandBase> ptr);
     void set_ptrTIC(std::shared_ptr<ICommandBase> ptr);
     void set_ptrTDC(std::shared_ptr<ICommandBase> ptr);
+    void set_ptrANC(std::shared_ptr<ICommandBase> ptr);
     void show_button();
     void show_TQ();
     int type;
@@ -83,6 +86,7 @@ private:
     std::shared_ptr<ARRAYC> _Array;
     std::shared_ptr<Tree> _Tree;
     //Tree _Tree;
+    std::shared_ptr<ANewCommandSink> _ANCS;
     std::shared_ptr<AAddCommandSink> _AACS;
     std::shared_ptr<ADelCommandSink> _ADCS;
     std::shared_ptr<SPopCommandSink> _SPCS;
@@ -98,6 +102,7 @@ private:
     std::shared_ptr<ICommandBase> _ARC;
     std::shared_ptr<ICommandBase> _TIC;
     std::shared_ptr<ICommandBase> _TDC;
+    std::shared_ptr<ICommandBase> _ANC;
     QPushButton *button1;
     QPushButton *button2;
     QLineEdit *addText;

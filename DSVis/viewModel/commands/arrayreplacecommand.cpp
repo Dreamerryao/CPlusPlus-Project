@@ -9,21 +9,10 @@ void ArrayReplaceCommand::SetParameter(const _new_any_space_::any& param)
 {
     oh = -1;
     newValue = 0;
-    std::string coor = _new_any_space_::any_cast<std::string>(param);
-    int i = 0;
-    //TODO change this
-    while (i < coor.size()){
-        if(coor[i] >= '0' && coor[i] <= '9'){
-            if(oh == -1)
-                oh= coor[i] - '0' + 0;
-            else
-                newValue = coor[i] - '0' + 0;
-        }
-        else if(coor[i] == ' '){
-            ;
-        }
-        i++;
-    }
+    std::vector<int> hh = _new_any_space_::any_cast<std::vector<int>>(param);
+//    std::string coor = _new_any_space_::any_cast<std::string>(param);
+    oh = hh[0];
+    newValue = hh[1];
 }
 
 void ArrayReplaceCommand::Exec()

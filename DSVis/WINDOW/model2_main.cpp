@@ -26,9 +26,8 @@ void Model2_main::getLine(){
     int cnt=doc->blockCount ();
     _NowCodeText = doc->findBlockByNumber(cnt-2).text();
      qDebug() << "--cout--" << endl <<_NowCodeText<<endl ;
-//    QTextBlock textLine=doc->findBlockByNumber(cnt-2) ;
-//    QString tstr=textLine.text();
-//    ui->test->setText(tstr);
+     QString displayT = "Processing Code: "+_NowCodeText;
+    ui->test->setText(displayT);
 }
 
 void Model2_main::on_pushButton_clicked()

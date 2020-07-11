@@ -9,6 +9,7 @@ ArrayViewModel::ArrayViewModel()
     _SPC = std::make_shared<StackPopCommand>(this);
     _QDC = std::make_shared<QueueDeqCommand>(this);
     _ARC = std::make_shared<ArrayReplaceCommand>(this);
+    _ANC = std::make_shared<ArrayNewCommand>(this);
 }
 
 void ArrayViewModel::setArrayModel(std::shared_ptr<ArrayModel> AM){
@@ -54,4 +55,12 @@ std::shared_ptr<ICommandBase> ArrayViewModel::getArrayReplaceCommand(){
 
 int ArrayViewModel::Exec_ARep_command(int index, int newValue){
     return _ArrayModel->replace(index,newValue);
+}
+
+std::shared_ptr<ICommandBase> ArrayViewModel::getArrayNewCommand(){
+    return std::static_pointer_cast<ICommandBase>(_ANC);
+}
+
+void ArrayViewModel::Exec_ANew_command(int size){
+    _ArrayModel->Anew(size);
 }
