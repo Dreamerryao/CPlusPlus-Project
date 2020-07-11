@@ -1,10 +1,10 @@
-#include "anewcommandsink.h"
+#include "aaddcommandsinkmode2.h"
 #include "../model2_main.h"
-ANewCommandSink::ANewCommandSink(Model2_main *ptr)
+AAddCommandSinkMode2::AAddCommandSinkMode2(Model2_main *ptr)
 {
     _Op = ptr;
 }
-void ANewCommandSink::OnCommandComplete(const std::string& str, bool bOK)
+void AAddCommandSinkMode2::OnCommandComplete(const std::string& str, bool bOK)
 {
     if(str=="ArrayNewCommand"){
         if(bOK==false){
