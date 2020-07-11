@@ -1,0 +1,59 @@
+name: Windows
+on: 
+  # push代码时触发workflow
+  push:
+    # 忽略README.md
+    paths-ignore:
+      - 'README.md'
+      - 'LICENSE'
+  # pull_request时触发workflow
+  pull_request:
+    # 忽略README.md
+    paths-ignore:
+      - 'README.md'
+      - 'LICENSE'
+jobs:
+  build:
+    name: Build
+    # 运行平台， windows-latest目前是windows server 2019
+    runs-on: windows-latest
+    strategy:
+      # 矩阵配置
+      matrix:
+        qt_ver: [5.9.9]
+        qt_target: [desktop]
+        qt_arch: [win64_msvc2017_64]
+        # 额外设置msvc_arch
+        include:
+          - qt_arch: win64_msvc2017_64
+            msvc_arch: x64
+            qt_arch_install: msvc2017_64
+    env:
+      targetName: DSVis.exe
+    # 步骤
+    steps:  
+      # 安装Qt
+      - name: Install Qt
+        # 使用外部action。这个action专门用来安装Qt
+        uses: jurplel/install-qt-action@v2.0.0
+        with:
+          # Version of Qt to install
+          version: ${{ matrix.qt_ver }}
+          # Target platform for build
+          target: ${{ matrix.qt_target }}
+          # Architecture for Windows/Android
+          arch: ${{ matrix.qt_arch }}
+      # 拉取代码
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+      # 编译msvc
+      - name: build-msvc
+        shell: cmd
+        env:
+          vc_arch: ${{ matrix.msvc_arch }}
+        run: |
+          call "D:\visual Studio\VC\Auxiliary\Build\vcvarsall.bat" %vc_arch%
+          qmake
+          nmake
+ 
