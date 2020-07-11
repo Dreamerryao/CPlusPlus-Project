@@ -15,7 +15,7 @@ public:
     explicit Model2_main(QWidget *parent = nullptr);
     ~Model2_main();
     void getLine();
-    void setCancelCommand(std::shared_ptr<ICommandBase> ptr_cancel);
+    void setCancelCommand(const std::shared_ptr<ICommandBase> &ptr_cancel);
 
 private slots:
     void on_text_blockCountChanged(int newBlockCount);
@@ -23,6 +23,7 @@ private slots:
     void on_pushButton_clicked();
 
 private:
+    QString _NowCodeText;
     Ui::Model2_main *ui;
     std::shared_ptr<ICommandBase> _getCancel;
 

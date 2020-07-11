@@ -1,18 +1,17 @@
-#ifndef ARRAYDELCOMMAND_H
-#define ARRAYDELCOMMAND_H
+#ifndef ARRAYNEWCOMMAND_H
+#define ARRAYNEWCOMMAND_H
 
 #include "../../common/etlbase.h"
 
 class ArrayViewModel;
-class ArrayDelCommand :public ICommandBase
+class ArrayNewCommand :public ICommandBase
 {
 private:
     ArrayViewModel* ptr_AVM;
     int oh;
 public:
-    ArrayDelCommand(ArrayViewModel* ptr);
+    ArrayNewCommand(ArrayViewModel* ptr);
     virtual void SetParameter(const _new_any_space_::any &param);
     virtual void Exec() ;
 };
-
-#endif // ARRAYDELCOMMAND_H
+#endif // ARRAYNEWCOMMAND_H

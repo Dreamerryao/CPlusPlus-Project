@@ -1,5 +1,6 @@
 // any standard header
 // Copyright (c) Microsoft Corporation. All rights reserved.
+// This header file comes from http://sandbox.hlt.bme.hu/~gaebor/STLdoc/VS2017/any.html
 #pragma once
 #ifndef _ANY_
 #define _ANY_

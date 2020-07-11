@@ -14,7 +14,7 @@ class about : public QDialog
 public:
     explicit about(QWidget *parent = nullptr);
     ~about();
-    void set_ptrCancel(std::shared_ptr<ICommandBase> ptrcancel);
+    void set_ptrCancel(const std::shared_ptr<ICommandBase> &ptrcancel);
 
 private slots:
     void on_cancel_clicked();

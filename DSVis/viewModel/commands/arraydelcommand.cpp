@@ -1,6 +1,6 @@
 #include "arraydelcommand.h"
 #include "../arrayviewmodel.h"
-#include "../../model/arraymodel.h"
+
 ArrayDelCommand::ArrayDelCommand(ArrayViewModel* ptr)
 {
     ptr_AVM= ptr;
@@ -12,5 +12,7 @@ void ArrayDelCommand::SetParameter(const _new_any_space_::any& param)
 
 void ArrayDelCommand::Exec()
 {
+
     ptr_AVM->Fire_OnCommandComplete("ArrayDelCommand", ptr_AVM->_ArrayModel->del(oh));
+
 }

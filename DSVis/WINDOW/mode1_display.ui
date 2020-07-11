@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>operation</class>
- <widget class="QMainWindow" name="operation">
+ <class>Mode1_display</class>
+ <widget class="QMainWindow" name="Mode1_display">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -14,25 +14,12 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>650</x>
-      <y>510</y>
-      <width>112</width>
-      <height>34</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>cancel</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="type">
     <property name="geometry">
      <rect>
-      <x>250</x>
+      <x>60</x>
       <y>20</y>
-      <width>271</width>
+      <width>691</width>
       <height>81</height>
      </rect>
     </property>
@@ -49,50 +36,17 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QPushButton" name="del_button">
+   <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>650</x>
-      <y>450</y>
-      <width>112</width>
+      <x>610</x>
+      <y>500</y>
+      <width>158</width>
       <height>34</height>
      </rect>
     </property>
     <property name="text">
-     <string>delete</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="add_button">
-    <property name="geometry">
-     <rect>
-      <x>650</x>
-      <y>320</y>
-      <width>112</width>
-      <height>34</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>add</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="addLineEdit">
-    <property name="geometry">
-     <rect>
-      <x>650</x>
-      <y>270</y>
-      <width>113</width>
-      <height>25</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="delText">
-    <property name="geometry">
-     <rect>
-      <x>650</x>
-      <y>390</y>
-      <width>113</width>
-      <height>25</height>
-     </rect>
+     <string>cancel</string>
     </property>
    </widget>
   </widget>

@@ -41,7 +41,7 @@
      <item row="3" column="0">
       <widget class="QPushButton" name="pushButton_3">
        <property name="text">
-        <string>matrix</string>
+        <string>leftist heap</string>
        </property>
       </widget>
      </item>
@@ -143,6 +143,9 @@
     </property>
     <property name="text">
      <string>Data Sturcture</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
   </widget>

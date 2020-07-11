@@ -1,7 +1,5 @@
 #include "arrayaddcommand.h"
 #include "../arrayviewmodel.h"
-#include "../../model/arraymodel.h"
-
 ArrayAddCommand::ArrayAddCommand(ArrayViewModel* ptr)
 {
     ptr_AVM= ptr;

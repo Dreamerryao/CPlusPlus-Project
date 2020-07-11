@@ -19,10 +19,11 @@ SOURCES += \
     WINDOW/firstpage.cpp \
     WINDOW/mode1_display.cpp \
     WINDOW/model1_main.cpp \
-    WINDOW/sinks/aaddcommandsink.cpp \
-    WINDOW/sinks/adelcommandsink.cpp \
-    WINDOW/sinks/opcommandsink.cpp \
+    WINDOW/sinks/mode1_displaycommandsink.cpp \
+    WINDOW/sinks/mode2_displaycommandsink.cpp \
+    WINDOW/sinks/mode2updatesink.cpp \
     WINDOW/sinks/opupdatesink.cpp \
+    WINDOW/square.cpp \
     app/commands/aboutcommand.cpp \
     app/commands/cancelcommand.cpp \
     app/commands/changecommand.cpp \
@@ -32,20 +33,30 @@ SOURCES += \
     app/app.cpp \
     WINDOW/model2_main.cpp \
     model/arraymodel.cpp \
+    model/treemodel.cpp \
     viewModel/arrayviewmodel.cpp \
     viewModel/commands/arrayaddcommand.cpp \
     viewModel/commands/arraydelcommand.cpp \
-    viewModel/sinks/arraymodelsink.cpp
+    viewModel/commands/arraynewcommand.cpp \
+    viewModel/commands/arrayreplacecommand.cpp \
+    viewModel/commands/queuedeqcommand.cpp \
+    viewModel/commands/stackpopcommand.cpp \
+    viewModel/commands/treedelcommand.cpp \
+    viewModel/commands/treeinscommand.cpp \
+    viewModel/sinks/arraymodelsink.cpp \
+    viewModel/sinks/treemodelsink.cpp \
+    viewModel/treeviewmodel.cpp
 
 HEADERS += \
     WINDOW/about.h \
     WINDOW/firstpage.h \
     WINDOW/mode1_display.h \
     WINDOW/model1_main.h \
-    WINDOW/sinks/aaddcommandsink.h \
-    WINDOW/sinks/adelcommandsink.h \
-    WINDOW/sinks/opcommandsink.h \
+    WINDOW/sinks/mode1_displaycommandsink.h \
+    WINDOW/sinks/mode2_displaycommandsink.h \
+    WINDOW/sinks/mode2updatesink.h \
     WINDOW/sinks/opupdatesink.h \
+    WINDOW/square.h \
     app/app.h \
     app/commands/aboutcommand.h \
     app/commands/cancelcommand.h \
@@ -53,14 +64,24 @@ HEADERS += \
     app/commands/m1command.h \
     app/commands/m2command.h \
     common/ArrayC.h \
+    common/Tree.h \
     common/any.h \
     common/etlbase.h \
     WINDOW/model2_main.h \
     model/arraymodel.h \
+    model/treemodel.h \
     viewModel/arrayviewmodel.h \
     viewModel/commands/arrayaddcommand.h \
     viewModel/commands/arraydelcommand.h \
-    viewModel/sinks/arraymodelsink.h
+    viewModel/commands/arraynewcommand.h \
+    viewModel/commands/arrayreplacecommand.h \
+    viewModel/commands/queuedeqcommand.h \
+    viewModel/commands/stackpopcommand.h \
+    viewModel/commands/treedelcommand.h \
+    viewModel/commands/treeinscommand.h \
+    viewModel/sinks/arraymodelsink.h \
+    viewModel/sinks/treemodelsink.h \
+    viewModel/treeviewmodel.h
 
 # Default rules for deployment.
 #qnx: target.path = /tmp/$${TARGET}/bin
@@ -68,6 +89,7 @@ HEADERS += \
 #!isEmpty(target.path): INSTALLS += target
 
 CONFIG += c++17
+CONFIG += resources_big
 
 FORMS += \
     WINDOW/about.ui \
@@ -75,3 +97,6 @@ FORMS += \
     WINDOW/mode1_display.ui \
     WINDOW/model1_main.ui \
     WINDOW/model2_main.ui
+
+RESOURCES += \
+    images.qrc
