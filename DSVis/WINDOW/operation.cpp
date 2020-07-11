@@ -86,7 +86,7 @@ void operation::show_button(){
         qb->addWidget(addText);
         qb->addWidget(button1);
         qb->addWidget(button2);
-    }else if(type>=6){
+    }else if(type>=6||type==3){
         addText=new QLineEdit("",this);
         addText->setGeometry(610,280,160,35);
         delText=new QLineEdit("",this);
@@ -426,7 +426,45 @@ void operation::paintEvent(QPaintEvent *)
                 num++;
             }
         }
-    }else if(type==7){
+    }else if(type>=6&&type<9||type==3){
+        std::vector<node*> queue;
+        float xp[40];
+        float yp[40];
+        int hei[40];
+        int cal[7]={0,4,2,1,1,1,1};
+        int qhead=0;
+        node *root=_Tree->getTree();
+        if(root!=NULL){
+            queue.push_back(root);
+            xp[0]=280;
+            yp[0]=180;
+            hei[0]=0;
+            int qsize=0;
+            while(qhead<queue.size()){
+                root = queue[qhead];
+                QRect boundingRect;
+                painter.drawText(xp[qhead], yp[qhead],40,40,Qt::AlignCenter,QString::number(root->value),&boundingRect);
+                painter.drawEllipse(xp[qhead],yp[qhead],40,40);
+                if(root->left!=NULL){
+                    queue.push_back(root->left);
+                    qsize++;
+                    hei[qsize]=hei[qhead]+1;
+                    xp[qsize]=xp[qhead]-40*cal[hei[qsize]];
+                    yp[qsize]=yp[qhead]+80;
+                    painter.drawLine(xp[qhead]+20,yp[qhead]+40,xp[qsize]+20,yp[qsize]);
+                }
+                if(root->right!=NULL){
+                    queue.push_back(root->right);
+                    qsize++;
+                    hei[qsize]=hei[qhead]+1;
+                    xp[qsize]=xp[qhead]+40*cal[hei[qsize]];
+                    yp[qsize]=yp[qhead]+80;
+                    painter.drawLine(xp[qhead]+20,yp[qhead]+40,xp[qsize]+20,yp[qsize]);
+                }
+                qhead++;
+            }
+        }
+    }else if(type==9){
         std::vector<node*> queue;
         float xp[40];
         float yp[40];

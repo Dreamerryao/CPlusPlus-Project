@@ -22,13 +22,19 @@ SOURCES += \
     WINDOW/sinks/aaddcommandsink.cpp \
     WINDOW/sinks/aaddcommandsinkmode2.cpp \
     WINDOW/sinks/adelcommandsink.cpp \
+    WINDOW/sinks/adelcommandsinkmode2.cpp \
     WINDOW/sinks/anewcommandsink.cpp \
     WINDOW/sinks/areplacecommandsink.cpp \
+    WINDOW/sinks/mode2updatesink.cpp \
     WINDOW/sinks/opupdatesink.cpp \
     WINDOW/sinks/qdeqcommandsink.cpp \
+    WINDOW/sinks/qdeqcommandsinkmode2.cpp \
     WINDOW/sinks/spopcommandsink.cpp \
+    WINDOW/sinks/spopcommandsinkmode2.cpp \
     WINDOW/sinks/tdelcommandsink.cpp \
+    WINDOW/sinks/tdelcommandsinkmode2.cpp \
     WINDOW/sinks/tinscommandsink.cpp \
+    WINDOW/sinks/tinscommandsinkmode2.cpp \
     WINDOW/square.cpp \
     WINDOW/testwindow.cpp \
     WINDOW/testwidget.cpp \
@@ -65,13 +71,20 @@ HEADERS += \
     WINDOW/sinks/aaddcommandsink.h \
     WINDOW/sinks/aaddcommandsinkmode2.h \
     WINDOW/sinks/adelcommandsink.h \
+    WINDOW/sinks/adelcommandsinkmdoe2.h \
+    WINDOW/sinks/adelcommandsinkmode2.h \
     WINDOW/sinks/anewcommandsink.h \
     WINDOW/sinks/areplacecommandsink.h \
+    WINDOW/sinks/mode2updatesink.h \
     WINDOW/sinks/opupdatesink.h \
     WINDOW/sinks/qdeqcommandsink.h \
+    WINDOW/sinks/qdeqcommandsinkmode2.h \
     WINDOW/sinks/spopcommandsink.h \
+    WINDOW/sinks/spopcommandsinkmode2.h \
     WINDOW/sinks/tdelcommandsink.h \
+    WINDOW/sinks/tdelcommandsinkmode2.h \
     WINDOW/sinks/tinscommandsink.h \
+    WINDOW/sinks/tinscommandsinkmode2.h \
     WINDOW/square.h \
     WINDOW/testwindow.h \
     WINDOW/testwidget.h \
