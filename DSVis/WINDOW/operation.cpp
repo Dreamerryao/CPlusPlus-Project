@@ -446,12 +446,15 @@ void operation::paintEvent(QPaintEvent *)
         std::vector<node*> queue;
         float xp[40];
         float yp[40];
+        int hei[40];
+        int cal[7]={0,4,2,1,1,1,1};
         int qhead=0;
         node *root=_Tree->getTree();
         if(root!=NULL){
             queue.push_back(root);
-            xp[0]=260;
+            xp[0]=280;
             yp[0]=180;
+            hei[0]=0;
             int qsize=0;
             while(qhead<queue.size()){
                 root = queue[qhead];
@@ -461,14 +464,16 @@ void operation::paintEvent(QPaintEvent *)
                 if(root->left!=NULL){
                     queue.push_back(root->left);
                     qsize++;
-                    xp[qsize]=xp[qhead]-40;
+                    hei[qsize]=hei[qhead]+1;
+                    xp[qsize]=xp[qhead]-40*cal[hei[qsize]];
                     yp[qsize]=yp[qhead]+80;
                     painter.drawLine(xp[qhead]+20,yp[qhead]+40,xp[qsize]+20,yp[qsize]);
                 }
                 if(root->right!=NULL){
                     queue.push_back(root->right);
                     qsize++;
-                    xp[qsize]=xp[qhead]+40;
+                    hei[qsize]=hei[qhead]+1;
+                    xp[qsize]=xp[qhead]+40*cal[hei[qsize]];
                     yp[qsize]=yp[qhead]+80;
                     painter.drawLine(xp[qhead]+20,yp[qhead]+40,xp[qsize]+20,yp[qsize]);
                 }
