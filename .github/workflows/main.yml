@@ -53,7 +53,7 @@ jobs:
         env:
           vc_arch: ${{ matrix.msvc_arch }}
         run: |
-          call "D:\visual Studio\VC\Auxiliary\Build\vcvarsall.bat" %vc_arch%
+          call '"D:\visual Studio\VC\Auxiliary\Build\vcvarsall.bat" x64'
           qmake
           nmake
  
