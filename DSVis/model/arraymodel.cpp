@@ -1,5 +1,4 @@
 #include "arraymodel.h"
-#include "Windows.h"
 ArrayModel::ArrayModel()
 {
     _Array = std::make_shared<ARRAYC>();

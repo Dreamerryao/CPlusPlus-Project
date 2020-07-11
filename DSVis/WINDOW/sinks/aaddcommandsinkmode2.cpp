@@ -6,7 +6,7 @@ AAddCommandSinkMode2::AAddCommandSinkMode2(Model2_main *ptr)
 }
 void AAddCommandSinkMode2::OnCommandComplete(const std::string& str, bool bOK)
 {
-    if(str=="ArrayNewCommand"){
+    if(str=="ArrayAddCommand"){
         if(bOK==false){
             QMessageBox MSG;
             MSG.setWindowTitle(QString("error!"));

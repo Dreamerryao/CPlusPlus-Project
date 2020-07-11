@@ -1,6 +1,4 @@
 #include "treemodel.h"
-#include "Windows.h"
-
 TreeModel::TreeModel()
 {
     _Tree = std::make_shared<Tree>();
