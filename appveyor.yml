@@ -51,7 +51,7 @@ build_script:
 deploy:
   provider: GitHub
   auth_token:
-    secure: eZEovGqlt+IU9BefqhWyRQ==
+    secure: AawNvW3GfIUvRfsVjTbk36HtADx/48I7SoxIWbqZwFIngyh0hJUUhroPjgMzZLHo
   artifact: /.*\.zip/
   force_update: false
   on:
