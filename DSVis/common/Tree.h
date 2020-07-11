@@ -69,6 +69,8 @@ public:
     int Del(int key){
         if(type==7)
            return Del_BST(key);
+        else if(type==8)
+            root = Del_AVL(root, key);
     }
 
     node* getTree(){
@@ -219,6 +221,45 @@ public:
         qDebug() << getHeight(T) ;
         return T;
     }
+    node* Del_AVL(node* T, int key){
+        if (T == NULL)
+            return T;
+        if ( key < T->value )
+            T->left = Del_AVL(T->left, key);
+        else if( key > T->value )
+            T->right = Del_AVL(T->right, key);
+        else{ // key == T->value
+            if( (T->left == NULL) ||(T->right == NULL) ){
+                node* temp = T->left ?T->left :T->right;
+                if (temp == NULL){ // no child
+                    T = NULL;
+                    return T;
+                }
+                else // one child
+                    *T = *temp;
+                delete temp;
+            }
+            else{ // two
+                node* temp = minValueNode(T->right);
+                T->value = temp->value;
+                T->right = Del_AVL(T->right, temp->value);
+            }
+        }
+
+        T->height = max(getHeight(T->left),getHeight(T->right))+1;
+
+        int balance = getBalance(T);
+        if (balance > 1 && getBalance(T->left) >= 0)
+            return LLRotation(T);
+        if (balance > 1 && getBalance(T->left) < 0)
+            return LRRotation(T);
+        if (balance < -1 && getBalance(T->right) <= 0)
+            return RRRotation(T);
+        if (balance < -1 && getBalance(T->right) > 0)
+            return RLRotation(T);
+
+        return T;
+    }
     bool IsRotate(node* T){
         if((getHeight(T->left)-getHeight(T->right))==2 || (getHeight(T->right)-getHeight(T->left))== 2){
             return 1;
@@ -277,9 +318,20 @@ public:
         else return max(getHeight(T->left), getHeight(T->right))+1;
     }
     int max(int x, int y){
-        return x > y? x : y;
+        return x > y ? x : y;
     }
+    int getBalance(node *N){
+        if (N == NULL)
+            return 0;
+        return getHeight(N->left) -getHeight(N->right);
+    }
+    node * minValueNode(node* N){
+        node* current = N;
+        while (current->left != NULL)
+            current = current->left;
 
+        return current;
+    }
 };
 
 #endif // TREE_H
