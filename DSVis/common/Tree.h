@@ -23,26 +23,26 @@ public:
     Tree(){
         node *n1,*n2;
         n1=new node;
-        n1->value=1;
+        n1->value=6;
         n2=new node;
-        n2->value=4;
+        n2->value=3;
         n1->left=n2;
         root = new node;
-        root->value=3;
+        root->value=9;
         root->left=n1;
     }
     ~Tree(){}
     void InitialTree(){
         node *n1,*n2,*n3;
         n1=new node;
-        n1->value=1;
+        n1->value=6;
         n2=new node;
-        n2->value=4;
+        n2->value=12;
         n3=new node;
         n3->value=6;
         n2->right=n3;
         root=new node;
-        root->value=3;
+        root->value=9;
         root->left=n1;
         root->right=n2;
     }
@@ -71,6 +71,7 @@ public:
             }
         }
         node* InsertedNode = new node();
+        InsertedNode->value = key;
             if (isLeftChild) {
             parentNode->left = InsertedNode;
             }else{
@@ -79,59 +80,96 @@ public:
     }
 
     int Del(int key){
-        node* currentNode = root; //deleted node
-        node* parentNode = root;  //parent of deleted node
-        bool isLeftChild = true;
-        while (currentNode != NULL && currentNode->value != key) {
-            parentNode = currentNode;
-            if(key < currentNode->value){
-                currentNode = currentNode->left;
-                isLeftChild = true;
-            }else{
-                currentNode = currentNode->right;
-                isLeftChild = false;
-            }
-        }
-        if (currentNode == NULL) {
-            return 0;
-        }
-        if (currentNode->left == NULL && currentNode->right == NULL) { //leaf
-            if (currentNode == root)
+        if(root!=NULL && root->left==NULL && root->right==NULL){
+            if(root->value==key){
                 root = NULL;
-            else if (isLeftChild)
-                parentNode->left = NULL;
-            else
-                parentNode->right = NULL;
-        }else if(currentNode->left == NULL){ //only have right children
-            if (currentNode == root)
-                root = currentNode->right;
-            else if(isLeftChild)
-                parentNode->left = currentNode->right;
-            else
-                parentNode->right = currentNode->right;
-        }else if(currentNode->right == NULL){ //only have left children
-            if (currentNode == root)
-                root = currentNode->right;
-            else if(isLeftChild)
-                parentNode->left = currentNode->left;
-            else
-                parentNode->right = currentNode->left;
-        }else{ //have two children
-            node* maxLeftNode = currentNode->left;
-            node* maxLeftNodeParent = currentNode->left;
-            if(maxLeftNode->right != NULL)
-                maxLeftNode = maxLeftNode->right;
-            while(maxLeftNode->right !=NULL){
-                maxLeftNodeParent = maxLeftNodeParent->right;
-                maxLeftNode = maxLeftNode->right;
-            }
-            maxLeftNode->left = currentNode->left;
-            maxLeftNode->right = currentNode->right;
-            maxLeftNodeParent->right = NULL;
-            if (currentNode != root){
-                parentNode->left = maxLeftNode;
+                return 1;
+            }else{
+                return 0;
             }
         }
+        node *newroot = root;
+        node *presite = root;
+        int pos = 0;
+        while(root != NULL){
+            if(root->value > key){
+                presite = root;
+                root = root->left;
+                pos = -1;
+            }
+            else if(root->value < key){
+                presite = root;
+                root = root->right;
+                pos = 1;
+            }
+            else{
+                break;
+            }
+        }
+        if(root == NULL){
+           return 0;
+        }
+        else{
+            if(root->left!=NULL && root->right!=NULL){
+                node *Lmax = root->left;
+                node *PreLmax = root;
+                while(Lmax->right != NULL){
+                    PreLmax = Lmax;
+                    Lmax = Lmax->right;
+                }
+                root->value = Lmax->value;
+                if(PreLmax->left == Lmax)
+                    PreLmax->left = Lmax->left;
+                else
+                    PreLmax->right = Lmax->left;
+                delete Lmax;
+                Lmax = NULL;
+            }
+            else if(root->left == NULL && root->right != NULL){
+                if(0 == pos){
+                    newroot = root->right;
+                }
+                else if(1 == pos){
+                    presite->right = root->right;
+                }
+                else{
+                    presite->left = root->right;
+                }
+                delete root;
+                root = NULL;
+            }
+            else if(root->right == NULL && root->left != NULL){
+                if(0 == pos){
+                    newroot = root->left;
+                }
+                else if(1 == pos){
+                    presite->right = root->left;
+                }
+                else{
+                    presite->left = root->left;
+                }
+                delete root;
+                root = NULL;
+            }
+            else{
+                if(0 == pos){
+                    delete root;
+                    root = NULL;
+                }
+                else if(1 == pos){
+                    presite->right = NULL;
+                    delete root;
+                    root = NULL;
+                }
+                else{
+                    presite->left = NULL;
+                    delete root;
+                    root = NULL;
+                }
+            }
+        }
+        root = newroot;
+        return 1;
     }
 
     node* getTree(){
