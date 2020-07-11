@@ -11,45 +11,45 @@ app::~app()
 
 void app::run(){
 
+    //绑定model和viewmodel
     model = std::make_shared<ArrayModel>();
     viewmodel = std::make_shared<ArrayViewModel>();
     viewmodel->setArrayModel(model);
+
+    //绑定operationPage的命令以及结构
     _operationP.set_ptrAAC(viewmodel->getArrayAddCommand());
     _operationP.set_ptrADC(viewmodel->getArrayDelCommand());
     _operationP.set_Array(viewmodel->getArray());
 
-    viewmodel->AddCommandNotification(_operationP.getAACS());
-    viewmodel->AddCommandNotification(_operationP.getADCS());
+    //绑定viewmodel的notification
+//    viewmodel->AddCommandNotification(_operationP.getAACS());
+//    viewmodel->AddCommandNotification(_operationP.getADCS());
+    viewmodel->AddCommandNotification(_operationP.getOCS());
     viewmodel->AddPropertyNotification(_operationP.getOUS());
 
 
-
-    _testBC = std::make_shared<testButtonCommand>(this);
+    //通过make_shared指针构造Command
     _M1Command = std::make_shared<M1Command>(this);
     _M2Command = std::make_shared<M2Command>(this);
     _AboutCommand = std::make_shared<AboutCommand>(this);
-    _getLine=std::make_shared<getlineCommand>(this);
     _cancelCommand=std::make_shared<cancelCommand>(this);
     _changeCommand=std::make_shared<changeCommand>(this);
 
+
+    //set command
     //_testWindow.setTestCommand(std::static_pointer_cast<ICommandBase>(this->_testBC));
-    _firstPage.set_ptrM1Command(std::static_pointer_cast<ICommandBase>(this->_M1Command));
-    _firstPage.set_ptrM2Command(std::static_pointer_cast<ICommandBase>(this->_M2Command));
-    _firstPage.set_ptrAboutCommand(std::static_pointer_cast<ICommandBase>(this->_AboutCommand));
-    _Model2_main.setGetCommand(std::static_pointer_cast<ICommandBase>(this->_getLine));
-    _Model1_main.setChangeCommand(std::static_pointer_cast<ICommandBase>(this->_changeCommand));
-    _aboutPage.set_ptrCancel(std::static_pointer_cast<ICommandBase>(this->_cancelCommand));
-    //_testWindow.setCancelCommand(std::static_pointer_cast<ICommandBase>(this->_cancelCommand1));
-    _Model1_main.setCancelCommand(std::static_pointer_cast<ICommandBase>(this->_cancelCommand));
-    _Model2_main.setCancelCommand(std::static_pointer_cast<ICommandBase>(this->_cancelCommand));
-    _operationP.setCancelCommand(std::static_pointer_cast<ICommandBase>(this->_cancelCommand));
+    _firstPage.set_ptrM1Command(this->_M1Command);
+    _firstPage.set_ptrM2Command(this->_M2Command);
+    _firstPage.set_ptrAboutCommand(this->_AboutCommand);
+    _Model1_main.setChangeCommand(this->_changeCommand);
+    _aboutPage.set_ptrCancel(this->_cancelCommand);
+    _Model1_main.setCancelCommand(this->_cancelCommand);
+    _Model2_main.setCancelCommand(this->_cancelCommand);
+    _operationP.setCancelCommand(this->_cancelCommand);
 
     _firstPage.show();
 }
 
-testWindow* app::getTest(){
-    return & _testWindow;
-}
 
 FirstPage* app::getFirstPage(){
     return & _firstPage;

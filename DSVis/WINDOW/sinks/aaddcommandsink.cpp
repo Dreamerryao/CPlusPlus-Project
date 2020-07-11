@@ -1,5 +1,5 @@
 #include "aaddcommandsink.h"
-#include "../operation.h"
+#include "../mode1_display.h"
 AAddCommandSink::AAddCommandSink(operation *ptr)
 {
     _Op = ptr;

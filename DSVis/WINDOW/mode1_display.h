@@ -7,9 +7,8 @@
 #include "QMouseEvent"
 #include"../common/etlbase.h"
 #include"../common/ArrayC.h"
-#include "sinks/aaddcommandsink.h"
-#include "sinks/adelcommandsink.h"
 #include "sinks/opupdatesink.h"
+#include "sinks/opcommandsink.h"
 
 namespace Ui {
 class operation;
@@ -23,8 +22,9 @@ public:
     explicit operation(QWidget *parent = nullptr);
     ~operation();
     void set_Array(std::shared_ptr<ARRAYC> AC);
-    std::shared_ptr<ICommandNotification> getAACS(void);
-    std::shared_ptr<ICommandNotification> getADCS(void);
+//    std::shared_ptr<ICommandNotification> getAACS(void);
+//    std::shared_ptr<ICommandNotification> getADCS(void);
+    std::shared_ptr<ICommandNotification> getOCS(void);
     std::shared_ptr<IPropertyNotification> getOUS(void);
     void setCancelCommand(std::shared_ptr<ICommandBase> ptr_cancel);
     void setLabel(const std::string& str);
@@ -45,8 +45,9 @@ private:
     Ui::operation *ui;
     std::shared_ptr<ICommandBase> _getCancel;
     std::shared_ptr<ARRAYC> _Array;
-    std::shared_ptr<AAddCommandSink> _AACS;
-    std::shared_ptr<ADelCommandSink> _ADCS;
+//    std::shared_ptr<AAddCommandSink> _AACS;
+//    std::shared_ptr<ADelCommandSink> _ADCS;
+    std::shared_ptr<OpCommandSink> _OCS;
     std::shared_ptr<OpUpdateSink> _OUS;
     std::shared_ptr<ICommandBase> _AAC;
     std::shared_ptr<ICommandBase> _ADC;

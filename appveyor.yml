@@ -34,19 +34,19 @@ build_script:
   - nmake
   
   
-# after_build:
-#   - cd %APPVEYOR_BUILD_FOLDER%
-#   - cd DSVis\
-#   - mkdir OurRelease\
-#   - xcopy %APPVEYOR_BUILD_FOLDER%\release\DSVis.exe %APPVEYOR_BUILD_FOLDER%\DSVis\OurRelease\
-#   - cd OurRelease\
-#   - windeployqt DSVision.exe
-#   - cd ../../
-#   - 7z a %MSVC_PLATFORM%-release.zip %APPVEYOR_BUILD_FOLDER%\DSVis\OurRelease\*
+after_build:
+  - cd %APPVEYOR_BUILD_FOLDER%
+  - cd DSVis\
+  - mkdir OurRelease\
+  - xcopy %APPVEYOR_BUILD_FOLDER%\release\release\DSVis.exe %APPVEYOR_BUILD_FOLDER%\DSVis\OurRelease\
+  - cd OurRelease\
+  - windeployqt DSVis.exe
+  - cd ../../
+  - 7z a %MSVC_PLATFORM%-release.zip %APPVEYOR_BUILD_FOLDER%\DSVis\OurRelease\*
 
 # just repo root-directory
-# artifacts:
-#   - path: ./*-release.zip
+artifacts:
+  - path: ./*-release.zip
 
 deploy:
   provider: GitHub

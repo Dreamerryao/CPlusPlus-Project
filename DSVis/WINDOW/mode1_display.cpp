@@ -1,5 +1,5 @@
-#include "operation.h"
-#include "ui_operation.h"
+#include "mode1_display.h"
+#include "ui_mode1_display.h"
 #include <QRect>
 operation::operation(QWidget *parent) :
     QMainWindow(parent),
@@ -7,8 +7,9 @@ operation::operation(QWidget *parent) :
 {
 
     ui->setupUi(this);
-    _AACS = std::make_shared<AAddCommandSink>(AAddCommandSink(this));
-    _ADCS = std::make_shared<ADelCommandSink>(ADelCommandSink(this));
+    _OCS = std::make_shared<OpCommandSink>(OpCommandSink(this));
+//    _AACS = std::make_shared<AAddCommandSink>(AAddCommandSink(this));
+//    _ADCS = std::make_shared<ADelCommandSink>(ADelCommandSink(this));
     _OUS =  std::make_shared<OpUpdateSink>(OpUpdateSink(this));
     set_Array(NULL);
 }
@@ -17,17 +18,21 @@ operation::~operation()
 {
     delete ui;
 }
-std::shared_ptr<ICommandNotification> operation::getAACS(void){
+//std::shared_ptr<ICommandNotification> operation::getAACS(void){
 
-    return std::static_pointer_cast<ICommandNotification>(_AACS);
-}
-std::shared_ptr<ICommandNotification> operation::getADCS(void){
+//    return _AACS;
+//}
+//std::shared_ptr<ICommandNotification> operation::getADCS(void){
 
-    return std::static_pointer_cast<ICommandNotification>(_ADCS);
+//    return _ADCS;
+//}
+std::shared_ptr<ICommandNotification> operation::getOCS(void){
+
+    return _OCS;
 }
 std::shared_ptr<IPropertyNotification> operation::getOUS(void){
 
-    return std::static_pointer_cast<IPropertyNotification>(_OUS);
+    return _OUS;
 }
 void operation::on_pushButton_clicked()
 {
@@ -91,12 +96,9 @@ void operation::on_add_button_clicked()
        QMessageBox::warning(this, tr("Waring"),tr("Input can't empty!"),QMessageBox::Yes);
    }
    else{
-       try {
            _AAC->SetParameter(ui->addLineEdit->text().toInt());
            _AAC->Exec();
-       } catch (const char *msg) {
-           QMessageBox::warning(this, tr("Waring"),tr("Input should be integer"),QMessageBox::Yes);
-       }
+
    }
 
 }
@@ -107,11 +109,8 @@ void operation::on_del_button_clicked()
         QMessageBox::warning(this, tr("Waring"),tr("Input can't empty!"),QMessageBox::Yes);
     }
     else{
-        try {
             _ADC->SetParameter(ui->delText->text().toInt());
             _ADC->Exec();
-        } catch (const char *msg) {
-            QMessageBox::warning(this, tr("Waring"),tr("Input should be integer"),QMessageBox::Yes);
-        }
+
     }
 }

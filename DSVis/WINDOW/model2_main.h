@@ -15,7 +15,6 @@ public:
     explicit Model2_main(QWidget *parent = nullptr);
     ~Model2_main();
     void getLine();
-    void setGetCommand(std::shared_ptr<ICommandBase> ptr_get);
     void setCancelCommand(std::shared_ptr<ICommandBase> ptr_cancel);
 
 private slots:
@@ -25,7 +24,6 @@ private slots:
 
 private:
     Ui::Model2_main *ui;
-    std::shared_ptr<ICommandBase> _getCommand;
     std::shared_ptr<ICommandBase> _getCancel;
 
 };

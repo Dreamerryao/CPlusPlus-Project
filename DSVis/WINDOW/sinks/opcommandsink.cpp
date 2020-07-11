@@ -1,11 +1,19 @@
-#include "adelcommandsink.h"
+#include "opcommandsink.h"
 #include "../mode1_display.h"
-ADelCommandSink::ADelCommandSink(operation *ptr)
+OpCommandSink::OpCommandSink(operation *ptr)
 {
     _Op = ptr;
 }
-void ADelCommandSink::OnCommandComplete(const std::string& str, bool bOK)
+void OpCommandSink::OnCommandComplete(const std::string& str, bool bOK)
 {
+    if(str=="ArrayAddCommand"){
+        if(bOK==false){
+            QMessageBox MSG;
+            MSG.setWindowTitle(QString("error!"));
+            MSG.exec();
+
+        }
+    }
     if(str=="ArrayDelCommand"){
         if(bOK==false){
             QMessageBox MSG;
@@ -14,6 +22,4 @@ void ADelCommandSink::OnCommandComplete(const std::string& str, bool bOK)
             MSG.exec();
         }
     }
-
-
 }

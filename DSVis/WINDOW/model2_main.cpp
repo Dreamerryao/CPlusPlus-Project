@@ -12,12 +12,9 @@ Model2_main::~Model2_main()
 {
     delete ui;
 }
-void Model2_main::setGetCommand(std::shared_ptr<ICommandBase> ptr_get){
-    _getCommand=ptr_get;
-}
 void Model2_main::on_text_blockCountChanged(int newBlockCount)
 {
-    _getCommand->Exec();
+    getLine();
 }
 
 void Model2_main::getLine(){

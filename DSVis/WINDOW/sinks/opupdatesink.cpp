@@ -1,5 +1,5 @@
 #include "opupdatesink.h"
-#include "../operation.h"
+#include "../mode1_display.h"
 OpUpdateSink::OpUpdateSink(operation *ptr)
 {
 

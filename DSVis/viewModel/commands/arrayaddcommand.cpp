@@ -1,5 +1,6 @@
 #include "arrayaddcommand.h"
 #include "../arrayviewmodel.h"
+#include "../../model/arraymodel.h"
 
 ArrayAddCommand::ArrayAddCommand(ArrayViewModel* ptr)
 {
@@ -12,6 +13,6 @@ void ArrayAddCommand::SetParameter(const _new_any_space_::any& param)
 
 void ArrayAddCommand::Exec()
 {
-    ptr_AVM->Exec_Aadd_command(oh);
+    ptr_AVM->_ArrayModel->add(oh);
     ptr_AVM->Fire_OnCommandComplete("ArrayAddCommand", true);
 }

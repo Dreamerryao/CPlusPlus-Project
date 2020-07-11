@@ -10,7 +10,7 @@ ArrayViewModel::ArrayViewModel()
 
 void ArrayViewModel::setArrayModel(std::shared_ptr<ArrayModel> AM){
     _ArrayModel = AM;
-    _ArrayModel->AddPropertyNotification(std::static_pointer_cast<IPropertyNotification>(_AMSink));
+    _ArrayModel->AddPropertyNotification(_AMSink);
 }
 
 std::shared_ptr<ARRAYC> ArrayViewModel::getArray(){
@@ -20,13 +20,9 @@ std::shared_ptr<ARRAYC> ArrayViewModel::getArray(){
 std::shared_ptr<ICommandBase> ArrayViewModel::getArrayAddCommand(){
     return std::static_pointer_cast<ICommandBase>(_AAC);
 }
-void ArrayViewModel::Exec_Aadd_command(int I){
-    _ArrayModel->add(I);
-}
+
 
 std::shared_ptr<ICommandBase> ArrayViewModel::getArrayDelCommand(){
     return std::static_pointer_cast<ICommandBase>(_ADC);
 }
-int ArrayViewModel::Exec_Adel_command(int I){
-    return _ArrayModel->del(I);
-}
+

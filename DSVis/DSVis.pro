@@ -17,19 +17,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     WINDOW/about.cpp \
     WINDOW/firstpage.cpp \
+    WINDOW/mode1_display.cpp \
     WINDOW/model1_main.cpp \
-    WINDOW/operation.cpp \
     WINDOW/sinks/aaddcommandsink.cpp \
     WINDOW/sinks/adelcommandsink.cpp \
+    WINDOW/sinks/opcommandsink.cpp \
     WINDOW/sinks/opupdatesink.cpp \
-    WINDOW/testwindow.cpp \
     app/commands/aboutcommand.cpp \
     app/commands/cancelcommand.cpp \
     app/commands/changecommand.cpp \
-    app/commands/getline.cpp \
     app/commands/m1command.cpp \
     app/commands/m2command.cpp \
-    app/commands/testbuttoncommand.cpp \
     app/main.cpp \
     app/app.cpp \
     WINDOW/model2_main.cpp \
@@ -42,20 +40,18 @@ SOURCES += \
 HEADERS += \
     WINDOW/about.h \
     WINDOW/firstpage.h \
+    WINDOW/mode1_display.h \
     WINDOW/model1_main.h \
-    WINDOW/operation.h \
     WINDOW/sinks/aaddcommandsink.h \
     WINDOW/sinks/adelcommandsink.h \
+    WINDOW/sinks/opcommandsink.h \
     WINDOW/sinks/opupdatesink.h \
-    WINDOW/testwindow.h \
     app/app.h \
     app/commands/aboutcommand.h \
     app/commands/cancelcommand.h \
     app/commands/changecommand.h \
-    app/commands/getline.h \
     app/commands/m1command.h \
     app/commands/m2command.h \
-    app/commands/testbuttoncommand.h \
     common/ArrayC.h \
     common/any.h \
     common/etlbase.h \
@@ -76,7 +72,6 @@ CONFIG += c++17
 FORMS += \
     WINDOW/about.ui \
     WINDOW/firstpage.ui \
+    WINDOW/mode1_display.ui \
     WINDOW/model1_main.ui \
-    WINDOW/operation.ui \
-    WINDOW/testwindow.ui \
     WINDOW/model2_main.ui

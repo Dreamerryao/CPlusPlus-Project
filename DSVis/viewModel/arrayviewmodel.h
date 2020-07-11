@@ -15,11 +15,10 @@ public:
     void setArrayModel(std::shared_ptr<ArrayModel> AM);
     std::shared_ptr<ARRAYC> getArray();
     std::shared_ptr<ICommandBase> getArrayAddCommand();
-    void Exec_Aadd_command(int I);
     std::shared_ptr<ICommandBase> getArrayDelCommand();
-    int Exec_Adel_command(int I);
-private:
     std::shared_ptr<ArrayModel> _ArrayModel;
+private:
+
     std::shared_ptr<ArrayModelSink> _AMSink;
     std::shared_ptr<ArrayAddCommand> _AAC;
     std::shared_ptr<ArrayDelCommand> _ADC;
