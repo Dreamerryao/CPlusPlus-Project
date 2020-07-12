@@ -5,9 +5,9 @@ ArrayNewCommand::ArrayNewCommand(ArrayViewModel* ptr)
 {
     ptr_AVM= ptr;
 }
-void ArrayNewCommand::SetParameter(const _new_any_space_::any& param)
+void ArrayNewCommand::SetParameter(const std::any& param)
 {
-    oh = _new_any_space_::any_cast<int>(param);
+    oh = std::any_cast<int>(param);
 }
 
 void ArrayNewCommand::Exec()

@@ -6,9 +6,9 @@ QueueDeqCommand::QueueDeqCommand(ArrayViewModel* ptr)
     ptr_AVM= ptr;
 }
 
-void QueueDeqCommand::SetParameter(const _new_any_space_::any& param)
+void QueueDeqCommand::SetParameter(const std::any& param)
 {
-    oh = _new_any_space_::any_cast<int>(param);
+    oh = std::any_cast<int>(param);
 }
 
 void QueueDeqCommand::Exec()

@@ -6,9 +6,9 @@ TreeInsCommand::TreeInsCommand(TreeViewModel* ptr)
     ptr_TVM= ptr;
 }
 
-void TreeInsCommand::SetParameter(const _new_any_space_::any& param)
+void TreeInsCommand::SetParameter(const std::any& param)
 {
-    oh = _new_any_space_::any_cast<int>(param);
+    oh = std::any_cast<int>(param);
 }
 
 void TreeInsCommand::Exec()

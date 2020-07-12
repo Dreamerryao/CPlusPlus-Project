@@ -1,6 +1,7 @@
 #include "mode1_display.h"
 #include "ui_mode1_display.h"
 #include <QRect>
+#include <cmath>
 #include <QPropertyAnimation>
 #include <QSequentialAnimationGroup>
 Mode1_display::Mode1_display(QWidget *parent) :

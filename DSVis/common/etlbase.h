@@ -4,7 +4,7 @@
 
 #include <memory>
 
-#include "any.h"
+#include <any>
 #include <vector>
 #include <map>
 #include <stack>
@@ -28,7 +28,7 @@ class ICommandBase
 {
 public:
 	//virtual void SetParameter(const std::shared_ptr<ICommandParameter>& param) = 0;
-    virtual void SetParameter(const _new_any_space_::any& param) = 0;
+    virtual void SetParameter(const std::any& param) = 0;
 	virtual void Exec() = 0;
 /*
 virtual std::shared_ptr<ICommandBase> get_Undo() = 0;
@@ -125,7 +125,7 @@ public:
 class IStateBase
 {
 public:
-    virtual int Process(unsigned int uEvent, _new_any_space_::any& param) = 0;
+    virtual int Process(unsigned int uEvent, std::any& param) = 0;
 };
 
 class StateManager

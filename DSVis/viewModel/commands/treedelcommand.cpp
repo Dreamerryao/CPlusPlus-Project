@@ -5,9 +5,9 @@ TreeDelCommand::TreeDelCommand(TreeViewModel* ptr)
     ptr_TVM= ptr;
 }
 
-void TreeDelCommand::SetParameter(const _new_any_space_::any& param)
+void TreeDelCommand::SetParameter(const std::any& param)
 {
-    oh = _new_any_space_::any_cast<int>(param);
+    oh = std::any_cast<int>(param);
 }
 
 void TreeDelCommand::Exec()
