@@ -21,10 +21,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 # Input
 SOURCES += \
-    arraymodel.cpp \
+    testModels/arraymodel.cpp \
+    testModels/arrayviewmodel.cpp \
+    testModels/treemodel.cpp \
+    testModels/treeviewmodel.cpp \
     unittest.cpp
 
 HEADERS += \
-    ArrayC.h \
-    arraymodel.h \
-    etlbase.h
+    testModels/ArrayC.h \
+    testModels/Tree.h \
+    testModels/arraymodel.h \
+    testModels/arrayviewmodel.h \
+    testModels/etlbase.h \
+    testModels/treemodel.h \
+    testModels/treeviewmodel.h
