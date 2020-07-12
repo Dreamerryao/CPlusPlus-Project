@@ -10,7 +10,7 @@ private:
 public:
     changeCommand(app* ptr_App);
     ~changeCommand();
-    virtual void SetParameter(const _new_any_space_::any &param);
+    virtual void SetParameter(const std::any &param);
     virtual void Exec() ;
 };
 

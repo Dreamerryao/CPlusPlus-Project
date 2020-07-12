@@ -10,7 +10,7 @@ private:
 public:
     M2Command(app* ptr_App);
     ~M2Command();
-    virtual void SetParameter(const _new_any_space_::any &param);
+    virtual void SetParameter(const std::any &param);
     virtual void Exec() ;
 };
 

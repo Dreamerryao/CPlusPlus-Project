@@ -5,9 +5,9 @@ ArrayDelCommand::ArrayDelCommand(ArrayViewModel* ptr)
 {
     ptr_AVM= ptr;
 }
-void ArrayDelCommand::SetParameter(const _new_any_space_::any& param)
+void ArrayDelCommand::SetParameter(const std::any& param)
 {
-    oh = _new_any_space_::any_cast<int>(param);
+    oh = std::any_cast<int>(param);
 }
 
 void ArrayDelCommand::Exec()
