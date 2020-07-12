@@ -4,7 +4,7 @@ environment:
     #  CMD_VCVARSALL: '"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" x86'
     #  APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
     #  MSVC_PLATFORM: "x86"
-    - QTDIR: C:\Qt
+    - QTDIR: C:\Qt\5.12.6\msvc2017_64
       CMD_VCVARSALL: '"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" x64'
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       MSVC_PLATFORM: "x64"
@@ -17,42 +17,42 @@ configuration:
 install:
   - git submodule update --init --recursive
   - dir %QTDIR%
-  # - call %CMD_VCVARSALL%
-  # - set PATH=%PATH%;%QTDIR%\bin
+  - call %CMD_VCVARSALL%
+  - set PATH=%PATH%;%QTDIR%\bin
 
-# # Run qmake
-# before_build:
-#   - cd %APPVEYOR_BUILD_FOLDER%
-#   - cd DSVis
-#   - qmake DSVis.pro
+# Run qmake
+before_build:
+  - cd %APPVEYOR_BUILD_FOLDER%
+  - cd DSVis
+  - qmake DSVis.pro
 
 
-# # Build the projects
-# build_script:
-#   - cd %APPVEYOR_BUILD_FOLDER%
-#   - cd DSVis
-#   - nmake
+# Build the projects
+build_script:
+  - cd %APPVEYOR_BUILD_FOLDER%
+  - cd DSVis
+  - nmake
   
   
-# after_build:
-#   - cd %APPVEYOR_BUILD_FOLDER%
-#   - cd DSVis\
-#   - mkdir OurRelease\
-#   - xcopy %APPVEYOR_BUILD_FOLDER%\release\release\DSVis.exe %APPVEYOR_BUILD_FOLDER%\DSVis\OurRelease\
-#   - cd OurRelease\
-#   - windeployqt DSVis.exe
-#   - cd ../../
-#   - 7z a %MSVC_PLATFORM%-release.zip %APPVEYOR_BUILD_FOLDER%\DSVis\OurRelease\*
+after_build:
+  - cd %APPVEYOR_BUILD_FOLDER%
+  - cd DSVis\
+  - mkdir OurRelease\
+  - xcopy %APPVEYOR_BUILD_FOLDER%\release\release\DSVis.exe %APPVEYOR_BUILD_FOLDER%\DSVis\OurRelease\
+  - cd OurRelease\
+  - windeployqt DSVis.exe
+  - cd ../../
+  - 7z a %MSVC_PLATFORM%-release.zip %APPVEYOR_BUILD_FOLDER%\DSVis\OurRelease\*
 
-# # just repo root-directory
-# artifacts:
-#   - path: ./*-release.zip
+# just repo root-directory
+artifacts:
+  - path: ./*-release.zip
 
-# deploy:
-#   provider: GitHub
-#   auth_token:
-#     secure: AawNvW3GfIUvRfsVjTbk36HtADx/48I7SoxIWbqZwFIngyh0hJUUhroPjgMzZLHo
-#   artifact: /.*\.zip/
-#   force_update: false
-#   on:
-#       branch: master
+deploy:
+  provider: GitHub
+  auth_token:
+    secure: AawNvW3GfIUvRfsVjTbk36HtADx/48I7SoxIWbqZwFIngyh0hJUUhroPjgMzZLHo
+  artifact: /.*\.zip/
+  force_update: false
+  on:
+      branch: master
