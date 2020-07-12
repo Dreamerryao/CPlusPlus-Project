@@ -268,7 +268,7 @@ void Mode1_display::show_button(){
         qb->addWidget(addText);
         qb->addWidget(button1);
         qb->addWidget(button2);
-    }else if(type>6||type==3){
+    }else if(type>6){
         addText=new QLineEdit("",this);
         addText->setGeometry(610,280,160,35);
         delText=new QLineEdit("",this);
@@ -536,7 +536,7 @@ void Mode1_display::paintEvent(QPaintEvent *)
                 num++;
             }
         }
-    }else if(type>6&&type<9||type==3){
+    }else if(type>6&&type<9){
         std::vector<node*> queue;
         float xp[40];
         float yp[40];

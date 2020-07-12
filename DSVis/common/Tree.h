@@ -10,11 +10,13 @@ public:
     node* right;
     int color;
     int height;
+    int npl;
 public:
     node(){
         left=NULL;
         right=NULL;
         height=0;
+        npl=0;
     }
     ~node(){}
 
@@ -25,18 +27,22 @@ private:
 public:
     int type;
     Tree(){
-        node *n1,*n2;
+        node *n1;
         n1=new node;
         n1->value=3;
-        n2=new node;
-        n2->value=9;
+        //n2=new node;
+        //n2->value=9;
         root = new node;
         root->value=6;
         root->left=n1;
-        root->right=n2;
+        //root->right=n2;
         n1->height=0;
-        n2->height=0;
+        //n2->height=0;
         root->height = 1;
+        root->npl=1;
+        n1->npl=0;
+        //n2->npl=0;
+
         //qDebug() << getHeight(root) <<endl;
     }
     ~Tree(){}
@@ -63,9 +69,36 @@ public:
             Ins_BST(key);
         else if(type==8)
             root = Ins_AVL(root, key);
+        else if(type==3){
+            node newn;
+            newn.npl=0;
+            newn.value=key;
+            root= LH_MERGE(root,&newn);
+        }
 
     }
-
+    node* LH_MERGE(node *x,node *y){
+        if(x == NULL)return y;
+        if(y == NULL)return x;
+            node *temp;
+            if(x->value > y->value){
+                temp=x;
+                x=y;
+                y=temp;
+            }
+            x->right = LH_MERGE(x->right, y);
+            if(x->left == NULL || x->left->npl < x->right->npl)
+            {
+                node *tmp = x->left;
+                x->left = x->right;
+                x->right = tmp;
+            }
+            if (x->right == NULL || x->left == NULL)
+                x->npl = 0;
+            else
+                x->npl = (x->left->npl > x->right->npl) ? (x->right->npl + 1) : (x->left->npl + 1);
+            return x;
+    }
     int Del(int key){
         if(type==7)
            return Del_BST(key);

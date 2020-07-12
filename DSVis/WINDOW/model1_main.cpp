@@ -40,14 +40,6 @@ void model1_main::on_pushButton_2_clicked()
     _getChange->Exec();
 }
 
-void model1_main::on_pushButton_3_clicked()
-{
-     TT = "Leftist heap";
-     type=3;
-    _getChange->Exec();
-
-}
-
 void model1_main::on_pushButton_4_clicked()
 {
     TT="Stack";
