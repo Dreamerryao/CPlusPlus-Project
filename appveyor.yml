@@ -4,7 +4,7 @@ environment:
     #  CMD_VCVARSALL: '"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" x86'
     #  APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
     #  MSVC_PLATFORM: "x86"
-    - QTDIR: C:\
+    - QTDIR: C:\Qt
       CMD_VCVARSALL: '"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" x64'
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       MSVC_PLATFORM: "x64"
