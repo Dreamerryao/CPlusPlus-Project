@@ -99,6 +99,8 @@ public:
             }
             root = Del_AVL(root, key);
             return 1;
+        }else if(type==9){
+            root = Del_BRT(root, key);
         }
     }
 
@@ -416,6 +418,86 @@ public:
         return T;
 
     }
+    node* Del_BRT(node* T, int key){
+        node* delNode = find_node(T, key);
+        if(delNode==NULL) return T;
+
+        node* child;
+        node* parent;
+        int color;
+
+        if ( (delNode->left!=NULL) && (delNode->right!=NULL) ) {
+            node* replace = delNode;
+
+            // get the smallest key in the right tree
+            replace = replace->right;
+            while (replace->left != NULL)
+                replace = replace->left;
+
+            if (delNode->parent){ // not root
+                if (delNode->parent->left == delNode)
+                    delNode->parent->left = replace;
+                else
+                    delNode->parent->right = replace;
+            }
+            else
+                T = replace; // root
+
+            child = replace->right;
+            parent = replace->parent;
+
+            color = replace->color; // save color
+
+            if (parent == delNode){
+                parent = replace;
+            }
+            else{
+                if (child)
+                    child->parent = parent;
+                parent->left = child;
+
+                replace->right = delNode->right;
+                delNode->right->parent = replace;
+            }
+
+            replace->parent = delNode->parent;
+            replace->color = delNode->color;
+            replace->left = delNode->left;
+            delNode->left->parent = replace;
+
+            if (color == 0)
+                T = FixDel_RBT(T, child, parent);
+
+            delete delNode;
+            return T;
+        }
+
+        if (delNode->left !=NULL)
+            child = delNode->left;
+        else
+            child = delNode->right;
+
+        parent = delNode->parent;
+        color = delNode->color;
+
+        if (child)
+            child->parent = parent;
+
+        if (parent){ // not root
+            if (parent->left == delNode)
+                parent->left = child;
+            else
+                parent->right = child;
+        }
+        else
+            T = child;
+
+        if (color == 0)
+            T = FixDel_RBT(T, child, parent);
+        delete delNode;
+        return T;
+
+    }
     void FixIns_RBT(node* InsertedNode){
         node *p, *g; //p:parent g:grandparent
         p = InsertedNode->parent;
@@ -489,7 +571,6 @@ public:
         x->left = p;
         p->parent = x;
     }
-
     void RRotation(node* p){
         node *x = p->left;
         p->left = x->right;
@@ -511,6 +592,97 @@ public:
         x->right = p;
         p->parent = x;
     }
+
+    node* find_node(node* T, int key){
+        if(T==NULL){
+            return T;
+        }else{
+            if(key>T->value){
+                return find_node(T->right,key);
+            }else if(key<T->value){
+                return find_node(T->left,key);
+            }else{
+                return T;
+            }
+        }
+    }
+
+    node* FixDel_RBT(node* T, node* DelNode, node* parent){
+        node* other;
+        while ((!DelNode || DelNode->color==0) && DelNode != T){
+            if (parent->left == DelNode){
+                other = parent->right;
+                if (other->color==1){
+                    // x's sibling is red
+                    other->color = 0;
+                    parent->color = 1;
+                    LRotation(parent);
+                    other = parent->right;
+                }
+                if ((!other->left || other->left->color==0) &&
+                    (!other->right || (other->right->color==0))){
+
+                    // x's sibling is black and his kids are black
+                    other->color = 1;
+                    DelNode = parent;
+                    parent = DelNode->parent;
+                }else{
+                    if (!other->right || other->right->color == 0){
+                        // x's sibling is black, left kid is red, right is black
+                        other->left->color = 0;
+                        other->color = 1;
+                        RRotation(other);
+                        other = parent->right;
+                    }
+
+                    // x's sibling is black, left kid is black
+                    other->color = parent->color;
+                    parent->color = 0;
+                    other->right->color = 0;
+                    LRotation(parent);
+                    DelNode = root;
+                    break;
+                }
+            }else{
+                other = parent->left;
+                if (other->color==1){
+                    // x's sibling is red
+                    other->color = 0;
+                    parent->color = 1;
+                    RRotation(parent);
+                    other = parent->left;
+                }
+                if ((!other->left || other->left->color==0) &&
+                    (!other->right || other->right->color==0)){
+                    // x's sibling is black and two kids are black/
+                    other->color = 1;
+                    DelNode = parent;
+                    parent = DelNode->parent;
+                }else{
+                    if (!other->left || other->left->color==0)
+                    {
+                        // x's sibling is black, left kid is red, right is black
+                        other->right->color=0;
+                        other->color=1;
+                        LRotation(other);
+                        other = parent->left;
+                    }
+                     // x's sibling is black, right kid is red
+                    other->color = parent->color;
+                    parent->color = 0;
+                    other->left->color = 0;
+                    RRotation(parent);
+                    DelNode = root;
+                    break;
+                }
+            }
+        }
+        if (DelNode)
+            DelNode->color=0;
+        return T;
+    }
+
+
 };
 
 #endif // TREE_H
