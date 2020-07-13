@@ -19,7 +19,7 @@ class ARRAYC{
     void InitArrayc(){
         size = 2;
         Num.resize(2);
-        Num[0] = 1;
+        Num[0] = 20;
         Num[1] = 100;
     }
     void takeClear(){
@@ -100,6 +100,9 @@ class ARRAYC{
             return 1;
         }
         else{
+            if(Num.size()==0){
+                return 0;
+            }
             if(Num.size()!=0){
                 Num[0]=Num[size-1];
                 Num.erase(Num.begin()+size-1);

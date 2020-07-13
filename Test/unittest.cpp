@@ -44,6 +44,19 @@ void UnitTest::testArrayModel(){
         QCOMPARE( model->deq(),true);
     }
     QCOMPARE( model->deq(),false);
+
+    //heap
+    model->getArrayc()->type=1;
+    model->getArrayc()->InitArrayc();//array[0]=20,array[1]=100
+    //add
+    model->add(11);//array[2] replace arrar[0],swap 11 and 20
+    QCOMPARE(model->getArrayc()->getSize(),3);
+    QCOMPARE(model->getArrayc()->getNumIndex(0),11);
+    //deletemin
+    for(int i=0;i<3;i++){
+         QCOMPARE(model->deq(),true);
+    }
+    QCOMPARE(model->deq(),false);
 }
 
 void UnitTest::testArrayViewModel(){
@@ -81,6 +94,18 @@ void UnitTest::testArrayViewModel(){
      }
      QCOMPARE( viewmodel->_ArrayModel->deq(),false);
 
+     //heap
+     viewmodel->_ArrayModel->getArrayc()->type=1;
+     viewmodel->_ArrayModel->getArrayc()->InitArrayc();
+     //add
+     viewmodel->_ArrayModel->add(11);
+     QCOMPARE(viewmodel->_ArrayModel->getArrayc()->getSize(),3);
+     QCOMPARE(viewmodel->_ArrayModel->getArrayc()->getNumIndex(0),11);
+     //deletemin
+     for(int i=0;i<3;i++){
+          QCOMPARE(viewmodel->_ArrayModel->deq(),true);
+     }
+     QCOMPARE(viewmodel->_ArrayModel->deq(),false);
 
 }
 
