@@ -8,7 +8,10 @@ public:
     int value;
     node* left;
     node* right;
-    int color;
+    //for Red-black
+    node* parent;
+    int color; // 1 is red, 0 is black
+    //for AVL
     int height;
 public:
     node(){
@@ -34,9 +37,18 @@ public:
         root->value=6;
         root->left=n1;
         root->right=n2;
+        //for AVL
         n1->height=0;
         n2->height=0;
         root->height = 1;
+        //for Red-black
+        n1->parent = root;
+        n2->parent = root;
+        root->parent = NULL;
+        root->color = 0;
+        n1->color = 1;
+        n2->color = 1;
+
         //qDebug() << getHeight(root) <<endl;
     }
     ~Tree(){}
@@ -63,12 +75,16 @@ public:
             Ins_BST(key);
         else if(type==8)
             root = Ins_AVL(root, key);
+        else if(type==9)
+            root = Ins_RBT(root, key);
 
     }
 
     int Del(int key){
         if(type==7)
            return Del_BST(key);
+        else if(type==8)
+            root = Del_AVL(root, key);
     }
 
     node* getTree(){
@@ -97,9 +113,9 @@ public:
         }
         node* InsertedNode = new node();
         InsertedNode->value = key;
-            if (isLeftChild) {
+        if (isLeftChild) {
             parentNode->left = InsertedNode;
-            }else{
+        }else{
             parentNode->right = InsertedNode;
         }
     }
@@ -219,6 +235,45 @@ public:
         qDebug() << getHeight(T) ;
         return T;
     }
+    node* Del_AVL(node* T, int key){
+        if (T == NULL)
+            return T;
+        if ( key < T->value )
+            T->left = Del_AVL(T->left, key);
+        else if( key > T->value )
+            T->right = Del_AVL(T->right, key);
+        else{ // key == T->value
+            if( (T->left == NULL) ||(T->right == NULL) ){
+                node* temp = T->left ?T->left :T->right;
+                if (temp == NULL){ // no child
+                    T = NULL;
+                    return T;
+                }
+                else // one child
+                    *T = *temp;
+                delete temp;
+            }
+            else{ // two
+                node* temp = minValueNode(T->right);
+                T->value = temp->value;
+                T->right = Del_AVL(T->right, temp->value);
+            }
+        }
+
+        T->height = max(getHeight(T->left),getHeight(T->right))+1;
+
+        int balance = getBalance(T);
+        if (balance > 1 && getBalance(T->left) >= 0)
+            return LLRotation(T);
+        if (balance > 1 && getBalance(T->left) < 0)
+            return LRRotation(T);
+        if (balance < -1 && getBalance(T->right) <= 0)
+            return RRRotation(T);
+        if (balance < -1 && getBalance(T->right) > 0)
+            return RLRotation(T);
+
+        return T;
+    }
     bool IsRotate(node* T){
         if((getHeight(T->left)-getHeight(T->right))==2 || (getHeight(T->right)-getHeight(T->left))== 2){
             return 1;
@@ -277,7 +332,155 @@ public:
         else return max(getHeight(T->left), getHeight(T->right))+1;
     }
     int max(int x, int y){
-        return x > y? x : y;
+        return x > y ? x : y;
+    }
+    int getBalance(node *N){
+        if (N == NULL)
+            return 0;
+        return getHeight(N->left) -getHeight(N->right);
+    }
+    node * minValueNode(node* N){
+        node* current = N;
+        while (current->left != NULL)
+            current = current->left;
+
+        return current;
+    }
+
+    /*Red-black*/
+    node* Ins_RBT(node* T, int key){
+
+        if(T == NULL){
+            T= new node();
+            T->value = key;
+            T->color = 0; // black
+            T->parent = NULL;
+            return T;
+        }
+        //Ins_BST(key);
+
+        node* currentNode = T;
+        node* parentNode = T;
+        bool isLeftChild = true;
+        while (currentNode != NULL){
+            parentNode = currentNode;
+            if (key < currentNode->value){
+                currentNode = currentNode->left;
+                isLeftChild = true;
+            }else {
+                currentNode = currentNode->right;
+                isLeftChild = false;
+            }
+        }
+        //currentNode->parent=parentNode;
+        node* InsertedNode = new node();
+        InsertedNode->value = key;
+        InsertedNode->color = 1;
+        InsertedNode->parent=parentNode;
+        if (isLeftChild) {
+            parentNode->left = InsertedNode;
+        }else{
+            parentNode->right = InsertedNode;
+        }
+
+        FixIns_RBT(InsertedNode);
+        return T;
+
+    }
+    void FixIns_RBT(node* InsertedNode){
+        node *p, *g; //p:parent g:grandparent
+        p = InsertedNode->parent;
+        while (p && p->color){
+            g = p->parent;
+            if (p == g->left){
+                node *u = g->right; // uncle
+                if (u && u->color==1){ // uncle is red
+                    u->color=0;
+                    p->color=0;
+                    g->color=1;
+                    InsertedNode = g;
+                    continue;
+                }
+                if (p->right == InsertedNode){ //uncle is black and Inserted is right of p
+                    node *tmp;
+                    LRotation(p);
+                    tmp = p;
+                    p = InsertedNode;
+                    InsertedNode = tmp;
+                }
+
+                //uncle is black and Inserted is left of p
+                p->color=0;
+                g->color=1;
+                RRotation(g);
+            }
+            else{
+                node *u = g->left; // uncle
+                if (u && u->color==1){ // uncle is red
+                    u->color=0;
+                    p->color=0;
+                    g->color=1;
+                    InsertedNode = g;
+                    continue;
+                }
+                if (p->left == InsertedNode) //uncle is black and Inserted is left of p
+                {
+                    node *tmp;
+                    RRotation(p);
+                    tmp = p;
+                    p = InsertedNode;
+                    InsertedNode = tmp;
+                }
+
+                //uncle is black and Inserted is right of p
+                p->color=0;
+                g->color=1;
+                LRotation(g);
+            }
+        }
+        root->color = 0;
+    }
+    void LRotation(node* p){
+        node *x = p->right;
+        p->right = x->left;
+        if (x->left != NULL)
+            x->left->parent = p;
+
+        x->parent = p->parent;
+
+        if (p->parent == NULL){
+            root = x;
+        }
+        else{
+            if (p->parent->left == p)
+                p->parent->left = x;
+            else
+                p->parent->right = x;
+        }
+        x->left = p;
+        p->parent = x;
+    }
+
+    void RRotation(node* p){
+        node *x = p->left;
+        p->left = x->right;
+        if (x->right != NULL)
+            x->right->parent = p;
+
+        x->parent = p->parent;
+
+        if (p->parent == NULL){
+            root = x;
+        }
+        else{
+            if (p == p->parent->right)
+                p->parent->right = x;
+            else
+                p->parent->left = x;
+        }
+
+        x->right = p;
+        p->parent = x;
     }
 
 };

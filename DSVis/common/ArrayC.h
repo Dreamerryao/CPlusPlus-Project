@@ -39,6 +39,7 @@ class ARRAYC{
         return Num[index];
     }
     int Add(int a){
+
         Num.push_back(a);
         size++;
         return 1;
