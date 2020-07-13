@@ -17,7 +17,7 @@
    <widget class="QPushButton" name="pushButton_10">
     <property name="geometry">
      <rect>
-      <x>660</x>
+      <x>650</x>
       <y>480</y>
       <width>112</width>
       <height>34</height>
@@ -52,8 +52,8 @@
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>190</x>
-      <y>180</y>
+      <x>150</x>
+      <y>170</y>
       <width>161</width>
       <height>31</height>
      </rect>
@@ -65,7 +65,7 @@
    <widget class="QPushButton" name="pushButton_2">
     <property name="geometry">
      <rect>
-      <x>50</x>
+      <x>10</x>
       <y>260</y>
       <width>161</width>
       <height>31</height>
@@ -78,7 +78,7 @@
    <widget class="QPushButton" name="pushButton_4">
     <property name="geometry">
      <rect>
-      <x>330</x>
+      <x>300</x>
       <y>450</y>
       <width>181</width>
       <height>31</height>
@@ -91,8 +91,8 @@
    <widget class="QPushButton" name="pushButton_5">
     <property name="geometry">
      <rect>
-      <x>490</x>
-      <y>180</y>
+      <x>470</x>
+      <y>170</y>
       <width>161</width>
       <height>31</height>
      </rect>
@@ -104,7 +104,7 @@
    <widget class="QPushButton" name="pushButton_6">
     <property name="geometry">
      <rect>
-      <x>600</x>
+      <x>620</x>
       <y>260</y>
       <width>151</width>
       <height>31</height>
@@ -117,7 +117,7 @@
    <widget class="QPushButton" name="pushButton_7">
     <property name="geometry">
      <rect>
-      <x>330</x>
+      <x>300</x>
       <y>260</y>
       <width>181</width>
       <height>31</height>
@@ -130,7 +130,7 @@
    <widget class="QPushButton" name="pushButton_8">
     <property name="geometry">
      <rect>
-      <x>500</x>
+      <x>480</x>
       <y>360</y>
       <width>151</width>
       <height>31</height>
@@ -143,7 +143,7 @@
    <widget class="QPushButton" name="pushButton_9">
     <property name="geometry">
      <rect>
-      <x>190</x>
+      <x>160</x>
       <y>360</y>
       <width>151</width>
       <height>31</height>

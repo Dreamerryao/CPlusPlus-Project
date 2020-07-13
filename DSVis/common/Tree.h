@@ -16,7 +16,6 @@ public:
         left=NULL;
         right=NULL;
         height=0;
-        npl=0;
     }
     ~node(){}
 
@@ -53,7 +52,7 @@ public:
         n2=new node;
         n2->value=12;
         n3=new node;
-        n3->value=6;
+        n3->value=15;
         n2->right=n3;
         root=new node;
         root->value=9;
@@ -69,41 +68,20 @@ public:
             Ins_BST(key);
         else if(type==8)
             root = Ins_AVL(root, key);
-        else if(type==3){
-            node newn;
-            newn.npl=0;
-            newn.value=key;
-            root= LH_MERGE(root,&newn);
-        }
+
 
     }
-    node* LH_MERGE(node *x,node *y){
-        if(x == NULL)return y;
-        if(y == NULL)return x;
-            node *temp;
-            if(x->value > y->value){
-                temp=x;
-                x=y;
-                y=temp;
-            }
-            x->right = LH_MERGE(x->right, y);
-            if(x->left == NULL || x->left->npl < x->right->npl)
-            {
-                node *tmp = x->left;
-                x->left = x->right;
-                x->right = tmp;
-            }
-            if (x->right == NULL || x->left == NULL)
-                x->npl = 0;
-            else
-                x->npl = (x->left->npl > x->right->npl) ? (x->right->npl + 1) : (x->left->npl + 1);
-            return x;
-    }
+
     int Del(int key){
         if(type==7)
            return Del_BST(key);
-        else if(type==8)
+        else if(type==8){
+            if(find_key(root,key)==0){
+                return 0;
+            }
             root = Del_AVL(root, key);
+            return 1;
+        }
     }
 
     node* getTree(){
@@ -111,6 +89,19 @@ public:
     }
 
     /*BST*/
+    int find_key(node *it,int key){
+        if(it==NULL){
+            return 0;
+        }else{
+            if(key>it->value){
+                return find_key(it->right,key);
+            }else if(key<it->value){
+                return find_key(it->left,key);
+            }else{
+                return 1;
+            }
+        }
+    }
     void Ins_BST(int key){
         if(root == NULL){
             root=new node();
@@ -251,7 +242,7 @@ public:
             }
         }
         T->height=max(getHeight(T->left), getHeight(T->right))+1;
-        qDebug() << getHeight(T) ;
+        //qDebug() << getHeight(T) ;
         return T;
     }
     node* Del_AVL(node* T, int key){
