@@ -177,7 +177,32 @@ void Model2_main::process_text(){
                     }
                 }
                 else if(_type=="link"){
-
+                    type = 2;
+                    _value=res[1];
+                }
+                else if(_type=="stack"){
+                    type=4;
+                    _value=res[1];
+                }
+                else if(_type=="queue"){
+                    type=5;
+                    _value=res[1];
+                }
+                else if(_type=="heap"){
+                    type=6;
+                    _value=res[1];
+                }
+                else if(_type=="BST"){
+                    type=7;
+                    _value=res[1];
+                }
+                else if(_type=="AVL"){
+                    type=8;
+                    _value=res[1];
+                }
+                else if(_type=="RBT"){
+                    type=9;
+                    _value=res[1];
                 }
                 else{
                     _isOK=false;
@@ -195,22 +220,75 @@ void Model2_main::process_text(){
                 }
                 std::string rst=res[0].substr(pos+1);
                 pos=rst.find("(");
+                int flagop=0;
                 if(pos==-1){
-                    _isOK=false;
+                    if(rst=="pop"&&_type=="stack"){
+                        _op=rst;
+                        flagop=1;
+                    }
+                    else if(rst=="deletemin"&&_type=="heap"){
+                        _op=rst;
+                        flagop=1;
+                    }
+                    else if(rst=="dequeue"&&_type=="queue"){
+                        _op=rst;
+                        flagop=1;
+                    }
+                    else{
+                        _isOK=false;
+                    }
                 }
                 else{
                     _op=rst.substr(0,pos);
                     std::string rt=rst.substr(pos);
                     pos=rt.find(")");
-                    if(pos!=rt.length()-1){
+                    if(pos!=rt.length()-1&&flagop==0){
                         _isOK=false;
                     }
                     else{
                         rt=rt.substr(1,rt.length()-2);
                     }
-                    if(_op=="add"||_op=="delete"){
-                        int i;
-                        for(i=0;i<rt.length();i++){
+                    if(_op=="add"&&(_type=="array"||_type=="link")){
+                        for(int i=0;i<rt.length();i++){
+                            if(rt[i]<'0'||rt[i]>'9'){
+                                _isOK=false;
+                            }
+                        }
+                        _a=atoi(rt.c_str());
+                    }
+                    else if(_op=="delete"){
+                       //qDebug() <<QString::fromStdString(_type) <<endl ;
+                        if(_type=="heap"||_type=="stack"||_type=="queue"){
+                            _isOK=false;
+                        }
+                        for(int i=0;i<rt.length();i++){
+                            if(rt[i]<'0'||rt[i]>'9'){
+                                _isOK=false;
+                            }
+                        }
+                        _a=atoi(rt.c_str());
+                    }
+                    else if(_op=="insert"){
+                        if(_type=="array"&&_type=="link"&&_type=="queue"&&_type=="stack"){
+                            _isOK=false;
+                        }
+                        for(int i=0;i<rt.length();i++){
+                            if(rt[i]<'0'||rt[i]>'9'){
+                                _isOK=false;
+                            }
+                        }
+                        _a=atoi(rt.c_str());
+                    }
+                    else if(_op=="push"&&_type=="stack"){
+                        for(int i=0;i<rt.length();i++){
+                            if(rt[i]<'0'||rt[i]>'9'){
+                                _isOK=false;
+                            }
+                        }
+                        _a=atoi(rt.c_str());
+                    }
+                    else if(_op=="enqueue"&&_type=="queue"){
+                        for(int i=0;i<rt.length();i++){
                             if(rt[i]<'0'||rt[i]>'9'){
                                 _isOK=false;
                             }
@@ -218,6 +296,9 @@ void Model2_main::process_text(){
                         _a=atoi(rt.c_str());
                     }
                     else if(_op=="replace"){
+                        if(_type!="array"){
+                            _isOK=false;
+                        }
                         std::string number1,number2;
                         pos=rt.find(",");
                         number1=rt.substr(0,pos);
@@ -235,6 +316,9 @@ void Model2_main::process_text(){
                             }
                         }
                         _b=atoi(number2.c_str());
+                    }
+                    else{
+                        _isOK=false;
                     }
                 }
             }
