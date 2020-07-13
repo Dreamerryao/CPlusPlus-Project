@@ -12,14 +12,13 @@ class TreeViewModel:public Proxy_PropertyNotification<TreeViewModel>,
 public:
     TreeViewModel();
     ~TreeViewModel(){}
-    void setTreeModel(std::shared_ptr<TreeModel> TM);
+    void setTreeModel(const std::shared_ptr<TreeModel> &TM);
     std::shared_ptr<Tree> getTree();
     std::shared_ptr<ICommandBase> getTreeInsCommand();
-    void Exec_Tins_command(int I);
     std::shared_ptr<ICommandBase> getTreeDelCommand();
-    int Exec_Tdel_command(int I);
-private:
     std::shared_ptr<TreeModel> _TreeModel;
+private:
+
     std::shared_ptr<TreeModelSink> _TMSink;
     std::shared_ptr<TreeInsCommand> _TIC;
     std::shared_ptr<TreeDelCommand> _TDC;

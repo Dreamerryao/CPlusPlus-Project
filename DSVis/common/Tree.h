@@ -13,6 +13,7 @@ public:
     int color; // 1 is red, 0 is black
     //for AVL
     int height;
+    int npl;
 public:
     node(){
         left=NULL;
@@ -28,18 +29,19 @@ private:
 public:
     int type;
     Tree(){
-        node *n1,*n2;
+        node *n1;
         n1=new node;
         n1->value=3;
-        n2=new node;
-        n2->value=9;
+        //n2=new node;
+        //n2->value=9;
         root = new node;
         root->value=6;
         root->left=n1;
         root->right=n2;
         //for AVL
+        //root->right=n2;
         n1->height=0;
-        n2->height=0;
+        //n2->height=0;
         root->height = 1;
         //for Red-black
         n1->parent = root;
@@ -48,6 +50,9 @@ public:
         root->color = 0;
         n1->color = 1;
         n2->color = 1;
+        root->npl=1;
+        n1->npl=0;
+        //n2->npl=0;
 
         //qDebug() << getHeight(root) <<endl;
     }
@@ -59,7 +64,7 @@ public:
         n2=new node;
         n2->value=12;
         n3=new node;
-        n3->value=6;
+        n3->value=15;
         n2->right=n3;
         root=new node;
         root->value=9;
@@ -78,13 +83,19 @@ public:
         else if(type==9)
             root = Ins_RBT(root, key);
 
+
     }
 
     int Del(int key){
         if(type==7)
            return Del_BST(key);
-        else if(type==8)
+        else if(type==8){
+            if(find_key(root,key)==0){
+                return 0;
+            }
             root = Del_AVL(root, key);
+            return 1;
+        }
     }
 
     node* getTree(){
@@ -92,6 +103,19 @@ public:
     }
 
     /*BST*/
+    int find_key(node *it,int key){
+        if(it==NULL){
+            return 0;
+        }else{
+            if(key>it->value){
+                return find_key(it->right,key);
+            }else if(key<it->value){
+                return find_key(it->left,key);
+            }else{
+                return 1;
+            }
+        }
+    }
     void Ins_BST(int key){
         if(root == NULL){
             root=new node();
@@ -232,7 +256,46 @@ public:
             }
         }
         T->height=max(getHeight(T->left), getHeight(T->right))+1;
-        qDebug() << getHeight(T) ;
+        //qDebug() << getHeight(T) ;
+        return T;
+    }
+    node* Del_AVL(node* T, int key){
+        if (T == NULL)
+            return T;
+        if ( key < T->value )
+            T->left = Del_AVL(T->left, key);
+        else if( key > T->value )
+            T->right = Del_AVL(T->right, key);
+        else{ // key == T->value
+            if( (T->left == NULL) ||(T->right == NULL) ){
+                node* temp = T->left ?T->left :T->right;
+                if (temp == NULL){ // no child
+                    T = NULL;
+                    return T;
+                }
+                else // one child
+                    *T = *temp;
+                delete temp;
+            }
+            else{ // two
+                node* temp = minValueNode(T->right);
+                T->value = temp->value;
+                T->right = Del_AVL(T->right, temp->value);
+            }
+        }
+
+        T->height = max(getHeight(T->left),getHeight(T->right))+1;
+
+        int balance = getBalance(T);
+        if (balance > 1 && getBalance(T->left) >= 0)
+            return LLRotation(T);
+        if (balance > 1 && getBalance(T->left) < 0)
+            return LRRotation(T);
+        if (balance < -1 && getBalance(T->right) <= 0)
+            return RRRotation(T);
+        if (balance < -1 && getBalance(T->right) > 0)
+            return RLRotation(T);
+
         return T;
     }
     node* Del_AVL(node* T, int key){
@@ -482,7 +545,13 @@ public:
         x->right = p;
         p->parent = x;
     }
+    node * minValueNode(node* N){
+        node* current = N;
+        while (current->left != NULL)
+            current = current->left;
 
+        return current;
+    }
 };
 
 #endif // TREE_H

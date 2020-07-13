@@ -13,9 +13,9 @@ class FirstPage : public QMainWindow
 
 public:
     explicit FirstPage(QWidget *parent = nullptr);
-    void set_ptrM1Command(std::shared_ptr<ICommandBase> ptrCommand);
-    void set_ptrM2Command(std::shared_ptr<ICommandBase> ptrCommand);
-    void set_ptrAboutCommand(std::shared_ptr<ICommandBase> ptrCommand);
+    void set_ptrM1Command(const std::shared_ptr<ICommandBase> &ptrCommand);
+    void set_ptrM2Command(const std::shared_ptr<ICommandBase> &ptrCommand);
+    void set_ptrAboutCommand(const std::shared_ptr<ICommandBase> &ptrCommand);
     ~FirstPage();
 
 private slots:

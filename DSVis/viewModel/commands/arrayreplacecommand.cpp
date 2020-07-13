@@ -5,20 +5,17 @@ ArrayReplaceCommand::ArrayReplaceCommand(ArrayViewModel* ptr)
 {
     ptr_AVM= ptr;
 }
-void ArrayReplaceCommand::SetParameter(const _new_any_space_::any& param)
+void ArrayReplaceCommand::SetParameter(const std::any& param)
 {
     oh = -1;
     newValue = 0;
-    std::vector<int> hh = _new_any_space_::any_cast<std::vector<int>>(param);
-//    std::string coor = _new_any_space_::any_cast<std::string>(param);
+    std::vector<int> hh = std::any_cast<std::vector<int>>(param);
     oh = hh[0];
     newValue = hh[1];
 }
 
 void ArrayReplaceCommand::Exec()
 {
-    if(ptr_AVM->Exec_ARep_command(oh,newValue))
-    ptr_AVM->Fire_OnCommandComplete("ArrayReplaceCommand", true);
-    else
-    ptr_AVM->Fire_OnCommandComplete("ArrayReplaceCommand", false);
+    ptr_AVM->Fire_OnCommandComplete("ArrayReplaceCommand", ptr_AVM->_ArrayModel->replace(oh,newValue));
+
 }

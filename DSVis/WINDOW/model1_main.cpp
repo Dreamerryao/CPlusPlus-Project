@@ -14,7 +14,7 @@ model1_main::~model1_main()
     delete ui;
 }
 
-void model1_main::setCancelCommand(std::shared_ptr<ICommandBase> ptr_cancel){
+void model1_main::setCancelCommand(const std::shared_ptr<ICommandBase> &ptr_cancel){
     _getCancel=ptr_cancel;
 }
 void model1_main::on_pushButton_10_clicked()
@@ -22,7 +22,7 @@ void model1_main::on_pushButton_10_clicked()
     _getCancel->Exec();
 }
 
-void model1_main::setChangeCommand(std::shared_ptr<ICommandBase> ptr_change){
+void model1_main::setChangeCommand(const std::shared_ptr<ICommandBase> &ptr_change){
     _getChange=ptr_change;
 }
 
@@ -38,14 +38,6 @@ void model1_main::on_pushButton_2_clicked()
     TT = "Link";
     type=2;
     _getChange->Exec();
-}
-
-void model1_main::on_pushButton_3_clicked()
-{
-     TT = "Leftist heap";
-     type=3;
-    _getChange->Exec();
-
 }
 
 void model1_main::on_pushButton_4_clicked()

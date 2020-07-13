@@ -13,7 +13,7 @@ about::~about()
     delete ui;
 }
 
-void about::set_ptrCancel(std::shared_ptr<ICommandBase> ptrcancel){
+void about::set_ptrCancel(const std::shared_ptr<ICommandBase> &ptrcancel){
     _ptrCancel=ptrcancel;
 }
 

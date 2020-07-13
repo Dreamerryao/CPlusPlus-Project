@@ -13,13 +13,13 @@ FirstPage::~FirstPage()
 {
     delete ui;
 }
-void FirstPage::set_ptrM1Command(std::shared_ptr<ICommandBase> ptrCommand){
+void FirstPage::set_ptrM1Command(const std::shared_ptr<ICommandBase> &ptrCommand){
     _ptrM1Command=ptrCommand;
 }
-void FirstPage::set_ptrM2Command(std::shared_ptr<ICommandBase> ptrCommand){
+void FirstPage::set_ptrM2Command(const std::shared_ptr<ICommandBase> &ptrCommand){
     _ptrM2Command=ptrCommand;
 }
-void FirstPage::set_ptrAboutCommand(std::shared_ptr<ICommandBase> ptrCommand){
+void FirstPage::set_ptrAboutCommand(const std::shared_ptr<ICommandBase> &ptrCommand){
     _ptrAboutCommand=ptrCommand;
 }
 void FirstPage::on_m2_button_clicked()

@@ -13,7 +13,7 @@ private:
     int newValue;
 public:
     ArrayReplaceCommand(ArrayViewModel* ptr);
-    virtual void SetParameter(const _new_any_space_::any &param);
+    virtual void SetParameter(const std::any &param);
     virtual void Exec() ;
 };
 
