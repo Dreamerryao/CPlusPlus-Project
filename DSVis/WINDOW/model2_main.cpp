@@ -185,7 +185,14 @@ void Model2_main::process_text(){
             }
             else if(res.size()==1){
                 pos=res[0].find(".");
-                _value=res[0].substr(0,pos);
+                if(pos==0){
+                    _isOK=false;
+                }
+                std::string val;
+                val=res[0].substr(0,pos);
+                if(_value!=val){
+                    _isOK=false;
+                }
                 std::string rst=res[0].substr(pos+1);
                 pos=rst.find("(");
                 if(pos==-1){

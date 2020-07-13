@@ -29,11 +29,11 @@ private:
 public:
     int type;
     Tree(){
-        node *n1;
+        node *n1,*n2;
         n1=new node;
         n1->value=3;
-        //n2=new node;
-        //n2->value=9;
+        n2=new node;
+        n2->value=9;
         root = new node;
         root->value=6;
         root->left=n1;
@@ -50,26 +50,30 @@ public:
         root->color = 0;
         n1->color = 1;
         n2->color = 1;
-        root->npl=1;
-        n1->npl=0;
-        //n2->npl=0;
-
         //qDebug() << getHeight(root) <<endl;
     }
     ~Tree(){}
     void InitialTree(){
-        node *n1,*n2,*n3;
+        node *n1,*n2;
         n1=new node;
-        n1->value=6;
+        n1->value=3;
         n2=new node;
-        n2->value=12;
-        n3=new node;
-        n3->value=15;
-        n2->right=n3;
-        root=new node;
-        root->value=9;
+        n2->value=9;
+        root = new node;
+        root->value=6;
         root->left=n1;
         root->right=n2;
+        //for AVL
+        n1->height=0;
+        n2->height=0;
+        root->height = 1;
+        //for Red-black
+        n1->parent = root;
+        n2->parent = root;
+        root->parent = NULL;
+        root->color = 0;
+        n1->color = 1;
+        n2->color = 1;
     }
     bool isTreeNull(){
         if(root == NULL)return true;
@@ -298,45 +302,7 @@ public:
 
         return T;
     }
-    node* Del_AVL(node* T, int key){
-        if (T == NULL)
-            return T;
-        if ( key < T->value )
-            T->left = Del_AVL(T->left, key);
-        else if( key > T->value )
-            T->right = Del_AVL(T->right, key);
-        else{ // key == T->value
-            if( (T->left == NULL) ||(T->right == NULL) ){
-                node* temp = T->left ?T->left :T->right;
-                if (temp == NULL){ // no child
-                    T = NULL;
-                    return T;
-                }
-                else // one child
-                    *T = *temp;
-                delete temp;
-            }
-            else{ // two
-                node* temp = minValueNode(T->right);
-                T->value = temp->value;
-                T->right = Del_AVL(T->right, temp->value);
-            }
-        }
 
-        T->height = max(getHeight(T->left),getHeight(T->right))+1;
-
-        int balance = getBalance(T);
-        if (balance > 1 && getBalance(T->left) >= 0)
-            return LLRotation(T);
-        if (balance > 1 && getBalance(T->left) < 0)
-            return LRRotation(T);
-        if (balance < -1 && getBalance(T->right) <= 0)
-            return RRRotation(T);
-        if (balance < -1 && getBalance(T->right) > 0)
-            return RLRotation(T);
-
-        return T;
-    }
     bool IsRotate(node* T){
         if((getHeight(T->left)-getHeight(T->right))==2 || (getHeight(T->right)-getHeight(T->left))== 2){
             return 1;
@@ -544,13 +510,6 @@ public:
 
         x->right = p;
         p->parent = x;
-    }
-    node * minValueNode(node* N){
-        node* current = N;
-        while (current->left != NULL)
-            current = current->left;
-
-        return current;
     }
 };
 
