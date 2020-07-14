@@ -3,8 +3,9 @@
 #include <sstream>
 #include <QTextBlock>
 #include <qdebug.h>
-#include<qpainter.h>
+#include <qpainter.h>
 #include <QRect>
+#include <math.h>
 Model2_main::Model2_main(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Model2_main)
