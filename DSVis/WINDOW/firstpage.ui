@@ -17,7 +17,7 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">border-image: url(:/background/images/1.jpg);</string>
+   <string notr="true"/>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="label">
@@ -37,7 +37,7 @@
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-image: url(:/background/images/4.jpg);</string>
+     <string notr="true"/>
     </property>
     <property name="text">
      <string>DS Vis</string>
