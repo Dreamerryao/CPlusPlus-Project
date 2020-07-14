@@ -65,28 +65,28 @@ public:
         else if(type==8)
             root = Ins_AVL(root, key);
         else if(type==9)
-            root = Ins_RBT(root, key);
+            Ins_RBT( key);
 
 
     }
 
     int Del(int key){
-        if(type==7)
-           return Del_BST(key);
-        else if(type==8){
-            if(find_key(root,key)==0){
-                return 0;
+            if(type==7)
+               return Del_BST(key);
+            else if(type==8){
+                if(find_key(root,key)==0){
+                    return 0;
+                }
+                root = Del_AVL(root, key);
+                return 1;
+            }else if(type==9){
+                if(find_key(root,key)==0){
+                    return 0;
+                }
+                root = Del_BRT(root, key);
+                return 1;
             }
-            root = Del_AVL(root, key);
-            return 1;
-        }else if(type==9){
-            if(find_key(root,key)==0){
-                return 0;
-            }
-            root = Del_BRT(root, key);
-            return 1;
         }
-    }
 
     node* getTree(){
         return root;
@@ -362,18 +362,18 @@ public:
     }
 
     /*Red-black*/
-    node* Ins_RBT(node* T, int key){
-        if(T == NULL){
-            T= new node();
-            T->value = key;
-            T->color = 0; // black
-            T->parent = NULL;
-            return T;
+    node* Ins_RBT( int key){
+        if(root == NULL){
+            root= new node();
+            root->value = key;
+            root->color = 0; // black
+            root->parent = NULL;
+            return root;
         }
         //Ins_BST(key);
 
-        node* currentNode = T;
-        node* parentNode = T;
+        node* currentNode = root;
+        node* parentNode = root;
         bool isLeftChild = true;
         while (currentNode != NULL){
             parentNode = currentNode;
@@ -396,91 +396,91 @@ public:
             parentNode->right = InsertedNode;
         }
 
-        parentNode = FixIns_RBT(InsertedNode);
-        return T;
+        FixIns_RBT(InsertedNode);
 
     }
     node* Del_BRT(node* T, int key){
-        node* delNode = find_node(T, key);
-        if(delNode==NULL) return T;
+            node* delNode = find_node(T, key);
+            if(delNode==NULL) return T;
+            if(delNode==T&&T->left ==NULL && T->right==NULL)
+                return NULL;
+            node* child;
+            node* parent;
+            int color;
 
-        node* child;
-        node* parent;
-        int color;
+            if ( (delNode->left!=NULL) && (delNode->right!=NULL) ) {
+                node* replace = delNode;
 
-        if ( (delNode->left!=NULL) && (delNode->right!=NULL) ) {
-            node* replace = delNode;
+                // get the smallest key in the right tree
+                replace = replace->right;
+                while (replace->left != NULL)
+                    replace = replace->left;
 
-            // get the smallest key in the right tree
-            replace = replace->right;
-            while (replace->left != NULL)
-                replace = replace->left;
-
-            if (delNode->parent){ // not root
-                if (delNode->parent->left == delNode)
-                    delNode->parent->left = replace;
+                if (delNode->parent){ // not root
+                    if (delNode->parent->left == delNode)
+                        delNode->parent->left = replace;
+                    else
+                        delNode->parent->right = replace;
+                }
                 else
-                    delNode->parent->right = replace;
+                    T = replace; // root
+
+                child = replace->right;
+                parent = replace->parent;
+
+                color = replace->color; // save color
+
+                if (parent == delNode){
+                    parent = replace;
+                }
+                else{
+                    if (child)
+                        child->parent = parent;
+                    parent->left = child;
+
+                    replace->right = delNode->right;
+                    delNode->right->parent = replace;
+                }
+
+                replace->parent = delNode->parent;
+                replace->color = delNode->color;
+                replace->left = delNode->left;
+                delNode->left->parent = replace;
+
+                if (color == 0)
+                    T = FixDel_RBT(T, child, parent);
+
+                delete delNode;
+                return T;
+            }
+
+            if (delNode->left !=NULL)
+                child = delNode->left;
+            else
+                child = delNode->right;
+
+            parent = delNode->parent;
+            color = delNode->color;
+
+            if (child)
+                child->parent = parent;
+
+            if (parent){ // not root
+                if (parent->left == delNode)
+                    parent->left = child;
+                else
+                    parent->right = child;
             }
             else
-                T = replace; // root
-
-            child = replace->right;
-            parent = replace->parent;
-
-            color = replace->color; // save color
-
-            if (parent == delNode){
-                parent = replace;
-            }
-            else{
-                if (child)
-                    child->parent = parent;
-                parent->left = child;
-
-                replace->right = delNode->right;
-                delNode->right->parent = replace;
-            }
-
-            replace->parent = delNode->parent;
-            replace->color = delNode->color;
-            replace->left = delNode->left;
-            delNode->left->parent = replace;
+                T = child;
 
             if (color == 0)
                 T = FixDel_RBT(T, child, parent);
-
             delete delNode;
             return T;
+
         }
-
-        if (delNode->left !=NULL)
-            child = delNode->left;
-        else
-            child = delNode->right;
-
-        parent = delNode->parent;
-        color = delNode->color;
-
-        if (child)
-            child->parent = parent;
-
-        if (parent){ // not root
-            if (parent->left == delNode)
-                parent->left = child;
-            else
-                parent->right = child;
-        }
-        else
-            T = child;
-
-        if (color == 0)
-            T = FixDel_RBT(T, child, parent);
-        delete delNode;
-        return T;
-
-    }
-    node* FixIns_RBT(node* InsertedNode){
+    void FixIns_RBT(node* InsertedNode){
         node *p, *g; //p:parent g:grandparent
         p = InsertedNode->parent;
         while (p && p->color){
@@ -532,7 +532,6 @@ public:
             }
         }
         root->color = 0;
-        return p;
     }
     node* LRotation(node* p){
         node *x = p->right;
@@ -593,80 +592,79 @@ public:
     }
 
     node* FixDel_RBT(node* T, node* DelNode, node* parent){
-        node* other;
-        while ((!DelNode || DelNode->color==0) && DelNode != T){
-            if (parent->left == DelNode){
-                other = parent->right;
-                if (other->color==1){
-                    // x's sibling is red
-                    other->color = 0;
-                    parent->color = 1;
-                    LRotation(parent);
+            node* other;
+            while ((!DelNode || DelNode->color==0) && DelNode != T){
+                if (parent->left == DelNode){
                     other = parent->right;
-                }
-                if ((!other->left || other->left->color==0) &&
-                    (!other->right || (other->right->color==0))){
-
-                    // x's sibling is black and his kids are black
-                    other->color = 1;
-                    DelNode = parent;
-                    parent = DelNode->parent;
-                }else{
-                    if (!other->right || other->right->color == 0){
-                        // x's sibling is black, left kid is red, right is black
-                        other->left->color = 0;
-                        other->color = 1;
-                        RRotation(other);
+                    if (other->color==1){
+                        // x's sibling is red
+                        other->color = 0;
+                        parent->color = 1;
+                        LRotation(parent);
                         other = parent->right;
                     }
+                    if ((!other->left || other->left->color==0) &&
+                        (!other->right || (other->right->color==0))){
 
-                    // x's sibling is black, left kid is black
-                    other->color = parent->color;
-                    parent->color = 0;
-                    other->right->color = 0;
-                    LRotation(parent);
-                    DelNode = root;
-                    break;
-                }
-            }else{
-                other = parent->left;
-                if (other->color==1){
-                    // x's sibling is red
-                    other->color = 0;
-                    parent->color = 1;
-                    RRotation(parent);
-                    other = parent->left;
-                }
-                if ((!other->left || other->left->color==0) &&
-                    (!other->right || other->right->color==0)){
-                    // x's sibling is black and two kids are black/
-                    other->color = 1;
-                    DelNode = parent;
-                    parent = DelNode->parent;
+                        // x's sibling is black and his kids are black
+                        other->color = 1;
+                        DelNode = parent;
+                        parent = DelNode->parent;
+                    }else{
+                        if (!other->right || other->right->color == 0){
+                            // x's sibling is black, left kid is red, right is black
+                            other->left->color = 0;
+                            other->color = 1;
+                            RRotation(other);
+                            other = parent->right;
+                        }
+
+                        // x's sibling is black, left kid is black
+                        other->color = parent->color;
+                        parent->color = 0;
+                        other->right->color = 0;
+                        LRotation(parent);
+                        DelNode = root;
+                        break;
+                    }
                 }else{
-                    if (!other->left || other->left->color==0)
-                    {
-                        // x's sibling is black, left kid is red, right is black
-                        other->right->color=0;
-                        other->color=1;
-                        LRotation(other);
+                    other = parent->left;
+                    if (other->color==1){
+                        // x's sibling is red
+                        other->color = 0;
+                        parent->color = 1;
+                        RRotation(parent);
                         other = parent->left;
                     }
-                     // x's sibling is black, right kid is red
-                    other->color = parent->color;
-                    parent->color = 0;
-                    other->left->color = 0;
-                    RRotation(parent);
-                    DelNode = root;
-                    break;
+                    if ((!other->left || other->left->color==0) &&
+                        (!other->right || other->right->color==0)){
+                        // x's sibling is black and two kids are black/
+                        other->color = 1;
+                        DelNode = parent;
+                        parent = DelNode->parent;
+                    }else{
+                        if (!other->left || other->left->color==0)
+                        {
+                            // x's sibling is black, left kid is red, right is black
+                            other->right->color=0;
+                            other->color=1;
+                            LRotation(other);
+                            other = parent->left;
+                        }
+                         // x's sibling is black, right kid is red
+                        other->color = parent->color;
+                        parent->color = 0;
+                        other->left->color = 0;
+                        RRotation(parent);
+                        DelNode = root;
+                        break;
+                    }
                 }
             }
+            if (DelNode)
+                DelNode->color=0;
+            return T;
         }
-        if (DelNode)
-            DelNode->color=0;
-        return T;
-    }
-
 
 };
 
