@@ -21,6 +21,8 @@ void app::run(){
     Tviewmodel = std::make_shared<TreeViewModel>();
     Tviewmodel->setTreeModel(Tmodel);
 
+    //debug重绘绑定指针问题
+
     //对Mode1的展示界面进行命令的绑定，如array add command
     _Mode1_displayP.set_ptrAAC(viewmodel->getArrayAddCommand());
     _Mode1_displayP.set_ptrADC(viewmodel->getArrayDelCommand());
@@ -31,11 +33,28 @@ void app::run(){
     _Mode1_displayP.set_Array(viewmodel->getArray());
     _Mode1_displayP.set_Tree(Tviewmodel->getTree());
 
+     _Model2_main.set_ptrAAC(viewmodel->getArrayAddCommand());
+     _Model2_main.set_ptrADC(viewmodel->getArrayDelCommand());
+     _Model2_main.set_ptrSPC(viewmodel->getStackPopCommand());
+     _Model2_main.set_ptrQDC(viewmodel->getQueueDeqCommand());
+     _Model2_main.set_ptrTIC(Tviewmodel->getTreeInsCommand());
+     _Model2_main.set_ptrTDC(Tviewmodel->getTreeDelCommand());
+     _Model2_main.set_ptrANC(viewmodel->getArrayNewCommand());
+     _Model2_main.set_ptrTNC(Tviewmodel->getTreeNewCommand());
+     _Model2_main.set_ptrARC(viewmodel->getArrayReplaceCommand());
+     _Model2_main.set_Array(viewmodel->getArray());
+     _Model2_main.set_Tree(Tviewmodel->getTree());
+
+
     //ViewModel 添加notification
-    viewmodel->AddCommandNotification(_Mode1_displayP.getM1CS());
     viewmodel->AddPropertyNotification(_Mode1_displayP.getOUS());
-    Tviewmodel->AddCommandNotification(_Mode1_displayP.getM1CS());
     Tviewmodel->AddPropertyNotification(_Mode1_displayP.getOUS());
+
+    viewmodel->AddCommandNotification(_Model2_main.getM2CS());
+    viewmodel->AddPropertyNotification(_Model2_main.getM2US());
+    Tviewmodel->AddCommandNotification(_Model2_main.getM2CS());
+    Tviewmodel->AddPropertyNotification(_Model2_main.getM2US());
+
 
     //界面跳转相关命令
     _M1Command = std::make_shared<M1Command>(this);

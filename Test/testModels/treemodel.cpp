@@ -20,7 +20,3 @@ int TreeModel::del(int a){
     Fire_OnPropertyChanged("TreeModel");
     return res;
 }
-void TreeModel::Tnew(){
-    _Tree->newtree();
-    Fire_OnPropertyChanged("TreeModel");
-}

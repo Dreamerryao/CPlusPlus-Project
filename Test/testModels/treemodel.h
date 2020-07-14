@@ -1,9 +1,9 @@
 #ifndef TREEMODEL_H
 #define TREEMODEL_H
 
-#include "../common/Tree.h"
+#include "Tree.h"
 #include <memory>
-#include "../common/etlbase.h"
+#include "etlbase.h"
 
 class TreeModel: public Proxy_PropertyNotification<TreeModel>, public Proxy_CommandNotification<TreeModel>
 {
@@ -13,7 +13,6 @@ public:
     std::shared_ptr<Tree> getTree();
     void ins(int a);
     int del(int a);
-    void Tnew();
 private:
     std::shared_ptr<Tree> _Tree;
 };

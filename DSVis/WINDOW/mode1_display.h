@@ -43,11 +43,19 @@ public:
     void set_ptrQDC(const std::shared_ptr<ICommandBase> &ptr);
     void set_ptrTIC(const std::shared_ptr<ICommandBase> &ptr);
     void set_ptrTDC(const std::shared_ptr<ICommandBase> &ptr);
+
     void set_treeType();
     void set_arrayType();
     void show_button();
     void show_TQ();
     int type;
+    void paint_array();
+    void paint_link();
+    void paint_tree();
+    void paint_RBT();
+    void paint_heap();
+    void paint_stack();
+    void paint_queue();
 
 private slots:
     void on_pushButton_clicked();
@@ -81,6 +89,7 @@ private:
     std::shared_ptr<ICommandBase> _QDC;
     std::shared_ptr<ICommandBase> _TIC;
     std::shared_ptr<ICommandBase> _TDC;
+
     QPushButton *button1;
     QPushButton *button2;
     QLineEdit *addText;

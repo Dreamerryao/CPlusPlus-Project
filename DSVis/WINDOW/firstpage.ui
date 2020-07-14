@@ -2,23 +2,29 @@
 <ui version="4.0">
  <class>FirstPage</class>
  <widget class="QMainWindow" name="FirstPage">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>866</width>
+    <height>565</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>280</x>
-      <y>170</y>
+      <x>290</x>
+      <y>140</y>
       <width>241</width>
       <height>71</height>
      </rect>
@@ -29,6 +35,9 @@
       <pointsize>28</pointsize>
       <italic>false</italic>
      </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
     </property>
     <property name="text">
      <string>DS Vis</string>
@@ -41,7 +50,7 @@
     <property name="geometry">
      <rect>
       <x>350</x>
-      <y>340</y>
+      <y>300</y>
       <width>112</width>
       <height>34</height>
      </rect>
@@ -54,7 +63,7 @@
     <property name="geometry">
      <rect>
       <x>350</x>
-      <y>400</y>
+      <y>360</y>
       <width>112</width>
       <height>34</height>
      </rect>
@@ -67,7 +76,7 @@
     <property name="geometry">
      <rect>
       <x>350</x>
-      <y>460</y>
+      <y>430</y>
       <width>112</width>
       <height>34</height>
      </rect>

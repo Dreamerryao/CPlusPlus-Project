@@ -70,7 +70,7 @@ void Mode2_displayCommandSink::OnCommandComplete(const std::string& str, bool bO
             MSG.exec();
         }
     }
-    else if(str=="ArrayNewCommand"){
+    else if(str=="TreeNewCommand"){
         if(bOK==false){
             QMessageBox MSG;
             MSG.setWindowTitle(QString("error!"));

@@ -44,9 +44,6 @@ int ArrayModel::replace(int index,int newValue){
 }
 
 void ArrayModel::Anew(int size){
-    if(size==0){
-        _Array->takeClear();
-    }
     if(size>0){
         _Array->New(size);
     }

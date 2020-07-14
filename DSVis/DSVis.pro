@@ -45,7 +45,8 @@ SOURCES += \
     viewModel/commands/treeinscommand.cpp \
     viewModel/sinks/arraymodelsink.cpp \
     viewModel/sinks/treemodelsink.cpp \
-    viewModel/treeviewmodel.cpp
+    viewModel/treeviewmodel.cpp \
+    viewModel/commands/treenewcommand.cpp
 
 HEADERS += \
     WINDOW/about.h \
@@ -80,7 +81,8 @@ HEADERS += \
     viewModel/commands/treeinscommand.h \
     viewModel/sinks/arraymodelsink.h \
     viewModel/sinks/treemodelsink.h \
-    viewModel/treeviewmodel.h
+    viewModel/treeviewmodel.h \
+    viewModel/commands/treenewcommand.h
 
 # Default rules for deployment.
 #qnx: target.path = /tmp/$${TARGET}/bin
