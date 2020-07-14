@@ -40,6 +40,7 @@ void app::run(){
      _Model2_main.set_ptrTIC(Tviewmodel->getTreeInsCommand());
      _Model2_main.set_ptrTDC(Tviewmodel->getTreeDelCommand());
      _Model2_main.set_ptrANC(viewmodel->getArrayNewCommand());
+     _Model2_main.set_ptrTNC(Tviewmodel->getTreeNewCommand());
      _Model2_main.set_ptrARC(viewmodel->getArrayReplaceCommand());
      _Model2_main.set_Array(viewmodel->getArray());
      _Model2_main.set_Tree(Tviewmodel->getTree());

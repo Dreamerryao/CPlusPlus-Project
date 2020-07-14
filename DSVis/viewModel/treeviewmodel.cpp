@@ -6,6 +6,7 @@ TreeViewModel::TreeViewModel()
     _TMSink = std::make_shared<TreeModelSink>(this);
     _TIC = std::make_shared<TreeInsCommand>(this);
     _TDC = std::make_shared<TreeDelCommand>(this);
+    _TNC = std::make_shared<TreeNewCommand>(this);
 }
 
 void TreeViewModel::setTreeModel(const std::shared_ptr<TreeModel> &TM){
@@ -26,3 +27,6 @@ std::shared_ptr<ICommandBase> TreeViewModel::getTreeDelCommand(){
     return std::static_pointer_cast<ICommandBase>(_TDC);
 }
 
+std::shared_ptr<ICommandBase> TreeViewModel::getTreeNewCommand(){
+    return std::static_pointer_cast<ICommandBase>(_TNC);
+}

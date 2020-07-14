@@ -49,7 +49,13 @@ public:
     void show_button();
     void show_TQ();
     int type;
-
+    void paint_array();
+    void paint_link();
+    void paint_tree();
+    void paint_RBT();
+    void paint_heap();
+    void paint_stack();
+    void paint_queue();
 
 private slots:
     void on_pushButton_clicked();

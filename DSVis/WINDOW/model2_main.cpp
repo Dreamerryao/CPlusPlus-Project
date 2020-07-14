@@ -61,12 +61,16 @@ void Model2_main::set_ptrTDC(const std::shared_ptr<ICommandBase> &ptr){
 void Model2_main::set_ptrANC(const std::shared_ptr<ICommandBase> &ptr){
     _ANC = ptr;
 }
+void Model2_main::set_ptrTNC(const std::shared_ptr<ICommandBase> &ptr){
+    _TNC = ptr;
+}
 void Model2_main::set_ptrARC(const std::shared_ptr<ICommandBase> &ptr){
     _ARC = ptr;
 }
 void Model2_main::set_treeType(){
     _Tree->type = type;
-    _Tree->InitialTree();
+    //_Tree->InitialTree();
+    //_Tree->newtree();
 }
 
 void Model2_main::set_arrayType(){
@@ -76,7 +80,8 @@ void Model2_main::set_arrayType(){
     else{
         _Array->type=0;
     }
-    _Array->InitArrayc();
+    //_Array->InitArrayc();
+    //_Array->takeClear();
 }
 
 void Model2_main::on_text_blockCountChanged(int newBlockCount)
@@ -96,16 +101,34 @@ void Model2_main::getLine(){
         qDebug() << _isOK <<QString::fromStdString(_op) <<_a<<endl ;
         if(_isOK){
             if(_op=="new"){
-                _ANC->SetParameter(_a);
-                _ANC->Exec();
+                if(_type=="array"){
+                    set_arrayType();
+                    _ANC->SetParameter(_a);
+                    _ANC->Exec();
+                }
+                else if(type>1&&type<7){
+                    set_arrayType();
+                    _ANC->SetParameter(0);
+                    _ANC->Exec();
+                }
+                else if(type>=7&&type<=9){
+                    set_treeType();
+                    _TNC->Exec();
+                }
             }
             else if(_op=="add"){
                 _AAC->SetParameter(_a);
                 _AAC->Exec();
             }
             else if(_op=="delete"){
-                _ADC->SetParameter(_a);
-                _ADC->Exec();
+                if(type<7){
+                    _ADC->SetParameter(_a);
+                    _ADC->Exec();
+                }
+                else{
+                    _TDC->SetParameter(_a);
+                    _TDC->Exec();
+                }
             }
             else if(_op=="replace"){
                    std::vector<int> hh;
@@ -113,6 +136,33 @@ void Model2_main::getLine(){
                    hh.push_back(_b);
                    _ARC->SetParameter(hh);
                    _ARC->Exec();
+            }
+            else if(_op=="push"){
+                _AAC->SetParameter(_a);
+                _AAC->Exec();
+            }
+            else if(_op=="pop"){
+                _SPC->Exec();
+            }
+            else if(_op=="enqueue"){
+                _AAC->SetParameter(_a);
+                _AAC->Exec();
+            }
+            else if(_op=="dequeue"){
+                _QDC->Exec();
+            }
+            else if(_op=="deletemin"){
+                _QDC->Exec();
+            }
+            else if(_op=="insert"){
+                if(_type=="heap"){
+                    _AAC->SetParameter(_a);
+                    _AAC->Exec();
+                }
+                else{
+                    _TIC->SetParameter(_a);
+                    _TIC->Exec();
+                }
             }
         }
         else{
@@ -338,7 +388,359 @@ void Model2_main::setCancelCommand(const std::shared_ptr<ICommandBase> &ptr_canc
     _getCancel=ptr_cancel;
 }
 
+void Model2_main::paint_array(){
+    QPainter painter(this);
+    int i;
+    int size =_Array->getSize();
+    qDebug() << "--cout--" << size<<endl ;
+    int h = size/7;
+    for(int j=0;j<h;j++){
+    for(i=0;i<7;i++){
+        int wow = _Array->getNumIndex(i+j*7);
+        QRect boundingRect;
+        painter.drawText(500 + 80 *i,200+80*j,40,40,Qt::AlignCenter,QString::number(wow),&boundingRect);
+        QRectF rectangle(500 + 80 *i, 200+80*j, 40, 40);
+        painter.drawRoundedRect(rectangle, 5.0, 5.0);
+    }
+    }
+    for(i=0;i<size%7;i++){
+        int wow = _Array->getNumIndex(i+h*7);
+        QRect boundingRect;
+        painter.drawText(500 + 80 *i,200+80*h,40,40,Qt::AlignCenter,QString::number(wow),&boundingRect);
+        QRectF rectangle(500 + 80 *i, 200+80*h, 40, 40);
+        painter.drawRoundedRect(rectangle, 5.0, 5.0);
+    }
+}
+void Model2_main::paint_link(){
+    QPainter painter(this);
+    int i,j;
+    int num=0;
+    int size =_Array->getSize();
+    int h = size/7;
+    for(j=0;j<h;j++){
+        for(i=0;i<7;i++){
+            int wow = _Array->getNumIndex(i+j*7);
+            QRect boundingRect;
+            painter.drawText(500 + 80 *i,200+80*j,40,40,Qt::AlignCenter,QString::number(wow),&boundingRect);
+            QRectF rectangle(500 + 80 *i, 200+80*j, 40, 40);
+            painter.drawRoundedRect(rectangle, 5.0, 5.0);
+            if(i!=6){
+                painter.drawLine(80*(i+1)+460,220+80*j,80*(i+1)+500,220+80*j);
+                float x1 = 80*(i+1)+500;
+                float y1 = 220+80*j;
+                float x2 = 80*(i+1)+460;
+                float y2 = 220+80*j;
+                float l = 30.0;
+                float a = 0.3;
+                float x3 = x2 - l * cos(atan2((y2 - y1) , (x2 - x1)) - a);
+                float y3 = y2 - l * sin(atan2((y2 - y1) , (x2 - x1)) - a);
+                float x4 = x2 - l * sin(atan2((x2 - x1) , (y2 - y1)) - a);
+                float y4 = y2 - l * cos(atan2((x2 - x1) , (y2 - y1)) - a);
+                painter.drawLine(x1,y1,x3,y3);
+                painter.drawLine(x1,y1,x4,y4);
+            }
+            if(num%7==0&&num!=0){
+                painter.drawLine(480,180+80*j,1060,180+80*j);
+                painter.drawLine(480,180+80*j,480,220+80*j);
+                painter.drawLine(480,220+80*j,500,220+80*j);
+                painter.drawLine(1020,140+80*j,1060,140+80*j);
+                painter.drawLine(1060,180+80*j,1060,140+80*j);
+                float x1 = 80*(i)+500;
+                float y1 = 220+80*(h-1);
+                float x2 = 80*(i)+460;
+                float y2 = 220+80*(h-1);
+                float l = 30.0;
+                float a = 0.3;
+                float x3 = x2 - l * cos(atan2((y2 - y1) , (x2 - x1)) - a);
+                float y3 = y2 - l * sin(atan2((y2 - y1) , (x2 - x1)) - a);
+                float x4 = x2 - l * sin(atan2((x2 - x1) , (y2 - y1)) - a);
+                float y4 = y2 - l * cos(atan2((x2 - x1) , (y2 - y1)) - a);
+                painter.drawLine(x1,y1,x3,y3);
+                painter.drawLine(x1,y1,x4,y4);
+            }
+            num++;
+        }
 
+    }
+
+    for(i=0;i<size%7;i++){
+        int wow = _Array->getNumIndex(i+h*7);
+        QRect boundingRect;
+        painter.drawText(500 + 80 *i,200+80*h,40,40,Qt::AlignCenter,QString::number(wow),&boundingRect);
+        QRectF rectangle(500 + 80 *i, 200+80*h, 40, 40);
+        painter.drawRoundedRect(rectangle, 5.0, 5.0);
+        if(i!=size%7-1){
+            painter.drawLine(460+80*(i+1),220+80*h,80*(i+1)+500,220+80*h);
+            float x1 = 80*(i+1)+500;
+            float y1 = 220+80*h;
+            float x2 = 80*(i+1)+460;
+            float y2 = 220+80*h;
+            float l = 30.0;
+            float a = 0.3;
+            float x3 = x2 - l * cos(atan2((y2 - y1) , (x2 - x1)) - a);
+            float y3 = y2 - l * sin(atan2((y2 - y1) , (x2 - x1)) - a);
+            float x4 = x2 - l * sin(atan2((x2 - x1) , (y2 - y1)) - a);
+            float y4 = y2 - l * cos(atan2((x2 - x1) , (y2 - y1)) - a);
+            painter.drawLine(x1,y1,x3,y3);
+            painter.drawLine(x1,y1,x4,y4);
+        }
+        if(num%7==0&&num!=0){
+            painter.drawLine(480,180+80*j,1040,180+80*j);
+            painter.drawLine(480,180+80*j,480,220+80*j);
+            painter.drawLine(480,220+80*j,500,220+80*j);
+            painter.drawLine(480,220+80*j,480,220+80*j);
+            painter.drawLine(1020,140+80*j,1040,140+80*j);
+            painter.drawLine(1040,180+80*j,1040,140+80*j);
+            float x1 = 80*(i)+500;
+            float y1 = 220+80*h;
+            float x2 = 80*(i)+460;
+            float y2 = 220+80*h;
+            float l = 30.0;
+            float a = 0.3;
+            float x3 = x2 - l * cos(atan2((y2 - y1) , (x2 - x1)) - a);
+            float y3 = y2 - l * sin(atan2((y2 - y1) , (x2 - x1)) - a);
+            float x4 = x2 - l * sin(atan2((x2 - x1) , (y2 - y1)) - a);
+            float y4 = y2 - l * cos(atan2((x2 - x1) , (y2 - y1)) - a);
+            painter.drawLine(x1,y1,x3,y3);
+            painter.drawLine(x1,y1,x4,y4);
+        }
+        num++;
+    }
+}
+void Model2_main::paint_stack(){
+    QPainter painter(this);
+    int i;
+    int size =_Array->getSize();
+    if(size==0){
+        painter.drawLine(660,160,660,560);
+        painter.drawLine(740,160,740,560);
+        painter.drawLine(660,560,740,560);
+        float x1 = 740;
+        float y1 = 560;
+        float x2 = 780;
+        float y2 = 560;
+        float l = 30.0;
+        float a = 0.3;
+        float x3 = x2 - l * cos(atan2((y2 - y1) , (x2 - x1)) - a);
+        float y3 = y2 - l * sin(atan2((y2 - y1) , (x2 - x1)) - a);
+        float x4 = x2 - l * sin(atan2((x2 - x1) , (y2 - y1)) - a);
+        float y4 = y2 - l * cos(atan2((x2 - x1) , (y2 - y1)) - a);
+        painter.drawLine(x1,y1,x3,y3);
+        painter.drawLine(x1,y1,x4,y4);
+        painter.drawLine(x1,y1,x2,y2);
+        painter.drawText(785,570,tr("SP"));
+    }
+    else if(size>8){
+        painter.drawLine(660,160,660,560);
+        painter.drawLine(740,160,740,560);
+        for(i=0;i<8;i++){
+            int wow = _Array->getNumIndex(size-8+i);
+            QRect boundingRect;
+            painter.drawText(680, 510-50*i,40,40,Qt::AlignCenter,QString::number(wow),&boundingRect);
+            QRectF rectangle(680, 510-50*i, 40, 40);
+            painter.drawRoundedRect(rectangle, 5.0, 5.0);
+            if(i==7){
+                float x1 = 740;
+                float y1 = 510-50*i;
+                float x2 = 780;
+                float y2 = 510-50*i;
+                float l = 30.0;
+                float a = 0.3;
+                float x3 = x2 - l * cos(atan2((y2 - y1) , (x2 - x1)) - a);
+                float y3 = y2 - l * sin(atan2((y2 - y1) , (x2 - x1)) - a);
+                float x4 = x2 - l * sin(atan2((x2 - x1) , (y2 - y1)) - a);
+                float y4 = y2 - l * cos(atan2((x2 - x1) , (y2 - y1)) - a);
+                painter.drawLine(x1,y1,x3,y3);
+                painter.drawLine(x1,y1,x4,y4);
+                painter.drawLine(x1,y1,x2,y2);
+                painter.drawText(785,520-50*i,tr("SP"));
+            }
+        }
+    }
+    else{
+        painter.drawLine(660,160,660,560);
+        painter.drawLine(740,160,740,560);
+        painter.drawLine(660,560,740,560);
+        for(i=0;i<size;i++){
+            int wow = _Array->getNumIndex(i);
+            QRect boundingRect;
+            painter.drawText(680, 510-50*i,40,40,Qt::AlignCenter,QString::number(wow),&boundingRect);
+            QRectF rectangle(680, 510-50*i, 40, 40);
+            painter.drawRoundedRect(rectangle, 5.0, 5.0);
+            if(i==size-1){
+                float x1 = 740;
+                float y1 = 510-50*i;
+                float x2 = 780;
+                float y2 = 510-50*i;
+                float l = 30.0;
+                float a = 0.3;
+                float x3 = x2 - l * cos(atan2((y2 - y1) , (x2 - x1)) - a);
+                float y3 = y2 - l * sin(atan2((y2 - y1) , (x2 - x1)) - a);
+                float x4 = x2 - l * sin(atan2((x2 - x1) , (y2 - y1)) - a);
+                float y4 = y2 - l * cos(atan2((x2 - x1) , (y2 - y1)) - a);
+                painter.drawLine(x1,y1,x3,y3);
+                painter.drawLine(x1,y1,x4,y4);
+                painter.drawLine(x1,y1,x2,y2);
+                painter.drawText(785,520-50*i,tr("SP"));
+            }
+        }
+    }
+}
+void Model2_main::paint_queue(){
+    QPainter painter(this);
+    int i;
+    int size =_Array->getSize();
+    painter.drawLine(500,200,1040,200);
+    painter.drawLine(500,260,1040,260);
+    if(size<12){
+        for(i=0;i<size;i++){
+            int wow = _Array->getNumIndex(i);
+            QRect boundingRect;
+            painter.drawText(500+50*i, 210,40,40,Qt::AlignCenter,QString::number(wow),&boundingRect);
+            QRectF rectangle(500+50*i, 210, 40, 40);
+            painter.drawRoundedRect(rectangle, 5.0, 5.0);
+        }
+    }else{
+        for(i=0;i<5;i++){
+            int wow = _Array->getNumIndex(i);
+            QRect boundingRect;
+            painter.drawText(500+50*i, 210,40,40,Qt::AlignCenter,QString::number(wow),&boundingRect);
+            QRectF rectangle(500+50*i, 210, 40, 40);
+            painter.drawRoundedRect(rectangle, 5.0, 5.0);
+        }
+        QRect boundingRect;
+        painter.drawText(500+50*5, 210,40,40,Qt::AlignCenter,"...",&boundingRect);
+        QRectF rectangle(500+50*5, 210, 40, 40);
+        painter.drawRoundedRect(rectangle, 5.0, 5.0);
+        int num=6;
+        for(i=size-5;i<size;i++){
+            int wow = _Array->getNumIndex(i);
+            QRect boundingRect;
+            painter.drawText(500+50*num, 210,40,40,Qt::AlignCenter,QString::number(wow),&boundingRect);
+            QRectF rectangle(500+50*num, 210, 40, 40);
+            painter.drawRoundedRect(rectangle, 5.0, 5.0);
+            num++;
+        }
+    }
+}
+void Model2_main::paint_tree(){
+    QPainter painter(this);
+    std::vector<node*> queue;
+    float xp[40];
+    float yp[40];
+    int hei[40];
+    int cal[7]={0,4,2,1,1,1,1};
+    int qhead=0;
+    node *root=_Tree->getTree();
+    if(root!=NULL){
+        queue.push_back(root);
+        xp[0]=740;
+        yp[0]=180;
+        hei[0]=0;
+        int qsize=0;
+        while(qhead<queue.size()){
+            root = queue[qhead];
+            QRect boundingRect;
+            painter.drawText(xp[qhead], yp[qhead],40,40,Qt::AlignCenter,QString::number(root->value),&boundingRect);
+            painter.drawEllipse(xp[qhead],yp[qhead],40,40);
+            if(root->left!=NULL){
+                queue.push_back(root->left);
+                qsize++;
+                hei[qsize]=hei[qhead]+1;
+                xp[qsize]=xp[qhead]-40*cal[hei[qsize]];
+                yp[qsize]=yp[qhead]+80;
+                painter.drawLine(xp[qhead]+20,yp[qhead]+40,xp[qsize]+20,yp[qsize]);
+            }
+            if(root->right!=NULL){
+                queue.push_back(root->right);
+                qsize++;
+                hei[qsize]=hei[qhead]+1;
+                xp[qsize]=xp[qhead]+40*cal[hei[qsize]];
+                yp[qsize]=yp[qhead]+80;
+                painter.drawLine(xp[qhead]+20,yp[qhead]+40,xp[qsize]+20,yp[qsize]);
+            }
+            qhead++;
+        }
+    }
+}
+void Model2_main::paint_RBT(){
+     QPainter painter(this);
+    std::vector<node*> queue;
+    float xp[40];
+    float yp[40];
+    int hei[40];
+    int cal[7]={0,4,2,1,1,1,1};
+    int qhead=0;
+    node *root=_Tree->getTree();
+    if(root!=NULL){
+        queue.push_back(root);
+        xp[0]=740;
+        yp[0]=180;
+        hei[0]=0;
+        int qsize=0;
+        while(qhead<queue.size()){
+            root = queue[qhead];
+            QRect boundingRect;
+            if(root->color==0){
+                painter.setPen(QPen(Qt::black,4));
+            }else{
+                painter.setPen(QPen(Qt::red,4));
+            }
+            painter.drawText(xp[qhead], yp[qhead],40,40,Qt::AlignCenter,QString::number(root->value),&boundingRect);
+            painter.drawEllipse(xp[qhead],yp[qhead],40,40);
+            painter.setPen(QPen(Qt::black,1));
+            if(root->left!=NULL){
+                queue.push_back(root->left);
+                qsize++;
+                hei[qsize]=hei[qhead]+1;
+                xp[qsize]=xp[qhead]-40*cal[hei[qsize]];
+                yp[qsize]=yp[qhead]+80;
+                painter.drawLine(xp[qhead]+20,yp[qhead]+40,xp[qsize]+20,yp[qsize]);
+            }
+            if(root->right!=NULL){
+                queue.push_back(root->right);
+                qsize++;
+                hei[qsize]=hei[qhead]+1;
+                xp[qsize]=xp[qhead]+40*cal[hei[qsize]];
+                yp[qsize]=yp[qhead]+80;
+                painter.drawLine(xp[qhead]+20,yp[qhead]+40,xp[qsize]+20,yp[qsize]);
+            }
+            qhead++;
+        }
+    }
+}
+void Model2_main::paint_heap(){
+    QPainter painter(this);
+    float xp[40];
+    float yp[40];
+    int hei[40];
+    int cal[7]={4,2,1,1,1,1,1};
+    int qf,i;
+    int num=_Array->getSize();
+    if(num>0){
+        xp[1]=740;
+        yp[1]=180;
+        hei[1]=0;
+        QRect boundingRect;
+        painter.drawText(xp[1], yp[1],40,40,Qt::AlignCenter,QString::number(_Array->getNumIndex(0)),&boundingRect);
+        painter.drawEllipse(xp[1],yp[1],40,40);
+        for(i=1;i<num;i++){
+            qf=(i+1)/2;
+            hei[i+1]=hei[qf]+1;
+            if(i%2==1){
+                xp[i+1]=xp[qf]-40*cal[hei[qf]];
+            }
+            else{
+                xp[i+1]=xp[qf]+40*cal[hei[qf]];
+            }
+            yp[i+1]=yp[qf]+80;
+            QRect boundingRect;
+            painter.drawText(xp[i+1], yp[i+1],40,40,Qt::AlignCenter,QString::number(_Array->getNumIndex(i)),&boundingRect);
+            painter.drawEllipse(xp[i+1],yp[i+1],40,40);
+            painter.drawLine(xp[qf]+20,yp[qf]+40,xp[i+1]+20,yp[i+1]);
+        }
+    }
+}
 void Model2_main::paintEvent(QPaintEvent *){
     QPainter painter(this);
     QFont font = painter.font();
@@ -348,27 +750,24 @@ void Model2_main::paintEvent(QPaintEvent *){
     palette.setBrush(QPalette::Background, QBrush(QColor(245, 233, 227)));
     setPalette(palette);
     if(type==1){
-
-        int i;
-        int size =_Array->getSize();
-        qDebug() << "--cout--" << size<<endl ;
-        int h = size/7;
-        for(int j=0;j<h;j++){
-        for(i=0;i<7;i++){
-            int wow = _Array->getNumIndex(i+j*7);
-            QRect boundingRect;
-            painter.drawText(500 + 80 *i,200+80*j,40,40,Qt::AlignCenter,QString::number(wow),&boundingRect);
-            QRectF rectangle(500 + 80 *i, 200+80*j, 40, 40);
-            painter.drawRoundedRect(rectangle, 5.0, 5.0);
-        }
-        }
-        for(i=0;i<size%7;i++){
-            int wow = _Array->getNumIndex(i+h*7);
-            QRect boundingRect;
-            painter.drawText(500 + 80 *i,200+80*h,40,40,Qt::AlignCenter,QString::number(wow),&boundingRect);
-            QRectF rectangle(500 + 80 *i, 200+80*h, 40, 40);
-            painter.drawRoundedRect(rectangle, 5.0, 5.0);
-        }
-//        type = 0;
+        paint_array();
+    }
+    else if(type==2){
+        paint_link();
+    }
+    else if(type==4){//only display the top 8 elements
+        paint_stack();
+    }
+    else if(type==5){
+        paint_queue();
+    }
+    else if(type>6&&type<9){
+        paint_tree();
+    }
+    else if(type==9){
+        paint_RBT();
+    }
+    else if(type==6){
+        paint_heap();
     }
 }

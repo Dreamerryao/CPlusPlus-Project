@@ -43,6 +43,7 @@ class ARRAYC{
         if(type==0){
             Num.push_back(a);
             size++;
+            qDebug()<<size<<endl;
             return 1;
         }
         else if(type==1){
@@ -106,8 +107,9 @@ class ARRAYC{
                 size--;
             }
             int pos=0,temp;
-            while((pos+1)*2-1<size-1){
-                if((pos+1)*2<size-1){
+            while((pos+1)*2-1<=size-1){
+                if((pos+1)*2<=size-1){
+                    qDebug()<<pos<<size<<endl;
                     if(Num[pos]>Num[(pos+1)*2-1]||Num[pos]>Num[(pos+1)*2]){
                         if(Num[(pos+1)*2-1]<Num[(pos+1)*2]){
                             temp=Num[pos];
@@ -123,7 +125,8 @@ class ARRAYC{
                     }else{
                         break;
                     }
-                }else{
+                }
+                else{
                     if(Num[pos]>Num[(pos+1)*2-1]){
                             temp=Num[pos];
                             Num[pos]=Num[(pos+1)*2-1];

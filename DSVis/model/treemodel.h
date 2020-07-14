@@ -13,6 +13,7 @@ public:
     std::shared_ptr<Tree> getTree();
     void ins(int a);
     int del(int a);
+    void Tnew();
 private:
     std::shared_ptr<Tree> _Tree;
 };

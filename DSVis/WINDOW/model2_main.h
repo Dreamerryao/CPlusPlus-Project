@@ -38,9 +38,17 @@ public:
     void set_ptrTDC(const std::shared_ptr<ICommandBase> &ptr);
     void set_ptrARC(const std::shared_ptr<ICommandBase> &ptr);
     void set_ptrANC(const std::shared_ptr<ICommandBase> &ptr);
+    void set_ptrTNC(const std::shared_ptr<ICommandBase> &ptr);
     void set_treeType();
     void set_arrayType();
     int type;
+    void paint_array();
+    void paint_link();
+    void paint_tree();
+    void paint_RBT();
+    void paint_heap();
+    void paint_stack();
+    void paint_queue();
 
 private slots:
     void on_text_blockCountChanged(int newBlockCount);
@@ -69,7 +77,7 @@ private:
     std::shared_ptr<ICommandBase> _TDC;
     std::shared_ptr<ICommandBase> _ANC;
     std::shared_ptr<ICommandBase> _ARC;
-
+    std::shared_ptr<ICommandBase> _TNC;
 };
 
 #endif // MODEL2_MAIN_H

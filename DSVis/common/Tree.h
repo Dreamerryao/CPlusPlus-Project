@@ -29,30 +29,12 @@ private:
 public:
     int type;
     Tree(){
-        node *n1,*n2;
-        n1=new node;
-        n1->value=3;
-        n2=new node;
-        n2->value=9;
-        root = new node;
-        root->value=6;
-        root->left=n1;
-        root->right=n2;
-        //for AVL
-        //root->right=n2;
-        n1->height=0;
-        //n2->height=0;
-        root->height = 1;
-        //for Red-black
-        n1->parent = root;
-        n2->parent = root;
-        root->parent = NULL;
-        root->color = 0;
-        n1->color = 1;
-        n2->color = 1;
-        //qDebug() << getHeight(root) <<endl;
+        root=NULL;
     }
     ~Tree(){}
+    void newtree(){
+        root=NULL;
+    }
     void InitialTree(){
         node *n1,*n2;
         n1=new node;
