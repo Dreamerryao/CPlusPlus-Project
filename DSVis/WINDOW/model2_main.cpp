@@ -1,8 +1,8 @@
 #include "model2_main.h"
 #include "ui_model2_main.h"
 #include <sstream>
+#include <cmath>
 #include <QTextBlock>
-#include <qdebug.h>
 #include<qpainter.h>
 #include <QRect>
 Model2_main::Model2_main(QWidget *parent) :
@@ -93,12 +93,10 @@ void Model2_main::getLine(){
     QTextDocument* doc=ui->text->document () ;
     int cnt=doc->blockCount ();
     _NowCodeText = doc->findBlockByNumber(cnt-2).text();
-     qDebug() << "--cout--" << endl <<_NowCodeText<<endl ;
      QString displayT = "Processing Code: "+_NowCodeText;
     ui->test->setText(displayT);
     if(_NowCodeText!=""){
         process_text();
-        qDebug() << _isOK <<QString::fromStdString(_op) <<_a<<endl ;
         if(_isOK){
             if(_op=="new"){
                 if(_type=="array"){
@@ -392,7 +390,6 @@ void Model2_main::paint_array(){
     QPainter painter(this);
     int i;
     int size =_Array->getSize();
-    qDebug() << "--cout--" << size<<endl ;
     int h = size/7;
     for(int j=0;j<h;j++){
     for(i=0;i<7;i++){

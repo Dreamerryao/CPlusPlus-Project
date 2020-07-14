@@ -1,7 +1,6 @@
 #include "square.h"
 
 #include <QPainter>
-#include <QDebug>
 
 Square::Square(QWidget* parent) :
     QWidget(parent),

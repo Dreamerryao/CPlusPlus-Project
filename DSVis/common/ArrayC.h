@@ -2,7 +2,6 @@
 #define ARRAYC_H
 
 #include <vector>
-#include <qdebug.h>
 class ARRAYC{
   private:
     int size;
@@ -43,7 +42,6 @@ class ARRAYC{
         if(type==0){
             Num.push_back(a);
             size++;
-            qDebug()<<size<<endl;
             return 1;
         }
         else if(type==1){
@@ -71,7 +69,6 @@ class ARRAYC{
                 flag  = 1;
                 size--;
                 Num.erase(Num.begin()+i);
-//                qDebug() << "--cout--" << endl << "size:" << size;
                 break;
             }
         }
@@ -89,7 +86,6 @@ class ARRAYC{
         return 1;
     }
     int Deq(){
-//         qDebug() << "--cout--" << endl;
         if(type==0){
             int flag = 0;
             if(Num.size()!=0){
@@ -109,7 +105,6 @@ class ARRAYC{
             int pos=0,temp;
             while((pos+1)*2-1<=size-1){
                 if((pos+1)*2<=size-1){
-                    qDebug()<<pos<<size<<endl;
                     if(Num[pos]>Num[(pos+1)*2-1]||Num[pos]>Num[(pos+1)*2]){
                         if(Num[(pos+1)*2-1]<Num[(pos+1)*2]){
                             temp=Num[pos];

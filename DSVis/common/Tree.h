@@ -1,8 +1,6 @@
 #ifndef TREE_H
 #define TREE_H
-#include <qdebug.h>
 #include<iostream>
-#include<QDebug>
 class node{
 public:
     int value;
@@ -230,7 +228,6 @@ public:
         if(T==NULL){
             T=new node(); //height = 0;
             T->value=key;
-            qDebug() << getHeight(T) ;
             return T;
         }else if(key<T->value){
             T->left=Ins_AVL(T->left, key);

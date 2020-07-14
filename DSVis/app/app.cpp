@@ -47,9 +47,7 @@ void app::run(){
 
 
     //ViewModel 添加notification
-    viewmodel->AddCommandNotification(_Mode1_displayP.getM1CS());
     viewmodel->AddPropertyNotification(_Mode1_displayP.getOUS());
-    Tviewmodel->AddCommandNotification(_Mode1_displayP.getM1CS());
     Tviewmodel->AddPropertyNotification(_Mode1_displayP.getOUS());
 
     viewmodel->AddCommandNotification(_Model2_main.getM2CS());
