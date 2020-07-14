@@ -80,7 +80,11 @@ public:
             root = Del_AVL(root, key);
             return 1;
         }else if(type==9){
+            if(find_key(root,key)==0){
+                return 0;
+            }
             root = Del_BRT(root, key);
+            return 1;
         }
     }
 
@@ -359,7 +363,6 @@ public:
 
     /*Red-black*/
     node* Ins_RBT(node* T, int key){
-
         if(T == NULL){
             T= new node();
             T->value = key;
@@ -393,7 +396,7 @@ public:
             parentNode->right = InsertedNode;
         }
 
-        FixIns_RBT(InsertedNode);
+        parentNode = FixIns_RBT(InsertedNode);
         return T;
 
     }
@@ -477,7 +480,7 @@ public:
         return T;
 
     }
-    void FixIns_RBT(node* InsertedNode){
+    node* FixIns_RBT(node* InsertedNode){
         node *p, *g; //p:parent g:grandparent
         p = InsertedNode->parent;
         while (p && p->color){
@@ -493,7 +496,7 @@ public:
                 }
                 if (p->right == InsertedNode){ //uncle is black and Inserted is right of p
                     node *tmp;
-                    LRotation(p);
+                    InsertedNode =LRotation(p);
                     tmp = p;
                     p = InsertedNode;
                     InsertedNode = tmp;
@@ -502,7 +505,7 @@ public:
                 //uncle is black and Inserted is left of p
                 p->color=0;
                 g->color=1;
-                RRotation(g);
+                p = RRotation(g);
             }
             else{
                 node *u = g->left; // uncle
@@ -516,7 +519,7 @@ public:
                 if (p->left == InsertedNode) //uncle is black and Inserted is left of p
                 {
                     node *tmp;
-                    RRotation(p);
+                    InsertedNode = RRotation(p);
                     tmp = p;
                     p = InsertedNode;
                     InsertedNode = tmp;
@@ -525,12 +528,13 @@ public:
                 //uncle is black and Inserted is right of p
                 p->color=0;
                 g->color=1;
-                LRotation(g);
+                p = LRotation(g);
             }
         }
         root->color = 0;
+        return p;
     }
-    void LRotation(node* p){
+    node* LRotation(node* p){
         node *x = p->right;
         p->right = x->left;
         if (x->left != NULL)
@@ -549,8 +553,9 @@ public:
         }
         x->left = p;
         p->parent = x;
+        return x;
     }
-    void RRotation(node* p){
+    node* RRotation(node* p){
         node *x = p->left;
         p->left = x->right;
         if (x->right != NULL)
@@ -570,6 +575,7 @@ public:
 
         x->right = p;
         p->parent = x;
+        return x;
     }
 
     node* find_node(node* T, int key){

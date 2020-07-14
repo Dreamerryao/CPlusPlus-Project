@@ -5,6 +5,7 @@
 #include <QTextBlock>
 #include<qpainter.h>
 #include <QRect>
+#include <math.h>
 Model2_main::Model2_main(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Model2_main)
@@ -437,15 +438,15 @@ void Model2_main::paint_link(){
                 painter.drawLine(x1,y1,x4,y4);
             }
             if(num%7==0&&num!=0){
-                painter.drawLine(480,180+80*j,1060,180+80*j);
+                painter.drawLine(480,180+80*j,1040,180+80*j);
                 painter.drawLine(480,180+80*j,480,220+80*j);
                 painter.drawLine(480,220+80*j,500,220+80*j);
-                painter.drawLine(1020,140+80*j,1060,140+80*j);
-                painter.drawLine(1060,180+80*j,1060,140+80*j);
+                painter.drawLine(1020,140+80*j,1040,140+80*j);
+                painter.drawLine(1040,180+80*j,1040,140+80*j);
                 float x1 = 80*(i)+500;
-                float y1 = 220+80*(h-1);
+                float y1 = 220+80*(j);
                 float x2 = 80*(i)+460;
-                float y2 = 220+80*(h-1);
+                float y2 = 220+80*(j);
                 float l = 30.0;
                 float a = 0.3;
                 float x3 = x2 - l * cos(atan2((y2 - y1) , (x2 - x1)) - a);

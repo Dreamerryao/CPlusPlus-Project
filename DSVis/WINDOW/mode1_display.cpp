@@ -355,9 +355,9 @@ void Mode1_display::paint_link(){
                 painter.drawLine(560,140+80*j,580,140+80*j);
                 painter.drawLine(580,180+80*j,580,140+80*j);
                 float x1 = 80*(i)+40;
-                float y1 = 220+80*(h-1);
+                float y1 = 220+80*(j);
                 float x2 = 80*(i);
-                float y2 = 220+80*(h-1);
+                float y2 = 220+80*(j);
                 float l = 30.0;
                 float a = 0.3;
                 float x3 = x2 - l * cos(atan2((y2 - y1) , (x2 - x1)) - a);
@@ -371,7 +371,6 @@ void Mode1_display::paint_link(){
         }
 
     }
-
     for(i=0;i<size%7;i++){
         int wow = _Array->getNumIndex(i+h*7);
         QRect boundingRect;
