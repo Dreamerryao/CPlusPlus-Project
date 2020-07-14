@@ -82,7 +82,11 @@ public:
             root = Del_AVL(root, key);
             return 1;
         }else if(type==9){
+            if(find_key(root,key)==0){
+                return 0;
+            }
             root = Del_BRT(root, key);
+            return 1;
         }
     }
 

@@ -40,7 +40,7 @@ class ARRAYC{
         return Num[index];
     }
     int Add(int a){
-        if(type==0){
+        if(type!=1){
             Num.push_back(a);
             size++;
             qDebug()<<size<<endl;
