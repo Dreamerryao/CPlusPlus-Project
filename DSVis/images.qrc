@@ -8,5 +8,53 @@
         <file>images/9.jpg</file>
         <file>images/10.jpg</file>
         <file>images/11.jpg</file>
+        <file>images/COVER.jpg</file>
+        <file>images/IMG_0780.JPG</file>
+        <file>images/dsvis.png</file>
+        <file>images/0000.png</file>
+        <file>images/about.png</file>
+        <file>images/mode1.png</file>
+        <file>images/mode2.png</file>
+        <file>images/ds.png</file>
+        <file>images/visualizaition.png</file>
+        <file>images/button.png</file>
+        <file>images/wuya.png</file>
+        <file>images/processing code.png</file>
+        <file>images/view.png</file>
+        <file>images/code.png</file>
+        <file>images/cancle.png</file>
+        <file>images/3.jpg</file>
+        <file>images/5.jpg</file>
+        <file>images/7.jpg</file>
+        <file>images/8.jpg</file>
+        <file>images/12.jpg</file>
+        <file>images/array.png</file>
+        <file>images/avl.png</file>
+        <file>images/BST.png</file>
+        <file>images/heap.png</file>
+        <file>images/IMG_0787.png</file>
+        <file>images/link.png</file>
+        <file>images/queue.png</file>
+        <file>images/RBT.png</file>
+        <file>images/stack.png</file>
+        <file>images/ds222.png</file>
+        <file>images/back2.png</file>
+        <file>images/add.png</file>
+        <file>images/delete.png</file>
+        <file>images/dequeue.png</file>
+        <file>images/enqueue.png</file>
+        <file>images/insert.png</file>
+        <file>images/pop.png</file>
+        <file>images/push.png</file>
+        <file>images/cancel.png</file>
+        <file>images/back33.png</file>
+        <file>images/abouti.png</file>
+        <file>images/back4.png</file>
+        <file>images/bb2.png</file>
+        <file>images/bb22.png</file>
+        <file>images/backckk.png</file>
+        <file>images/shade.png</file>
+        <file>images/hh.png</file>
     </qresource>
+    <qresource prefix="/word"/>
 </RCC>
