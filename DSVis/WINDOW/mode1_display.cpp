@@ -233,11 +233,13 @@ void Mode1_display::show_button(){
         addText->setGeometry(610,280,160,35);
         delText=new QLineEdit("",this);
         delText->setGeometry(610,380,160,35);
-        button1=new QPushButton("add",this);
+        button1=new QPushButton("",this);
         button1->setGeometry(610,330,160,35);
+        button1->setStyleSheet("QPushButton{border-image:url(:/background/images/add.png);}");
         connect(button1,SIGNAL(clicked()),this,SLOT(on_add_button_clicked()));
-        button2=new QPushButton("delete",this);
+        button2=new QPushButton("",this);
         button2->setGeometry(610,440,160,35);
+        button2->setStyleSheet("QPushButton{border-image:url(:/background/images/delete.png);}");
         connect(button2,SIGNAL(clicked()),this,SLOT(on_del_button_clicked()));
         qb->addWidget(addText);
         qb->addWidget(delText);
@@ -247,24 +249,28 @@ void Mode1_display::show_button(){
     else if(type==4){
         addText=new QLineEdit("",this);
         addText->setGeometry(610,330,160,35);
-        button1=new QPushButton("push",this);
+        button1=new QPushButton("",this);
         button1->setGeometry(610,380,160,35);
         connect(button1,SIGNAL(clicked()),this,SLOT(on_add_button_clicked()));
-        button2=new QPushButton("pop",this);
+        button1->setStyleSheet("QPushButton{border-image:url(:/background/images/push.png);}");
+        button2=new QPushButton("",this);
         button2->setGeometry(610,280,160,35);
         connect(button2,SIGNAL(clicked()),this,SLOT(on_pushButton_2_clicked()));
+        button2->setStyleSheet("QPushButton{border-image:url(:/background/images/pop.png);}");
         qb->addWidget(addText);
         qb->addWidget(button1);
         qb->addWidget(button2);
     }else if(type==5){
         addText=new QLineEdit("",this);
         addText->setGeometry(610,330,160,35);
-        button1=new QPushButton("enqueue",this);
+        button1=new QPushButton("",this);
         button1->setGeometry(610,380,160,35);
         connect(button1,SIGNAL(clicked()),this,SLOT(on_add_button_clicked()));
-        button2=new QPushButton("dequque",this);
+        button1->setStyleSheet("QPushButton{border-image:url(:/background/images/enqueue.png);}");
+        button2=new QPushButton("",this);
         button2->setGeometry(610,280,160,35);
         connect(button2,SIGNAL(clicked()),this,SLOT(on_deq_button_clicked()));
+        button2->setStyleSheet("QPushButton{border-image:url(:/background/images/dequeue.png);}");
         qb->addWidget(addText);
         qb->addWidget(button1);
         qb->addWidget(button2);
@@ -273,12 +279,14 @@ void Mode1_display::show_button(){
         addText->setGeometry(610,280,160,35);
         delText=new QLineEdit("",this);
         delText->setGeometry(610,380,160,35);
-        button1=new QPushButton("insert",this);
+        button1=new QPushButton("",this);
         button1->setGeometry(610,330,160,35);
         connect(button1,SIGNAL(clicked()),this,SLOT(on_Tins_button_clicked()));
-        button2=new QPushButton("delete",this);
+        button1->setStyleSheet("QPushButton{border-image:url(:/background/images/insert.png);}");
+        button2=new QPushButton("",this);
         button2->setGeometry(610,440,160,35);
         connect(button2,SIGNAL(clicked()),this,SLOT(on_Tdel_button_clicked()));
+        button2->setStyleSheet("QPushButton{border-image:url(:/background/images/delete.png);}");
         qb->addWidget(addText);
         qb->addWidget(delText);
         qb->addWidget(button1);
@@ -286,19 +294,24 @@ void Mode1_display::show_button(){
     }else if(type==6){
         addText=new QLineEdit("",this);
         addText->setGeometry(610,280,160,35);
-        button1=new QPushButton("insert",this);
+        button1=new QPushButton("",this);
         button1->setGeometry(610,330,160,35);
         connect(button1,SIGNAL(clicked()),this,SLOT(on_add_button_clicked()));
-        button2=new QPushButton("deletemin",this);
+        button1->setStyleSheet("QPushButton{border-image:url(:/background/images/insert.png);}");
+        button2=new QPushButton("",this);
         button2->setGeometry(610,380,160,35);
         connect(button2,SIGNAL(clicked()),this,SLOT(on_deq_button_clicked()));
+//        button2->setStyleSheet("QPushButton{border-image:url(:/background/images/deletemin.png);}");
+        button2->setStyleSheet("QPushButton{border-image:url(:/background/images/delete.png);}");
         qb->addWidget(addText);
         qb->addWidget(button1);
         qb->addWidget(button2);
     }
 }
 void Mode1_display::paint_array(){
+    QPixmap pixmap = QPixmap(":/background/images/hh.png").scaled(this->size());
     QPainter painter(this);
+    painter.drawPixmap(this->rect(), pixmap);
     int i;
     int size =_Array->getSize();
     int h = size/7;
@@ -320,7 +333,9 @@ void Mode1_display::paint_array(){
     }
 }
 void Mode1_display::paint_link(){
+    QPixmap pixmap = QPixmap(":/background/images/hh.png").scaled(this->size());
     QPainter painter(this);
+    painter.drawPixmap(this->rect(), pixmap);
     int i,j;
     int num=0;
     int size =_Array->getSize();
@@ -416,7 +431,9 @@ void Mode1_display::paint_link(){
     }
 }
 void Mode1_display::paint_stack(){
+    QPixmap pixmap = QPixmap(":/background/images/hh.png").scaled(this->size());
     QPainter painter(this);
+    painter.drawPixmap(this->rect(), pixmap);
     int i;
     int size =_Array->getSize();
     if(size==0){
@@ -495,7 +512,9 @@ void Mode1_display::paint_stack(){
     }
 }
 void Mode1_display::paint_queue(){
+    QPixmap pixmap = QPixmap(":/background/images/hh.png").scaled(this->size());
     QPainter painter(this);
+    painter.drawPixmap(this->rect(), pixmap);
     int i;
     int size =_Array->getSize();
     painter.drawLine(40,200,580,200);
@@ -532,7 +551,9 @@ void Mode1_display::paint_queue(){
     }
 }
 void Mode1_display::paint_tree(){
+    QPixmap pixmap = QPixmap(":/background/images/hh.png").scaled(this->size());
     QPainter painter(this);
+    painter.drawPixmap(this->rect(), pixmap);
     std::vector<node*> queue;
     float xp[40];
     float yp[40];
@@ -572,7 +593,9 @@ void Mode1_display::paint_tree(){
     }
 }
 void Mode1_display::paint_RBT(){
-     QPainter painter(this);
+    QPixmap pixmap = QPixmap(":/background/images/hh.png").scaled(this->size());
+    QPainter painter(this);
+    painter.drawPixmap(this->rect(), pixmap);
     std::vector<node*> queue;
     float xp[40];
     float yp[40];
@@ -618,7 +641,9 @@ void Mode1_display::paint_RBT(){
     }
 }
 void Mode1_display::paint_heap(){
+    QPixmap pixmap = QPixmap(":/background/images/hh.png").scaled(this->size());
     QPainter painter(this);
+    painter.drawPixmap(this->rect(), pixmap);
     float xp[40];
     float yp[40];
     int hei[40];

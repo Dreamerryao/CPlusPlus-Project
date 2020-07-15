@@ -13,27 +13,36 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">border-image: url(:/background/images/back2.png);</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPushButton" name="pushButton_10">
     <property name="geometry">
      <rect>
-      <x>650</x>
-      <y>480</y>
-      <width>112</width>
-      <height>34</height>
+      <x>640</x>
+      <y>490</y>
+      <width>131</width>
+      <height>41</height>
      </rect>
     </property>
+    <property name="cursor">
+     <cursorShape>OpenHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/background/images/cancel.png);</string>
+    </property>
     <property name="text">
-     <string>cancel</string>
+     <string/>
     </property>
    </widget>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>170</x>
-      <y>50</y>
-      <width>451</width>
-      <height>91</height>
+      <x>660</x>
+      <y>-30</y>
+      <width>131</width>
+      <height>341</height>
      </rect>
     </property>
     <property name="font">
@@ -42,8 +51,11 @@
       <pointsize>36</pointsize>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/background/images/ds222.png);</string>
+    </property>
     <property name="text">
-     <string>Data Sturcture</string>
+     <string/>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -52,119 +64,276 @@
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>150</x>
-      <y>170</y>
-      <width>161</width>
+      <x>260</x>
+      <y>70</y>
+      <width>121</width>
       <height>31</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/background/images/array.png);</string>
+    </property>
     <property name="text">
-     <string>array</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_2">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>260</y>
-      <width>161</width>
+      <x>34</x>
+      <y>232</y>
+      <width>131</width>
       <height>31</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/background/images/link.png);</string>
+    </property>
     <property name="text">
-     <string>link</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_4">
     <property name="geometry">
      <rect>
-      <x>300</x>
-      <y>450</y>
-      <width>181</width>
+      <x>398</x>
+      <y>464</y>
+      <width>111</width>
       <height>31</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/background/images/stack.png);</string>
+    </property>
     <property name="text">
-     <string>stack</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_5">
     <property name="geometry">
      <rect>
-      <x>470</x>
-      <y>170</y>
-      <width>161</width>
+      <x>450</x>
+      <y>160</y>
+      <width>111</width>
       <height>31</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/background/images/queue.png);</string>
+    </property>
     <property name="text">
-     <string>queue</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_6">
     <property name="geometry">
      <rect>
-      <x>620</x>
-      <y>260</y>
-      <width>151</width>
+      <x>462</x>
+      <y>299</y>
+      <width>121</width>
       <height>31</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/background/images/heap.png);</string>
+    </property>
     <property name="text">
-     <string>heap</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_7">
     <property name="geometry">
      <rect>
-      <x>300</x>
-      <y>260</y>
+      <x>620</x>
+      <y>270</y>
       <width>181</width>
       <height>31</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/background/images/BST.png);</string>
+    </property>
     <property name="text">
-     <string>binary search tree</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_8">
     <property name="geometry">
      <rect>
-      <x>480</x>
-      <y>360</y>
-      <width>151</width>
+      <x>460</x>
+      <y>407</y>
+      <width>121</width>
       <height>31</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/background/images/avl.png);</string>
+    </property>
     <property name="text">
-     <string>avl tree</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_9">
     <property name="geometry">
      <rect>
-      <x>160</x>
-      <y>360</y>
+      <x>205</x>
+      <y>464</y>
       <width>151</width>
       <height>31</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/background/images/RBT.png);</string>
+    </property>
     <property name="text">
-     <string>red black tree</string>
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>583</x>
+      <y>475</y>
+      <width>71</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/background/images/wuya.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>207</x>
+      <y>462</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/background/images/button.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>366</x>
+      <y>463</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/background/images/button.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>446</x>
+      <y>405</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/background/images/button.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_6">
+    <property name="geometry">
+     <rect>
+      <x>413</x>
+      <y>165</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/background/images/button.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_7">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>300</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/background/images/button.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_8">
+    <property name="geometry">
+     <rect>
+      <x>630</x>
+      <y>271</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/background/images/button.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_9">
+    <property name="geometry">
+     <rect>
+      <x>233</x>
+      <y>92</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/background/images/button.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_10">
+    <property name="geometry">
+     <rect>
+      <x>127</x>
+      <y>249</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/background/images/button.png);</string>
+    </property>
+    <property name="text">
+     <string/>
     </property>
    </widget>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>786</width>
-     <height>17</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>

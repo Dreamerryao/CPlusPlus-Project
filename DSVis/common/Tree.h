@@ -11,7 +11,6 @@ public:
     int color; // 1 is red, 0 is black
     //for AVL
     int height;
-    int npl;
 public:
     node(){
         left=NULL;
