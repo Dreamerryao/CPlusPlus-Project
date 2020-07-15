@@ -120,16 +120,14 @@ void UnitTest::testTreeModel(){
    Tmodel->ins(7);
    QCOMPARE(Tmodel->getTree()->isTreeNull(),false);
    node * root  = Tmodel->getTree()->getTree();
-   QCOMPARE(root->value,9);
-   node * lf = root->left;
-   QCOMPARE(lf->value,6);
-   lf = lf->right;
-   QCOMPARE(lf->value,7);
+   QCOMPARE(root->value,6);
+   QCOMPARE(root->right->value,9);
+   QCOMPARE(root->right->left->value,7);
 
    //delete
    QCOMPARE(Tmodel->del(9),true);
    root  = Tmodel->getTree()->getTree();
-   QCOMPARE(root->value,7);
+    QCOMPARE(root->right->value,7);
    QCOMPARE(Tmodel->del(9),false);
 
    //AVL
@@ -137,25 +135,42 @@ void UnitTest::testTreeModel(){
    Tmodel->getTree()->InitialTree();
 
    //insert
+   root  = Tmodel->getTree()->getTree();
+   QCOMPARE(root->right->value,9);
    Tmodel->ins(7);
    Tmodel->ins(8);
    QCOMPARE(Tmodel->getTree()->isTreeNull(),false);
-   root  = Tmodel->getTree()->getTree();
-   QCOMPARE(root->value,9);
-   root = root->left;
-   QCOMPARE(root->value,7);
+   QCOMPARE(root->right->value,8);//do rotation
 
    //delete
-   QCOMPARE(Tmodel->del(9),true);
+   QCOMPARE(Tmodel->del(6),true);
    root  = Tmodel->getTree()->getTree();
    QCOMPARE(root->value,7);
 
+   //red black tree
+   Tmodel->getTree()->type = 9;
+   Tmodel->getTree()->InitialTree();
+
+   //insert
+   Tmodel->ins(12);
+   root  = Tmodel->getTree()->getTree();
+   QCOMPARE(root->color,0);//color:0-black 1-red
+   QCOMPARE(root->left->color,0);//after insert 12,right and left child of root change from red to black
+   QCOMPARE(root->right->color,0);
+
+   //delete
+   QCOMPARE(Tmodel->del(6),true);
+   root  = Tmodel->getTree()->getTree();
+   QCOMPARE(root->value,9);
+   QCOMPARE(Tmodel->del(12),true);
+   root  = Tmodel->getTree()->getTree();
+   QCOMPARE(root->left->color,1);//after delete two children, root has only one child,so it must be red
 
 }
 
 
 void UnitTest::testTreeViewModel(){
-   std::shared_ptr<TreeModel> Tmodel = std::make_shared<TreeModel>();
+    std::shared_ptr<TreeModel> Tmodel = std::make_shared<TreeModel>();
     std::shared_ptr<TreeViewModel> Tviewmodel = std::make_shared<TreeViewModel>();
     Tviewmodel->setTreeModel(Tmodel);
 
@@ -167,16 +182,14 @@ void UnitTest::testTreeViewModel(){
     Tviewmodel->_TreeModel->ins(7);
     QCOMPARE(Tviewmodel->getTree()->isTreeNull(),false);
     node * root  = Tviewmodel->getTree()->getTree();
-    QCOMPARE(root->value,9);
-    node * lf = root->left;
-    QCOMPARE(lf->value,6);
-    lf = lf->right;
-    QCOMPARE(lf->value,7);
+    QCOMPARE(root->value,6);
+    QCOMPARE(root->right->value,9);
+    QCOMPARE(root->right->left->value,7);
 
     //delete
     QCOMPARE(Tviewmodel->_TreeModel->del(9),true);
     root  = Tviewmodel->getTree()->getTree();
-    QCOMPARE(root->value,7);
+    QCOMPARE(root->right->value,7);
     QCOMPARE(Tviewmodel->_TreeModel->del(9),false);
 
     //AVL
@@ -184,18 +197,36 @@ void UnitTest::testTreeViewModel(){
     Tviewmodel->getTree()->InitialTree();
 
     //insert
+    root  = Tviewmodel->getTree()->getTree();
+    QCOMPARE(root->right->value,9);
     Tviewmodel->_TreeModel->ins(7);
     Tviewmodel->_TreeModel->ins(8);
     QCOMPARE(Tviewmodel->getTree()->isTreeNull(),false);
-    root  = Tviewmodel->getTree()->getTree();
-    QCOMPARE(root->value,9);
-    root = root->left;
-    QCOMPARE(root->value,7);
+    QCOMPARE(root->right->value,8);//do rotation
 
     //delete
-    QCOMPARE(Tviewmodel->_TreeModel->del(9),true);
+    QCOMPARE(Tviewmodel->_TreeModel->del(6),true);
     root  = Tviewmodel->getTree()->getTree();
     QCOMPARE(root->value,7);
+
+    //red black tree
+    Tviewmodel->getTree()->type = 9;
+    Tviewmodel->getTree()->InitialTree();
+
+    //insert
+    Tviewmodel->_TreeModel->ins(12);
+    root  = Tviewmodel->getTree()->getTree();
+    QCOMPARE(root->color,0);//color:0-black 1-red
+    QCOMPARE(root->left->color,0);//after insert 12,right and left child of root change from red to black
+    QCOMPARE(root->right->color,0);
+
+    //delete
+    QCOMPARE(Tviewmodel->_TreeModel->del(6),true);
+    root  = Tviewmodel->getTree()->getTree();
+    QCOMPARE(root->value,9);
+    QCOMPARE(Tviewmodel->_TreeModel->del(12),true);
+    root  = Tviewmodel->getTree()->getTree();
+    QCOMPARE(root->left->color,1);//after delete two children, root has only one child,so it must be red
 
 }
 QTEST_MAIN(UnitTest)
