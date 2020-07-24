@@ -29,7 +29,7 @@
     <string notr="true">border-image: url(:/background/images/cancel.png);</string>
    </property>
    <property name="text">
-    <string>cancel</string>
+    <string/>
    </property>
   </widget>
   <widget class="QLabel" name="label">

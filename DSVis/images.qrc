@@ -55,6 +55,7 @@
         <file>images/backckk.png</file>
         <file>images/shade.png</file>
         <file>images/hh.png</file>
+        <file>images/delmin.png</file>
     </qresource>
     <qresource prefix="/word"/>
 </RCC>

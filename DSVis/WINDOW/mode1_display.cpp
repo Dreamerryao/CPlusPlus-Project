@@ -301,8 +301,7 @@ void Mode1_display::show_button(){
         button2=new QPushButton("",this);
         button2->setGeometry(610,380,160,35);
         connect(button2,SIGNAL(clicked()),this,SLOT(on_deq_button_clicked()));
-//        button2->setStyleSheet("QPushButton{border-image:url(:/background/images/deletemin.png);}");
-        button2->setStyleSheet("QPushButton{border-image:url(:/background/images/delete.png);}");
+        button2->setStyleSheet("QPushButton{border-image:url(:/background/images/delmin.png);}");
         qb->addWidget(addText);
         qb->addWidget(button1);
         qb->addWidget(button2);
