@@ -1,6 +1,7 @@
 #ifndef TREE_H
 #define TREE_H
 #include<iostream>
+#include<QDebug>
 class node{
 public:
     int value;
@@ -461,22 +462,45 @@ public:
             parent = delNode->parent;
             color = delNode->color;
 
-            if (child)
+            if (child){
                 child->parent = parent;
-
-            if (parent){ // not root
-                if (parent->left == delNode)
-                    parent->left = child;
+                if (parent){ // not root
+                    if (parent->left == delNode)
+                        parent->left = child;
+                    else
+                        parent->right = child;
+                }
                 else
-                    parent->right = child;
+                    T = child;
+                child->color=color;
+                delete delNode;
+                return T;
             }
-            else
-                T = child;
+            else{
+                if(color==1){
+                    if (parent->left == delNode)
+                        parent->left = child;
+                    else
+                        parent->right = child;
+                    return T;
+                }
+                else{
+                    T = FixDel_RBT(T, delNode, parent);
+                    delNode=find_node(T,key);
+                    parent=delNode->parent;
+                    if (parent->left == delNode)
+                        parent->left = NULL;
+                    else
+                        parent->right = NULL;
+                }
 
-            if (color == 0)
-                T = FixDel_RBT(T, child, parent);
-            delete delNode;
-            return T;
+                return T;
+            }
+
+
+
+
+
 
         }
     void FixIns_RBT(node* InsertedNode){
@@ -604,7 +628,6 @@ public:
                     }
                     if ((!other->left || other->left->color==0) &&
                         (!other->right || (other->right->color==0))){
-
                         // x's sibling is black and his kids are black
                         other->color = 1;
                         DelNode = parent;
@@ -617,14 +640,13 @@ public:
                             RRotation(other);
                             other = parent->right;
                         }
-
                         // x's sibling is black, left kid is black
                         other->color = parent->color;
                         parent->color = 0;
                         other->right->color = 0;
                         LRotation(parent);
-                        DelNode = root;
-                        break;
+                        T=root;
+                        return T;
                     }
                 }else{
                     other = parent->left;
@@ -655,8 +677,8 @@ public:
                         parent->color = 0;
                         other->left->color = 0;
                         RRotation(parent);
-                        DelNode = root;
-                        break;
+                        T=root;
+                        return T;
                     }
                 }
             }
